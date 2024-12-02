@@ -1,0 +1,11 @@
+/* 清除所有元素的默认样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 清除列表默认样式 */
+ul {
+  list-style: none;
+}
