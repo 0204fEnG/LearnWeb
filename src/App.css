@@ -4,52 +4,14 @@
 }
 .app__header{
   width: 100%;
-  height: 150px;
-  background: url('../public/images/header/banner.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: sticky;
-  top:0;
-}
-.app__header__nav{
-  width: 100%;
-  height: 75px;
-  border-bottom: 1px solid rgb(209, 209, 209);
-  background-color: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 5px 10px rgb(0, 0, 0,0.5);
-}
-.app__header__nav ul{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-.app__header__nav ul li{
-  flex:0 0 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-.app__header__nav ul li span{
-  flex:0 0 auto;
-  color: white;
-  font-size: 20px;
-  line-height: 100%;
-  cursor: pointer;
+  height: auto;
 }
 .app__main{
   width: 80%;
   height: auto;
   margin: 0 auto;
 }
-.app__main__section{
+.app__footer{
   width: 100%;
-  height: 20vh;
-  margin-bottom: clamp(5px, 1vh, 15px);
-  background-color: rgb(113, 132, 142);
+  height: auto;
 }
