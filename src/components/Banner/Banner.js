@@ -3,7 +3,7 @@ import './Banner.css'
 import PropTypes from 'prop-types';  // 用于 prop 校验
 
 // Banner 组件
-const Banner = ({ title, text, imageUrl, videoUrl, backgroundColor }) => {
+const Banner = ({ title, text, imageUrl, videoUrl }) => {
   return (
     <div className="banner">
           {videoUrl ? (
@@ -18,7 +18,14 @@ const Banner = ({ title, text, imageUrl, videoUrl, backgroundColor }) => {
         </div>
       ) : imageUrl ? (
         <img className="banner__image" src={imageUrl} alt="Banner" />
-      ) : null}
+        ) : (
+            <div className="banner__content-container">
+              <h1 className="banner__content__title">
+                {title}
+            </h1>
+              <p className="banner__content__text">{text}</p>
+            </div>
+      )}
     </div>
   );
 };
@@ -29,12 +36,10 @@ Banner.propTypes = {
   text: PropTypes.string,
   imageUrl: PropTypes.string,
   videoUrl: PropTypes.string,
-  backgroundColor: PropTypes.string,
 };
 
 // 默认 props
 Banner.defaultProps = {
-  backgroundColor: '', // 默认背景色
   title: '',
   text: '',
   imageUrl: '',
