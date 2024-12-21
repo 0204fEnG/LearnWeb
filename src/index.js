@@ -4,6 +4,7 @@ import './index.css';
 import 'normalize.css';
 import './styles/reset.css'
 import './styles/global.css'
+import './styles/theme.css'
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 

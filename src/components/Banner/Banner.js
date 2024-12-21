@@ -1,49 +1,40 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './Banner.css'
-import PropTypes from 'prop-types';  // 用于 prop 校验
-
+import PropTypes from 'prop-types'; 
+const BannerVideo=lazy(()=>import('./BannerVideo/BannerVideo'))
+ // 用于 prop 校验
 // Banner 组件
-const Banner = ({ title, text, imageUrl, videoUrl }) => {
+const Banner = ({ bannerType, bannerData,bannerScrollY }) => {
+  let BannerContent
+  switch (bannerType) {
+    case 0:
+      BannerContent = BannerVideo
+      break
+    // case 1:
+    //   bannerContent =
+    //   break
+    // case 2:
+    //   bannerContent
+    //   break
+    default:
+      BannerContent = <div>无内容展示</div>
+  }
   return (
-    <div className="banner">
-          {videoUrl ? (
-        <div className="banner__video-container">
-        <video className="banner__video--outer" autoPlay muted loop>
-          <source src={videoUrl} type="video/mp4" />
-          您的浏览器暂不支持播放音视频
-        </video>
-        <video className="banner__video--inner" autoPlay muted loop>
-          <source src={videoUrl} type="video/mp4" />
-        </video>
-        </div>
-      ) : imageUrl ? (
-        <img className="banner__image" src={imageUrl} alt="Banner" />
-        ) : (
-            <div className="banner__content-container">
-              <h1 className="banner__content__title">
-                {title}
-            </h1>
-              <p className="banner__content__text">{text}</p>
-            </div>
-      )}
+    <div className={`banner ${bannerScrollY>60?'fixed':''}`}>
+      <Suspense fallback={
+        <div>Loading---------</div>
+      }>
+        <BannerContent {...bannerData}/>
+      </Suspense>
     </div>
-  );
+  )
 };
 
 // propTypes 校验，确保传入正确的 props 类型
 Banner.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  imageUrl: PropTypes.string,
-  videoUrl: PropTypes.string,
+  bannerType:PropTypes.number,
+  bannerContent:PropTypes.string
 };
 
-// 默认 props
-Banner.defaultProps = {
-  title: '',
-  text: '',
-  imageUrl: '',
-  videoUrl: '',
-};
 
 export default Banner;

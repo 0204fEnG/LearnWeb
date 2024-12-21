@@ -1,6 +1,7 @@
 .app{
   width: 100%;
-  height: auto;
+  height: 10000px;
+  background-color: var(--primary-color);
 }
 .app__header{
   width: 100%;
@@ -14,4 +15,9 @@
 .app__footer{
   width: 100%;
   height: auto;
+}
+.change-theme{
+  width: 20px;
+  height: 20px;
+  background-color: var(--background-color);
 }
