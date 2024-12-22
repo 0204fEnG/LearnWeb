@@ -22,14 +22,14 @@ const BannerImage = ({ images, interval = 3000 }) => {
   return (
     <div className="banner-image-container">
       <button className="prev" onClick={goToPrev}>Prev</button>
-          <img className="image" src={images[currentIndex]} alt={`Image ${currentIndex}`} />
+          <img className="image" src={images[currentIndex]} />
+          <img className="image--mask" src={images[currentIndex]} />
       <button className="next" onClick={goToNext}>Next</button>
       <div className="indicators">
-        {images.map((_, index) => (
-            <button
-            className="indicators__button"
+              {images.map((_,index) => (
+                  <button
+                      className={`indicators__button ${index === currentIndex ? 'image--active' : ''}`}
             key={index}
-            className={index === currentIndex ? 'active' : ''}
             onClick={() => setCurrentIndex(index)}
           >
             {index + 1}
