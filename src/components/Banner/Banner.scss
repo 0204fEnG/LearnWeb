@@ -1,0 +1,10 @@
+.banner{
+  width: 100%;
+  height: auto;
+}
+@media (max-aspect-ratio: 1/1) {
+  /* 针对宽高比小于1:1的设备样式 */
+  .banner__video-container{
+    height: auto;
+  }
+}

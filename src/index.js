@@ -5,13 +5,14 @@ import 'normalize.css';
 import './styles/reset.css'
 import './styles/global.css'
 import './styles/theme.css'
-import App from './App';
+import router from './routes/index.js'
+import { RouterProvider } from 'react-router-dom';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

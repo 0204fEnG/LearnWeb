@@ -1,9 +1,11 @@
 import React from "react";
-import './Topbar.css'
+import './Topbar.scss'
 const Topbar = ({topbarScrollY}) => {
   return (
-    <div className={`topbar-container ${topbarScrollY>60?'fixed':''}`}>
-      HarmonyOS
+    <div className="topbar-container">
+    <div className={`topbar ${topbarScrollY>60?'fixed':''}`}>
+        HarmonyOS
+        </div>
       </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react"
 import './BannerVideo.scss'
-const BannerVideo = ({ videoUrl }) => {
+const BannerVideo = ({videoUrl}) => {
     return (
         <div className="banner-video-container">
         <video className="banner-video--outer" autoPlay muted loop>
