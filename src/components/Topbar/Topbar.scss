@@ -1,38 +1,6 @@
-.topbar-container{
-    width: 100%;
-    height: 60px;
 .topbar{  
     width: 100%;
     height: 60px;
-    font-size:16px;
-    color:var(--text-color);
-    background-color: var(--background-color--opa);
-    box-shadow: 0 2px 5px var(--shadow-color);
-    backdrop-filter: blur(20px);
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    animation: isNotFixed ease-in-out 0.5s forwards;
-    &.fixed{
-    position: fixed;
-    top:0;
-    animation-name: isFixed;
-}
-}
-}
-@keyframes isNotFixed{
-    0%{
-        transform:translateY(-100%);
-    }
-    100%{
-        transform: translateY(0);
-    }
-}
-@keyframes isFixed {
-    0%{
-        transform: translateY(-100%);
-    }
-    100%{
-        transform:translateY(0);
-    }
+    text-align: center;
+    line-height: 60px;
 }

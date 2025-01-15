@@ -9,13 +9,6 @@ const App=()=> {
   const [scrollY, setScrollY] = useState(window.scrollY)
 document.body.className = `${theme}-theme`
   useEffect(() => {
-     
-    const handleScrollY = () => {
-      const lastScrollY = window.scrollY
-      setScrollY(lastScrollY)
-    }
-    const debounceHandleScrollY=debounce(handleScrollY,200)
-    window.addEventListener('scroll', debounceHandleScrollY)
     return () => {
       console.log("world")
     }
@@ -37,7 +30,7 @@ document.body.className = `${theme}-theme`
   return (
     <div className='app'>
       <header className='app__header'>
-        <Topbar topbarScrollY={scrollY}/>
+        <Topbar/>
         {/* <Banner bannerType={2} bannerData={bannerDate}/>
         <div className='change-theme' onClick={() => {
           const newTheme = theme === 'light'?'dark':'light'
@@ -45,12 +38,19 @@ document.body.className = `${theme}-theme`
         }}></div>
         <NavLink to="/2">点我！</NavLink> */}
       </header>
-      <div className="app__left">
-      <slide className='app__slide'>
-        </slide>
+      <div className='app__left'>
+        <aside className='app__aside'>
+        </aside>
       </div>
       <div className='app__right'>
-      <main className='app__main'>
+        <nav className='app__right__nav'>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </nav>
+      <main className='app__right__main'>
         </main>
         </div>
     </div>

@@ -4,39 +4,70 @@
   height: auto;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  background-color: var(--background-color);
   .app__header{
   width: 100%;
   height: auto;
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    animation: isEnter ease-in-out 0.5s forwards;
+    font-size:16px;
+    color:var(--text-color);
+    background-color: var(--primary-color--opa);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    backdrop-filter: blur(20px);
+    top:0;
+    justify-content:center;
+    align-items: center;
+  }
+  @keyframes isEnter{
+    0%{
+        transform:translateY(-100%);
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
-.app__left{
-  position: fixed;
-  left: 0;
-  width: 300px;
-  height: 100vh;
-  background-color:antiquewhite;
-  .app__slide{
-    width: 100%;
-    height: 50%;
-    background-color: var(--background-color);
-}
-}
+  .app__left{
+    position: fixed;
+    padding-top: 60px;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color:antiquewhite;
+    .app__aside{
+      width: 50%;
+      height: 50%;
+      background-color: var(--background-color);
+    }
+  }
   .app__right{
     margin-left:300px;
+    padding-top: 60px;
     flex:1;
     height:auto;
+    position: relative;
     background-color: var(--background-color);
-   .app__main{
-    width: 1000px;
-    margin:0 auto;
-    height: 72.9167rem;
+    .app__right__nav{
+      position: sticky;
+      top:60px;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      background-color: var(--background-color);
+    }
+   .app__right__main{
+      width: 900px;
+      margin:0 auto;
+      background-color: aqua;
+      height: 2000px;
+    }
   }
 }
-}
-@media (min-width:375px) {
+@media (mix-width:0px) and (max-width:649px){
   
 }
-@media (min-width:670px){
+@media (min-width:650px) and (max-width:999px){
   
 }

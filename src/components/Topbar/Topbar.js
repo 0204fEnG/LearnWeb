@@ -1,12 +1,10 @@
 import React from "react";
 import './Topbar.scss'
-const Topbar = ({topbarScrollY}) => {
+const Topbar = () => {
   return (
-    <div className="topbar-container">
-    <div className={`topbar ${topbarScrollY>60?'fixed':''}`}>
+    <div className='topbar'>
         HarmonyOS
         </div>
-      </div>
   );
 };
 export default Topbar;
