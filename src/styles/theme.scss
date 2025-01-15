@@ -1,0 +1,75 @@
+/* body.light-theme{
+    --primary-color:white;
+    --background-color:rgb(214, 220, 228);
+    --background-color--opa:rgba(214, 220, 228, 0.75);
+    --shadow-color:rgb(241, 243, 245,0.5);
+    --text-color:black;
+    --active-color:rgb(111, 111, 111);
+}
+body.dark-theme{
+    --primary-color:#262626;
+    --background-color:black;
+    --background-color--opa:rgba(0, 0, 0, 0.5);
+    --shadow-color:rgb(0, 0, 0,0.5);
+    --text-color:white;
+    --active-color:rgb(111, 111, 111);
+} */
+//  body {
+//   &.light-theme {
+//     --primary-color: white;
+//     --background-color: rgb(214, 220, 228);
+//     --background-color--opa: rgba(214, 220, 228, 0.75);
+//     --shadow-color: rgba(241, 243, 245, 0.5); // 修正了这里的RGB值，添加了alpha值
+//     --text-color: black;
+//     --active-color: rgb(111, 111, 111);
+//   }
+
+//   &.dark-theme {
+//     --primary-color: #262626;
+//     --background-color: black;
+//     --background-color--opa: rgba(0, 0, 0, 0.5);
+//     --shadow-color: rgba(0, 0, 0, 0.5); // 修正了这里的RGB值，添加了alpha值
+//     --text-color: white;
+//     --active-color: rgb(111, 111, 111);
+//   }
+// }
+
+
+
+// 定义SCSS变量
+$light-theme-primary-color: white;
+$light-theme-background-color: rgb(214, 220, 228);
+$light-theme-background-color-opa: rgba(214, 220, 228, 0.75);
+$light-theme-shadow-color: rgba(241, 243, 245, 0.5);
+$light-theme-text-color: black;
+$light-theme-active-color: rgb(111, 111, 111);
+
+$dark-theme-primary-color: #262626;
+$dark-theme-background-color: black;
+$dark-theme-background-color-opa: rgba(0, 0, 0, 0.5);
+$dark-theme-shadow-color: rgba(0, 0, 0, 0.5);
+$dark-theme-text-color: white;
+$dark-theme-active-color: rgb(111, 111, 111);
+
+// 使用SCSS变量设置CSS自定义属性
+body {
+  &.light-theme {
+    --primary-color: $light-theme-primary-color;
+    --background-color: $light-theme-background-color;
+    --background-color--opa: $light-theme-background-color-opa;
+    --shadow-color: $light-theme-shadow-color;
+    --text-color: $light-theme-text-color;
+    --active-color: $light-theme-active-color;
+  }
+
+  &.dark-theme {
+    --primary-color: $dark-theme-primary-color;
+    --background-color: $dark-theme-background-color;
+    --background-color--opa: $dark-theme-background-color-opa;
+    --shadow-color: $dark-theme-shadow-color;
+    --text-color: $dark-theme-text-color;
+    --active-color: $dark-theme-active-color;
+  }
+}
+
+

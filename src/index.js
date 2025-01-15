@@ -4,7 +4,7 @@ import './index.css';
 import 'normalize.css';
 import './styles/reset.css'
 import './styles/global.css'
-import './styles/theme.css'
+import './styles/theme.scss'
 import router from './routes/index.js'
 import { RouterProvider } from 'react-router-dom';
 // import reportWebVitals from './reportWebVitals';

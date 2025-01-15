@@ -12,7 +12,6 @@
     display: flex;
     justify-content:center;
     align-items: center;
-    z-index:5;
     animation: isNotFixed ease-in-out 0.5s forwards;
     &.fixed{
     position: fixed;
