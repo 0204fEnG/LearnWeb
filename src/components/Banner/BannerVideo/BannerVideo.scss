@@ -27,9 +27,19 @@ position: absolute;
   z-index: -1;
 }
 }
-@media (max-aspect-ratio: 1/1) {
-  /* 针对宽高比小于1:1的设备样式 */
-  .banner-video-container{
-    height: auto;
-  }
+// @media (max-aspect-ratio: 1/1) {
+//   /* 针对宽高比小于1:1的设备样式 */
+//   .banner-video-container{
+//     height: auto;
+//   }
+// }
+@media (min-width:650px) and (max-width:1000px){
+   .banner-video-container{
+         height: auto;
+   }
+}
+@media (max-width:649px){
+   .banner-video-container{
+         height: auto;
+   }
 }

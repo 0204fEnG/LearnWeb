@@ -18,8 +18,11 @@ body.dark-theme{
   &.light-theme {
     --primary-color: white;
     --primary-color--opa:rgb(255, 255, 255,0.5);
-    --background-color: rgb(244, 244, 244);
-    --background-color--opa: rgba(244, 244, 244, 0.5);
+    --background-color: rgb(204, 204, 204);
+    --background-color--opa: rgba(204, 204, 204, 0.5);
+    --background-color2:rgb(228, 228, 228);
+    --background-color2--opa:rgb(228, 228, 228,0.5);
+    --border-color:black;
     --shadow-color: rgba(241, 243, 245, 0.5); // 修正了这里的RGB值，添加了alpha值
     --text-color: black;
     --active-color: rgb(111, 111, 111);

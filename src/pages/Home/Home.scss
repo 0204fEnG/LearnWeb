@@ -1,0 +1,21 @@
+@use '/src/styles/display/flex.scss' as *;
+.app-home{
+    @include flex(row,wrap,null,null,null,5px);
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 60px 5px 5px 5px;
+    background-color: var(--background-color);
+}
+@media (min-width:650px) and (max-width:1000px){
+    .app-home{
+        width: 100%;
+        margin: 0;
+    }
+}
+@media (max-width:649px){
+    .app-home{
+        width: 100%;
+        margin: 0;
+    }
+}

@@ -26,7 +26,7 @@ const Banner = ({ bannerType, bannerData}) => {
       <Suspense fallback={
         <div>Loading---------</div>
       }>
-        <BannerContent videoUrl={bannerData} text={bannerData} images={ bannerData} />
+        <BannerContent videoUrl={bannerData} text={bannerData} images={bannerData} />
       </Suspense>
     </div>
   )
