@@ -1,34 +1,24 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './Home.scss'
-import ContentCard from '../../components/Home/ContentCard/ContentCard.js'
-import Banner from '../../components/Banner/Banner.js'
+import { Outlet } from 'react-router-dom'
 const Home = () => {
-    const videoUrl ='/videos/x5.mp4'
+    const navLinks = [
+        {
+            to: 'recommend',
+            name: '推荐'
+        },
+        {
+            to: 'concern',
+            name:'关注'
+        }
+    ]
     return <div className="app-home">
-        <Banner bannerType={0} bannerData={videoUrl}/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
-        <ContentCard/>
+        <header className='app-home__header'>
+            <Navbar navLinks={navLinks} />
+        </header>
+        <main className='app-home__main'>
+            <Outlet/>
+        </main>
     </div>
 }
 export default Home

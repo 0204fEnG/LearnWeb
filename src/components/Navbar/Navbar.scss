@@ -1,0 +1,17 @@
+@use '/src/styles/display/flex.scss'as *;
+.navbar{
+    width: 100%;
+    height: 100%;
+    @include flex(row,nowrap,null,center,null,5px);
+    .navbar__link{
+        font-size: 16px;
+        padding: 5px;
+        white-space: nowrap;
+    }
+    .navbar__link--active{
+        font-size: 16px;
+        padding: 5px;
+        white-space: nowrap;
+        background-color: rgb(126, 127, 204);
+    }
+}

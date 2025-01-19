@@ -1,21 +1,44 @@
-@use '/src/styles/display/flex.scss' as *;
+@use '/src/styles/display/flex.scss'as *;
 .app-home{
-    @include flex(row,wrap,null,null,null,5px);
-    width: 90%;
+    width: 100%;
     height: auto;
     margin: 0 auto;
-    padding: 60px 5px 5px 5px;
     background-color: var(--background-color);
+    .app-home__header{
+        width: 500px;
+        height: 60px;
+        position: fixed;
+        z-index: 1;
+        top:0;
+        left:200px;
+    }
+    .app-home__main{
+        width: 100%;
+        height: auto;
+    }
 }
-@media (min-width:650px) and (max-width:1000px){
+@media (min-width:1500px){
+    .app-home{
+        width: calc((100% - 800px)*2/3 + 800px);
+    }
+}
+@media (min-width:650px) and (max-width:999px){
     .app-home{
         width: 100%;
         margin: 0;
+    }
+    .app-home .app-home__header{
+        left:0;
     }
 }
 @media (max-width:649px){
     .app-home{
         width: 100%;
         margin: 0;
+    }
+    .app-home .app-home__header{
+        width: 100%;
+        left:0;
+        top:60px;
     }
 }

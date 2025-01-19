@@ -5,7 +5,6 @@ const BannerVideo = ({videoUrl}) => {
         <div className="banner-video-container">
         <video className="banner-video--outer" autoPlay muted loop>
           <source src={videoUrl} type="video/mp4" />
-          您的浏览器暂不支持播放音视频
         </video>
         <video className="banner-video--inner" autoPlay muted loop>
           <source src={videoUrl} type="video/mp4" />

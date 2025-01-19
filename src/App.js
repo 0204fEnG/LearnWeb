@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react';
 import './App.scss';
 import Topbar from './components/Topbar/Topbar.js';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 const App=()=> {
   const [theme, setTheme] = useState('light')
 document.body.className = `${theme}-theme`
@@ -11,16 +11,16 @@ document.body.className = `${theme}-theme`
     }
   }, [])
   useEffect(() => { document.body.className = `${theme}-theme` }, [theme])
-  const bannerDate = [
-    '/images/header/banner/unlock_wallpaper_1.jpg',
-    '/images/header/banner/unlock_wallpaper_2.jpg',
-    '/images/header/banner/unlock_wallpaper_3.jpg',
-    '/images/header/banner/unlock_wallpaper_4.jpg',
-    '/images/header/banner/unlock_wallpaper_5.jpg',
-    '/images/header/banner/unlock_wallpaper_6.jpg',
-    '/images/header/banner/unlock_wallpaper_7.jpg',
-    '/images/header/banner/unlock_wallpaper_8.jpg'
-  ]
+  // const bannerDate = [
+  //   '/images/header/banner/unlock_wallpaper_1.jpg',
+  //   '/images/header/banner/unlock_wallpaper_2.jpg',
+  //   '/images/header/banner/unlock_wallpaper_3.jpg',
+  //   '/images/header/banner/unlock_wallpaper_4.jpg',
+  //   '/images/header/banner/unlock_wallpaper_5.jpg',
+  //   '/images/header/banner/unlock_wallpaper_6.jpg',
+  //   '/images/header/banner/unlock_wallpaper_7.jpg',
+  //   '/images/header/banner/unlock_wallpaper_8.jpg'
+  // ]
   const toggleTheme = (newTheme) => {
     setTheme(newTheme)
   }
@@ -37,7 +37,7 @@ document.body.className = `${theme}-theme`
       </header>
       <aside className='app__left'>
         <div className='app__aside'>
-          <NavLink to="home">首页</NavLink>
+          <Link to="home">首页</Link>
         </div>
       </aside>
       <main className='app__right'>

@@ -1,0 +1,16 @@
+@use '/src/styles/display/flex.scss' as *;
+.home-recommend{
+    @include flex(row ,wrap,null,null,flex-start,5px);   
+    width: 100%;
+    height: auto;
+    padding: 60px 5px 5px 5px;
+    .home-recommend__header{
+        width: 100%;
+        height: auto;
+    }
+    .home-recommend__main{
+        @include flex(row,wrap,null,null,flex-start,5px);
+        width: 100%;
+        height: auto;
+    }
+}

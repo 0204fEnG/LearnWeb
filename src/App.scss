@@ -7,7 +7,7 @@
   height: auto;
   .app__header{
   width: 100%;
-  padding-left: 200px;
+  padding-left: 700px;
   height: auto;
   @include flex(row,nowrap);
     position: fixed;
@@ -54,12 +54,13 @@
   }
   .app__right{
     flex:1;
+    height: auto;
     padding-left: 200px;
   }
 }
-@media (min-width:650px) and (max-width:1000px){
+@media (min-width:650px) and (max-width:999px){
   .app .app__header{
-    padding-left: 0px;
+    padding-left: 500px;
   }
   .app .app__left{
     transform:translateX(-100%);

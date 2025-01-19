@@ -1,6 +1,6 @@
 .banner-video-container{
     width: 100%;
-    height: 450px;
+    height: 400px;
     position: relative;
     z-index: 0;
 &::after{
@@ -33,13 +33,13 @@ position: absolute;
 //     height: auto;
 //   }
 // }
-@media (min-width:650px) and (max-width:1000px){
+@media (min-width:650px) and (max-width:999px){
    .banner-video-container{
-         height: auto;
+         height: 300px;
    }
 }
 @media (max-width:649px){
    .banner-video-container{
-         height: auto;
+         height: 200px;
    }
 }
