@@ -19,3 +19,7 @@ input{
 button{
   border: none;
 }
+a{
+  color: var(--text-color);
+  text-decoration: none;
+}

@@ -7,23 +7,43 @@
   height: auto;
   .app__left{
     position: fixed;
+    z-index: 1;
     left:0;
     width: 200px;
     height: 100vh;
-    background-color:var(--background-color2);
-    transition: all ease-in-out 0.5s;
+    transition: all 0.5s linear;
     .app__left__container{
-    @include flex(row,wrap,null,null,flex-start,null);
+    @include flex(row,wrap,null,null,flex-start,5px);
     width: 100%;
     height: 100%;
+    padding: 5px;
+    background-color: var(--background-color2);
     .app__left__img{
-      width: 50%;
-      aspect-ratio: 1;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto;
+      border: 1px white solid;
+      line-height: 130px;
+      border-radius: 50%;
     }
     .app__left__navs{
+      @include flex(row,wrap,center,null,null,null);
       width: 100%;
       height: auto;
-      background-color: green;
+      overflow: hidden;
+      border-radius: 5px;
+      background-color: var(--background-color);
+      .app__left__navs__nav{
+        font-size: 16px;
+        width: 100%;
+        padding-left: 5px;
+        line-height: 48px;
+        height: 48px;
+      }
+      .app__left__navs__nav--active{
+        font-size: 20px;
+        background-color: var(--primary-color);
+      }
     }
   }
   }
@@ -31,14 +51,41 @@
     flex:1;
     height: auto;
     padding-left: 200px;
+    transition: all 0.5s linear;
+  }
+  .app__bottom__navs{
+    position: fixed;
+    transition: all 0.5s linear;
+    transform: translateY(100%);
+    bottom: 0;
+     @include flex(row,wrap,center,null,null,null);
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      border-radius: 5px;
+      background-color: var(--background-color);
+      .app__left__navs__nav{
+        font-size: 16px;
+        width: 80px;
+        line-height: 48px;
+        height: 48px;
+        text-align: center;
+      }
+      .app__left__navs__nav--active{
+        font-size: 20px;
+        background-color: var(--primary-color);
+      }
   }
 }
 @media (min-width:650px) and (max-width:999px){
   .app .app__left{
-    transform:translateX(-100%);
+    transform: translateX(-100%);
   }
   .app .app__right{
     padding-left: 0px;
+  }
+  .app .app__bottom__navs{
+    transform: translateY(0);
   }
 }
 @media (max-width:649px){
@@ -47,5 +94,8 @@
   }
   .app .app__right{
     padding-left: 0px;
+  }
+  .app .app__bottom__navs{
+    transform: translateY(0);
   }
 }

@@ -1,7 +1,5 @@
-import Navbar from '../../components/Navbar/Navbar'
 import Searchbar from '../../components/Searchbar/Searchbar'
 import './Home.scss'
-import { Outlet } from 'react-router-dom'
 const Home = () => {
     const navs = [
         {
