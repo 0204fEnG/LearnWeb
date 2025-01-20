@@ -19,10 +19,3 @@ input{
 button{
   border: none;
 }
-a{
-  color: var(--text-color);
-  text-decoration: none;
-}
-a.active{
-  transform:scale(1.2);
-}

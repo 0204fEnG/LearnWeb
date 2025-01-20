@@ -1,16 +1,16 @@
-.app-home-card{
+.post-card{
     flex:1 1 300px;
     aspect-ratio: 1;
     background-color: var(--primary-color);
 }
 @media (min-width:650px) and (max-width:999px){
-    .app-home-card{
+    .post-card{
         flex:1 1 250px;
         aspect-ratio: 1;
     }
 }
 @media (max-width:649px){
-    .app-home-card{
+    .post-card{
         flex:1 1 300px;
         aspect-ratio: 1;
     }

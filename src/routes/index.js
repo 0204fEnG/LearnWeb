@@ -12,16 +12,6 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
-        children: [
-          {
-            path: "recommend",
-            element:<HomeRecommend/>
-          },
-          {
-            path: "concern",
-            element:<HomeConcern/>
-          }
-        ]
       }
     ],
     errorElement:<ErrorPage/>
