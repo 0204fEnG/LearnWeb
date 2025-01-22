@@ -1,30 +1,34 @@
+import { useState } from 'react'
+import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
+import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
+import HomeConcern from './HomeConcern/HomeConcern'
+import HomeRecommend from './HomeRecommend/HomeRecommend'
 const Home = () => {
-    const homeNavs = [
+    const [homeNavTargetIndex, setHomeNavTargetIndex] = useState(0)
+    const homeSections = [
         {
-            name: '推荐'
+            name: '推荐',
+            component:()=><HomeRecommend/>
         },
         {
-            name:'关注'
+            name: '关注',
+            component:()=><HomeConcern/>
         }
     ]
-      const bannerDate = [
-    '/images/header/banner/unlock_wallpaper_1.jpg',
-    '/images/header/banner/unlock_wallpaper_2.jpg',
-    '/images/header/banner/unlock_wallpaper_3.jpg',
-    '/images/header/banner/unlock_wallpaper_4.jpg',
-    '/images/header/banner/unlock_wallpaper_5.jpg',
-    '/images/header/banner/unlock_wallpaper_6.jpg',
-    '/images/header/banner/unlock_wallpaper_7.jpg',
-    '/images/header/banner/unlock_wallpaper_8.jpg'
-    ]
-    const imgs = bannerDate.map((img, index) => (<img key={index} src={img} style={{width:'230px',height:'auto',objectFit:'contain'}} />))
+    const sectionsName=homeSections.map((section)=>section.name)
+    const sectionsFuc = homeSections.map((section) => section.component)
     return <div className="app-home">
         <header className='app-home__header'>
-            Home！
+            <div className="app-home__header__navs">
+                <SectionNavbar sectionsName={sectionsName} targetIndex={homeNavTargetIndex}/>
+            </div>
+            <div className="app-home__header__search">
+                这里是搜索栏
+            </div>
         </header>
         <main className='app-home__main'>
-            {imgs}
+            <SectionCardContainer sectionsFunc={sectionsFuc}/>
         </main>
     </div>
 }

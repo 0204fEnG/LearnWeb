@@ -19,7 +19,7 @@ const App=()=> {
         <div className="app__left__container">
           <img className='app__left__img' src='images/header/banner/小小陈.png' alt='请设置头像'></img>
           <nav className='app__left__navs'>
-            <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="home">首页</NavLink>
+            <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="/">首页</NavLink>
             <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="circles">圈子</NavLink>
           <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="shorts">短视频</NavLink>
         <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="mine">我的</NavLink>
@@ -30,7 +30,7 @@ const App=()=> {
         <Outlet/>
       </main>
         <nav className='app__bottom__navs'>
-            <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="home">首页</NavLink>
+            <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="/">首页</NavLink>
             <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="circles">圈子</NavLink>
           <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="shorts">短视频</NavLink>
         <NavLink className={({isActive})=>['app__left__navs__nav',isActive?'app__left__navs__nav--active':''].join(' ')} to="mine">我的</NavLink>

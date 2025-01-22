@@ -7,7 +7,7 @@
   height: auto;
   .app__left{
     position: fixed;
-    z-index: 1;
+    // z-index: 1;
     left:0;
     width: 200px;
     height: 100vh;
@@ -34,13 +34,13 @@
       border-radius: 5px;
       background-color: var(--primary-color);
       .app__left__navs__nav{
-        color:var(--text-color--light);
+        color:var(--text-color);
         font-size: 16px;
         width: 100%;
         padding:16px;
         height: 48px;
         &:hover{
-          color: var(--text-color);
+          color: var(--active-color);
           background-color: var(--background-color--opa);
         }
       }
@@ -48,7 +48,7 @@
         font-size: 18px;
         font-weight: bold;
         padding: 14px;
-        color: var(--text-color);
+        color: var(--active-color);
         background-color: var(--background-color--opa);
         border-bottom: 2px solid var(--active-color);
       }
@@ -75,19 +75,19 @@
       border-radius: 0px;
       background-color: var(--primary-color--opa);
       .app__left__navs__nav{
-        color:var(--text-color--light);
+        color:var(--text-color);
         font-size: 14px;
         width: 80px;
         padding: 17px;
         height: 48px;
         text-align: center;
         &:hover{
-          color:var(--text-color);
+          color:var(--active-color);
           background-color: var(--background-color--opa);
         }
       }
       .app__left__navs__nav--active{
-        color:var(--text-color--light);
+        color:var(--active-color);
         font-size: 16px;
         font-weight:bold;
         padding: 16px;

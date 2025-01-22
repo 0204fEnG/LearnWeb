@@ -2,9 +2,12 @@ import './HomeConcern.scss'
 const HomeConcern = () => {
     return (
         <div className="home-concern">
-            <div className="test">hello</div>
-            <div className="test">hello</div>
-            <div className="test">hello</div>
+            <header className="home-concern__header">
+                2
+            </header>
+            <main className="home-concern__main">
+                2
+            </main>
         </div>
     )
 }
