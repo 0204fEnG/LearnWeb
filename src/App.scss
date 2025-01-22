@@ -17,12 +17,12 @@
     width: 100%;
     height: 100%;
     padding: 5px;
-    background-color: var(--background-color2);
+    background-color: var(--background-color);
     .app__left__img{
       width: 130px;
       height: 130px;
       margin: 0 auto;
-      border: 1px white solid;
+      border: 1px var(--primary-color) solid;
       line-height: 130px;
       border-radius: 50%;
     }
@@ -32,17 +32,25 @@
       height: auto;
       overflow: hidden;
       border-radius: 5px;
-      background-color: var(--background-color);
+      background-color: var(--primary-color);
       .app__left__navs__nav{
+        color:var(--text-color--light);
         font-size: 16px;
         width: 100%;
-        padding-left: 5px;
-        line-height: 48px;
+        padding:16px;
         height: 48px;
+        &:hover{
+          color: var(--text-color);
+          background-color: var(--background-color--opa);
+        }
       }
       .app__left__navs__nav--active{
-        font-size: 20px;
-        background-color: var(--primary-color);
+        font-size: 18px;
+        font-weight: bold;
+        padding: 14px;
+        color: var(--text-color);
+        background-color: var(--background-color--opa);
+        border-bottom: 2px solid var(--active-color);
       }
     }
   }
@@ -58,22 +66,33 @@
     transition: all 0.5s linear;
     transform: translateY(100%);
     bottom: 0;
+    backdrop-filter: blur(20px);
+    border-top:0.5px solid var(--border-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;
       height: auto;
       overflow: hidden;
-      border-radius: 5px;
-      background-color: var(--background-color);
+      border-radius: 0px;
+      background-color: var(--primary-color--opa);
       .app__left__navs__nav{
-        font-size: 16px;
+        color:var(--text-color--light);
+        font-size: 14px;
         width: 80px;
-        line-height: 48px;
+        padding: 17px;
         height: 48px;
         text-align: center;
+        &:hover{
+          color:var(--text-color);
+          background-color: var(--background-color--opa);
+        }
       }
       .app__left__navs__nav--active{
-        font-size: 20px;
-        background-color: var(--primary-color);
+        color:var(--text-color--light);
+        font-size: 16px;
+        font-weight:bold;
+        padding: 16px;
+        background-color: var(--background-color--opa);
+        border-bottom: 2px solid var(--active-color);
       }
   }
 }

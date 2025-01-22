@@ -18,21 +18,22 @@ body.dark-theme{
   &.light-theme {
     --primary-color: white;
     --primary-color--opa:rgb(255, 255, 255,0.5);
-    --background-color: rgb(204, 204, 204);
-    --background-color--opa: rgba(204, 204, 204, 0.5);
-    --background-color2:rgb(228, 228, 228);
-    --background-color2--opa:rgb(228, 228, 228,0.5);
-    --border-color:black;
-    --shadow-color: rgba(241, 243, 245, 0.5); // 修正了这里的RGB值，添加了alpha值
+    --background-color: rgb(227, 227, 227);
+    --background-color--opa: rgba(227, 227, 227, 0.5);
+    --background-color--deep1:rgb(208, 208, 208);
+    --background-color--deep1--opa:rgb(208, 208, 208,0.5);
+    --border-color:rgb(65, 65, 65);
+    --shadow-color: grey;
     --text-color: black;
-    --active-color: rgb(111, 111, 111);
+    --text-color--light: rgb(82, 82, 82);
+    --active-color: rgb(137, 176, 221);
   }
 
   &.dark-theme {
     --primary-color: #262626;
     --background-color: black;
     --background-color--opa: rgba(0, 0, 0, 0.5);
-    --shadow-color: rgba(0, 0, 0, 0.5); // 修正了这里的RGB值，添加了alpha值
+    --shadow-color: rgba(0, 0, 0, 0.5); 
     --text-color: white;
     --active-color: rgb(111, 111, 111);
   }

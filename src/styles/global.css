@@ -1,3 +1,13 @@
 html{
-    font-size: 1vw;
+    font-size: 16px;
+}
+@media (min-width:650px)and(max-width:999px) {
+    html{
+        font-size: 15px;
+    }
+}
+@media (max-width:649px) {
+    html{
+        font-size: 14px;
+    }
 }

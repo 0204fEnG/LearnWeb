@@ -1,0 +1,10 @@
+@use '/src/styles/display/flex.scss'as *;
+.section-card-container{
+    @include flex(row,nowrap,null,null,null,null);
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    scroll-snap-type: x mandatory;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}

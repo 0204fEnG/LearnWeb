@@ -10,16 +10,6 @@ const App=()=> {
 //     }
 //   }, [])
 //   useEffect(() => { document.body.className = `${theme}-theme` }, [theme])
-  // const bannerDate = [
-  //   '/images/header/banner/unlock_wallpaper_1.jpg',
-  //   '/images/header/banner/unlock_wallpaper_2.jpg',
-  //   '/images/header/banner/unlock_wallpaper_3.jpg',
-  //   '/images/header/banner/unlock_wallpaper_4.jpg',
-  //   '/images/header/banner/unlock_wallpaper_5.jpg',
-  //   '/images/header/banner/unlock_wallpaper_6.jpg',
-  //   '/images/header/banner/unlock_wallpaper_7.jpg',
-  //   '/images/header/banner/unlock_wallpaper_8.jpg'
-  // ]
   // const toggleTheme = (newTheme) => {
   //   setTheme(newTheme)
   // }
