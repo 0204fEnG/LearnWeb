@@ -7,17 +7,36 @@
   height: auto;
   .app__left{
     position: fixed;
-    // z-index: 1;
+    z-index: 1;
     left:0;
     width: 200px;
     height: 100vh;
-    transition: all 0.5s linear;
+    transition:transform,background-color 0.5s linear;
+    transition:width 0.5s linear 0.5s;
     .app__left__container{
     @include flex(row,wrap,null,null,flex-start,5px);
-    width: 100%;
+    position: relative;
+    width: 200px;
     height: 100%;
     padding: 5px;
     background-color: var(--background-color);
+    .isopen{
+      position: absolute;
+      display: none;
+      top:0;
+      left:100%;
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--background-color);
+      &::after{
+        content:'>';
+      }
+    }
     .app__left__img{
       width: 130px;
       height: 130px;
@@ -100,6 +119,18 @@
   .app .app__left{
     transform: translateX(-100%);
   }
+  .app .app__left .app__left__container .isopen{
+    display: block;
+  }
+  .app .left-open.app__left .app__left__container .isopen::after{
+    content:'<';
+  }
+  .app .left-open.app__left{
+    transition: width 0s linear 0s;
+    transform: translateX(0);
+    width: calc(200px + 100%);
+    background-color: rgb(0, 0, 0,0.5);
+  }
   .app .app__right{
     padding-left: 0px;
   }
@@ -108,8 +139,21 @@
   }
 }
 @media (max-width:649px){
+.app .left-open.app__mask{
+    display: block;
+    background-color: rgb(0, 0, 0,0.5);
+  }
   .app .app__left{
-    transform:translateX(-100%);
+    transform: translateX(-100%);
+  }
+  .app .app__left .app__left__container .isopen{
+    display: block;
+  }
+  .app .left-open.app__left .app__left__container .isopen::after{
+    content:'<';
+  }
+  .app .left-open.app__left{
+    transform: translateX(0);
   }
   .app .app__right{
     padding-left: 0px;
