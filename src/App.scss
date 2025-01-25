@@ -5,37 +5,38 @@
   position: relative;
   width: 100%;
   height: auto;
-  .app__left{
+  .app__left-mask{
     position: fixed;
     z-index: 1;
-    left:0;
-    width: 200px;
-    height: 100vh;
-    transition:transform,background-color 0.5s linear;
-    transition:width 0.5s linear 0.5s;
+    width: 100%;
+    height: 100%;
+    transition: all 0.25s linear;
+  }
     .app__left__container{
     @include flex(row,wrap,null,null,flex-start,5px);
-    position: relative;
+    position: fixed;
+    left:0;
+    z-index: 1;
     width: 200px;
     height: 100%;
+    overflow: auto;
     padding: 5px;
+    transition: all 0.25s linear;
     background-color: var(--background-color);
-    .isopen{
-      position: absolute;
-      display: none;
-      top:0;
-      left:100%;
-      width: 50px;
-      height: 50px;
-      font-size: 30px;
-      line-height: 50px;
-      text-align: center;
-      border-radius: 50%;
+    .app__left-close{
       cursor: pointer;
-      background-color: var(--background-color);
-      &::after{
-        content:'>';
-      }
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 20px;
+      color:var(--text-color);
+      background-color: var(--primary-color--opa);
+      position: absolute;
+      top:0;
+      right: 0;
+      display: none;
     }
     .app__left__img{
       width: 130px;
@@ -73,7 +74,6 @@
       }
     }
   }
-  }
   .app__right{
     flex:1;
     height: auto;
@@ -86,7 +86,7 @@
     transform: translateY(100%);
     bottom: 0;
     backdrop-filter: blur(20px);
-    border-top:0.5px solid var(--border-color);
+    box-shadow: 0 0px 10px var(--shadow-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;
       height: auto;
@@ -115,21 +115,34 @@
       }
   }
 }
+  @keyframes leftEnter{
+    to{
+      z-index: 1;
+    }
+  }
+  @keyframes leftClose{
+    to{
+      z-index: 0;
+    }
+  }
 @media (min-width:650px) and (max-width:999px){
-  .app .app__left{
+  .app .app__left-mask{
+    animation: leftClose 0s linear 0.25s forwards;
+  }
+  .app .app__left__container .app__left-close{
+      display: block;
+  }
+  .app .app__left__container{
     transform: translateX(-100%);
+    z-index: 1;
   }
-  .app .app__left .app__left__container .isopen{
-    display: block;
-  }
-  .app .left-open.app__left .app__left__container .isopen::after{
-    content:'<';
-  }
-  .app .left-open.app__left{
-    transition: width 0s linear 0s;
-    transform: translateX(0);
-    width: calc(200px + 100%);
+  .app.left-open .app__left-mask{
+    animation: leftEnter 0s linear  forwards;
     background-color: rgb(0, 0, 0,0.5);
+    backdrop-filter: blur(2px);
+  }
+  .app.left-open .app__left__container{
+    transform: translateX(0);
   }
   .app .app__right{
     padding-left: 0px;
@@ -139,20 +152,22 @@
   }
 }
 @media (max-width:649px){
-.app .left-open.app__mask{
-    display: block;
-    background-color: rgb(0, 0, 0,0.5);
+  .app .app__left-mask{
+    animation: leftClose 0s linear 0.25s forwards;
   }
-  .app .app__left{
+  .app .app__left__container .app__left-close{
+      display: block;
+  }
+  .app .app__left__container{
     transform: translateX(-100%);
+    z-index: 1;
   }
-  .app .app__left .app__left__container .isopen{
-    display: block;
+  .app.left-open .app__left-mask{
+    animation: leftEnter 0s linear  forwards;
+    background-color: rgb(0, 0, 0,0.5);
+    backdrop-filter: blur(2px);
   }
-  .app .left-open.app__left .app__left__container .isopen::after{
-    content:'<';
-  }
-  .app .left-open.app__left{
+  .app.left-open .app__left__container{
     transform: translateX(0);
   }
   .app .app__right{

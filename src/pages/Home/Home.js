@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
 import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
 import HomeConcern from './HomeConcern/HomeConcern'
 import HomeRecommend from './HomeRecommend/HomeRecommend'
+import {appLeftShow} from'../../App.js'
 const Home = () => {
     const [homeNavTargetIndex, setHomeNavTargetIndex] = useState(0)
+    const {handleLeftIsShowClick}=useContext(appLeftShow)
     const homeSections = [
         {
             name: '推荐',
@@ -24,7 +26,7 @@ const Home = () => {
                 <SectionNavbar sectionsName={sectionsName} targetIndex={homeNavTargetIndex}/>
             </div>
             <div className="app-home__header__search">
-                这里是搜索栏
+                 <div className='app-left-show' onClick={handleLeftIsShowClick}>=</div>
             </div>
         </header>
         <main className='app-home__main'>
