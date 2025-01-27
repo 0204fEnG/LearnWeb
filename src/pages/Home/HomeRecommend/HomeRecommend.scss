@@ -1,12 +1,9 @@
 @use '/src/styles/display/flex.scss' as *;
 .home-recommend{
     @include flex(row ,wrap,null,null,flex-start,5px);
-    scroll-snap-align: center;
-    scroll-snap-stop: always;   
+ 
     width: 100%;
-    flex-shrink: 0;
     height: auto;
-    overflow-y: auto;
     padding: 5px;
     padding-top: calc(5px + 50px);
     background-color: var(--background-color);
@@ -24,11 +21,11 @@
 }
 @media (min-width:650px) and (max-width:999px){
     .home-recommend{
-        padding-top: calc(5px + 100px);
+        padding-top: calc(5px + 86px);
     }
 }
 @media (max-width:649px){
     .home-recommend{
-        padding-top: calc(5px + 100px);
+        padding-top: calc(5px + 86px);
     }
 }

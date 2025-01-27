@@ -47,6 +47,9 @@
     .app-home .app-home__header{
         flex-direction: column;
     }
+    .app-home .app-home__header .app-home__header__navs{
+        height: 36px;
+    }
     .app-home .app-home__header .app-left-show{
         display: block;
     }
@@ -72,6 +75,9 @@
     }
     .app-home .app-home__header{
         flex-direction: column;
+    }
+    .app-home .app-home__header .app-home__header__navs{
+        height: 36px;
     }
     .app-home .app-home__header .app-home__header__navs{
         order:2;
