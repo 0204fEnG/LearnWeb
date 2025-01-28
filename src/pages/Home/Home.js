@@ -4,7 +4,7 @@ import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
 import HomeConcern from './HomeConcern/HomeConcern'
 import HomeRecommend from './HomeRecommend/HomeRecommend'
-import {appLeftShow} from'../../App.js'
+import {useAppLeftShow} from'../../App.js'
 const Home = () => {
     const homeSections = [
         {
@@ -31,7 +31,7 @@ const Home = () => {
     const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
         setHomeSectionsScrollInstance(scrollInstanceIndex)
     }
-    const {handleLeftIsShowClick}=useContext(appLeftShow)
+    const {handleLeftIsShowClick}=useAppLeftShow()
     const sectionsName=homeSections.map((section)=>section.name)
     const sectionsFuc = homeSections.map((section) => section.component)
     return <div className="app-home">

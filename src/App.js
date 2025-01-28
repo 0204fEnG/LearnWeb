@@ -1,16 +1,15 @@
-import React,{ createContext, useEffect, useState } from 'react';
+import React,{ createContext, useEffect, useState ,useContext} from 'react';
 import './App.scss';
-import { Link, NavLink, Outlet } from 'react-router-dom';
-export const appLeftShow=createContext(null)
-const App=()=> {
-  const [theme, setTheme] = useState('light')
+import { useTheme } from './contexts/ThemeContexts';
+import {  NavLink, Outlet } from 'react-router-dom';
+export const appLeftShow=createContext()
+const App = () => {
+  const {theme,setTheme} = useTheme()
   const [leftIsShow, setLeftIsShow] = useState(false)
-
   const handleLeftIsShowClick = () => {
     //  event.preventDefault()
     setLeftIsShow(leftIsShow===true?false:true)
   }
-  document.body.className = `${theme}-theme`
 //   useEffect(() => {
 //     return () => {
 //       console.log("world")
@@ -32,7 +31,10 @@ const App=()=> {
               <NavLink className={({ isActive }) => ['app__left__navs__nav', isActive ? 'app__left__navs__nav--active' : ''].join(' ')} to="circles">圈子</NavLink>
               <NavLink className={({ isActive }) => ['app__left__navs__nav', isActive ? 'app__left__navs__nav--active' : ''].join(' ')} to="shorts">短视频</NavLink>
               <NavLink className={({ isActive }) => ['app__left__navs__nav', isActive ? 'app__left__navs__nav--active' : ''].join(' ')} to="mine">我的</NavLink>
-            </nav>
+          </nav>
+          <ul className='app__left__tools'>
+            <li className='app__left__tool' onClick={()=>setTheme(theme==='light'?'dark':'light')}>{ `切换${theme==='light'?'深色':'浅色'}模式`}</li>
+          </ul>
           </aside>
       <main className='app__right'>
         <Outlet/>
@@ -49,3 +51,4 @@ const App=()=> {
 }
 
 export default App
+export const useAppLeftShow=()=> useContext(appLeftShow)
