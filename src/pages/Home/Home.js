@@ -40,7 +40,7 @@ const Home = () => {
                 <SectionNavbar sectionsName={sectionsName} scrollInstance={homeSectionsScrollInstance } targetIndex={homeNavTargetIndex} onNavClick={ handleHomeNavTargetIndexChange} />
             </div>
             <div className="app-home__header__search">
-                 <div className='app-left-show' onClick={handleLeftIsShowClick}>=</div>
+                 <div className='app-left-show' onClick={handleLeftIsShowClick}>≡</div>
             </div>
         </header>
         <main className='app-home__main'>
