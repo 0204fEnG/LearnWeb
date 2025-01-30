@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Banner from '../../../components/Banner/Banner'
 import './HomeRecommend.scss'
+import { NavLink } from 'react-router-dom'
 // import PostCard from '../../../components/ContentCard/PostCard/PostCard.js'
 const HomeRecommend = () => {
     const videoUrl = '/videos/ban.mp4'
@@ -18,8 +19,8 @@ const HomeRecommend = () => {
                 <Banner bannerType={2} bannerData={imgUrl}/>
             </header>
             <main className="home-recommend__main">
-                1
-                {/* <PostCard/> */}
+                <NavLink to='/circles/circle/美食'>去美食圈子</NavLink>
+                <NavLink to='/circles/circle/科技'>去科技圈子</NavLink>
             </main>
         </div>
     )

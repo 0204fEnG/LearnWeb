@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home.js";
 import Circles from "../pages/Circles/Circles.js";
 import Shorts from "../pages/Shorts/Shorts.js";
 import Mine from "../pages/Mine/Mine.js";
+import Circle from "../pages/Circle/Circle.js";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         path: "circles",
         element:<Circles/>
       },
+        {
+    path: "/circles/circle/:circleName",
+    element:<Circle/>
+  },
       {
         path: "shorts",
         element:<Shorts/>
@@ -28,6 +33,6 @@ const router = createBrowserRouter([
       }
     ],
     errorElement:<ErrorPage/>
-  }
+  },
 ]);
 export default router

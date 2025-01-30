@@ -3,7 +3,14 @@
     @include flex(row ,wrap,null,null,flex-start,5px);
     width: 100%;
     height: auto;
-    padding: 55px 5px 5px 5px;
+    padding: 5px;
+    padding-top: calc(5px + 50px);
+    @media (min-width:650px) and (max-width:999px){
+        padding-top: calc(5px + 86px);
+}
+@media (max-width:649px){
+    padding-top: calc(5px + 86px);
+}
     background-color: var(--background-color);
     .home-concern__header{
         width: 100%;

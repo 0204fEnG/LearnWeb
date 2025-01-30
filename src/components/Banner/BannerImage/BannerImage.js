@@ -43,7 +43,7 @@ const BannerImage = ({ images }) => {
     }
     initScroll()
     imgDiv.current.addEventListener('scrollsnapchange', handleImagesScrollEnd)
-    window.addEventListener('resize',initScroll)
+    // window.addEventListener('resize',initScroll)
   },[])
   return (
     <div className="banner-image-container" style={{ backgroundImage: `url(${allImages[imageIndex]})` }} >

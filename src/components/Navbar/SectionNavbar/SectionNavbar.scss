@@ -24,10 +24,10 @@
         height: 100%;
         color: var(--text-color);
             transition: all 0.025s linear;
-        // &:hover{
-        //   color: var(--active-color);
-        //   background-color: var(--background-color--opa);
-        // }
+        &:hover{
+          color: var(--active-color);
+          background-color: var(--background-color--opa);
+        }
     }
     .section-navbar__nav--active{
     color: var(--active-color);
