@@ -7,9 +7,11 @@
     padding-top: calc(5px + 50px);
     @media (min-width:650px) and (max-width:999px){
         padding-top: calc(5px + 72px);
+        padding-bottom: calc(5px + 48px);
 }
 @media (max-width:649px){
     padding-top: calc(5px + 72px);
+    padding-bottom: calc(5px + 48px);
 }
     background-color: var(--background-color);
     .home-recommend__header{
@@ -18,8 +20,7 @@
         background-color: var(--primary-color);
     }
     .home-recommend__main{
-        @include flex(row,nowrap,null,null,flex-start,5px);
         width: 100%;
-        hei
+        height: auto;
     }
 }

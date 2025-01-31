@@ -1,0 +1,23 @@
+@use '/src/styles/display/flex.scss'as *;
+.layout-container{
+        @include flex(row,nowrap,null,flex-start,null,5px);
+        width: 100%;
+        height: auto;
+        .column-item{
+            @include flex(row,wrap,null,null,null,5px);
+            flex:1 1 300px;
+            height: auto;
+            .row-item{
+                color: var(--text-color);
+                flex:1 1 100%;
+                height: auto;
+                background-color: var(--primary-color);
+                @include flex(row,wrap,null,null,null,null);
+                .row-img{
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                }
+            }
+        }
+}
