@@ -49,28 +49,22 @@ const App = () => {
   },
 ]
   const handleLeftIsShowClick = () => {
-    //  event.preventDefault()
     setLeftIsShow(leftIsShow===true?false:true)
   }
-//   useEffect(() => {
-//     return () => {
-//       console.log("world")
-//     }
-//   }, [])
-//   useEffect(() => { document.body.className = `${theme}-theme` }, [theme])
-  // const toggleTheme = (newTheme) => {
-  //   setTheme(newTheme)
-  // }
-   const location = useLocation();
-  // const navigationType=useNavigationType();
-  // useEffect(() => {
-  //   console.log(navigationType)
-  // },[navigationType])
+  const location = useLocation();
+  useEffect(() => {
+    if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
+      setBottomIsClose(false)
+    }
+    else {
+      setBottomIsClose(true)
+    }
+}, [location.pathname]);
   const currentOutlet = useOutlet()
   const { nodeRef } =
     routes.find((route) => route.path === location.pathname) ?? {}
   return (
-    <appContext.Provider value={{handleLeftIsShowClick ,setBottomIsClose}}>
+    <appContext.Provider value={{handleLeftIsShowClick}}>
     <div className={['app', leftIsShow ? 'left-open' : ''].join(' ')}>
         <div className='app__left-mask' onClick={handleLeftIsShowClick}></div>
           <aside className="app__left__container">
@@ -88,11 +82,11 @@ const App = () => {
           </aside>
       <main className='app__right'>
           {/* <Outlet/> */}
-           <SwitchTransition mode='in-out'>
+           <SwitchTransition mode='out-in'>
            <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
-              timeout={500}
+              timeout={125}
             classNames='page'
             unmountOnExit
           >

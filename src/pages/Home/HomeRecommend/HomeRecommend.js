@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Banner from '../../../components/Banner/Banner'
 import './HomeRecommend.scss'
 import { NavLink } from 'react-router-dom'
-// import PostCard from '../../../components/ContentCard/PostCard/PostCard.js'
+import SingleLineDisplayBar from'../../../components/HorizontalDisplayBar/SingleLineDisplayBar/SingleLineDisplayBar.js'
 const HomeRecommend = () => {
     const videoUrl = '/videos/ban.mp4'
     const imgUrl = [
@@ -13,14 +13,41 @@ const HomeRecommend = () => {
 "/images/header/banner/诗野千里.jpg",
 "/images/header/banner/星蕴金.jpg",
     ]
+    const displayItems = [
+        {
+            name:'a'
+        },
+        {
+            name:'b'
+        },
+        {
+            name:'c'
+        },
+        {
+            name:'d'
+        },
+        {
+            name:'e'
+        },
+        {
+            name:'f'
+        },
+        {
+            name:'g'
+        },
+        {
+            name:'h'
+        }
+    ]
+    const [columns, setColumns] = useState([]);
     return (
         <div className="home-recommend">
             <header className="home-recommend__header">
-                <Banner bannerType={2} bannerData={imgUrl}/>
+                <Banner bannerType={2} bannerData={imgUrl} />
+                <SingleLineDisplayBar displayItems={displayItems } />
             </header>
             <main className="home-recommend__main">
-                <NavLink to='/circles/circle/美食'>去美食圈子</NavLink>
-                <NavLink to='/circles/circle/科技'>去科技圈子</NavLink>
+                
             </main>
         </div>
     )

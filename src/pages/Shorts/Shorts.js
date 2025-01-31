@@ -2,10 +2,7 @@ import { useEffect } from 'react'
 import './Shorts.scss'
 import { useAppContext } from '../../App'
 const Shorts = () => {
-    useEffect(() => {
-        setBottomIsClose(false)
-    }, [])
-    const {handleLeftIsShowClick,setBottomIsClose}=useAppContext()
+    const {handleLeftIsShowClick}=useAppContext()
     return <div className="app-shorts">
         <header className='app-shorts__header'>
             shorts

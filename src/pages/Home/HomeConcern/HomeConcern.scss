@@ -6,10 +6,10 @@
     padding: 5px;
     padding-top: calc(5px + 50px);
     @media (min-width:650px) and (max-width:999px){
-        padding-top: calc(5px + 86px);
+        padding-top: calc(5px + 72px);
 }
 @media (max-width:649px){
-    padding-top: calc(5px + 86px);
+    padding-top: calc(5px + 72px);
 }
     background-color: var(--background-color);
     .home-concern__header{

@@ -1,0 +1,33 @@
+@use '/src/styles/display/flex.scss'as *;
+.display-container{
+    width: 100%;
+    height: 80px;
+    background-color: var(--primary-color);
+    .display-items{
+    @include flex(row,nowrap,space-around,center,null,null);
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    .display-item{
+        flex:0 0 45px;
+        height: 45px;
+        margin: 10px;
+        font-size: 15px;
+        color: var(--text-color);
+        border-radius: 22.5px;
+        line-height: 45px;
+        text-align: center;
+        background-color:var(--background-color--deep1);
+    }
+}
+// .indicator-container{
+//     width: 100%;
+//     height: 20px;
+//     @include flex(row,nowrap,center,center,null,5px);
+//     .indicator{
+//         flex:0 0 20px;
+//         height: 5px;
+//         background-color: var(--background-color--opa);
+//     }
+// }
+}

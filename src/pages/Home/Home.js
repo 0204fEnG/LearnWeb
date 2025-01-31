@@ -5,11 +5,9 @@ import './Home.scss'
 import HomeConcern from './HomeConcern/HomeConcern'
 import HomeRecommend from './HomeRecommend/HomeRecommend'
 import {useAppContext} from'../../App.js'
+import Searchbar from '../../components/Searchbar/Searchbar.js'
 const Home = () => {
-    useEffect(() => {
-        setBottomIsClose(false)
-    }, [])
-    const {handleLeftIsShowClick,setBottomIsClose}=useAppContext()
+    const {handleLeftIsShowClick}=useAppContext()
     const homeSections = [
         {
             name: '推荐',
@@ -42,8 +40,9 @@ const Home = () => {
             <div className="app-home__header__navs">
                 <SectionNavbar sectionsName={sectionsName} scrollInstance={homeSectionsScrollInstance } targetIndex={homeNavTargetIndex} onNavClick={ handleHomeNavTargetIndexChange} />
             </div>
-            <div className="app-home__header__search">
-                 <div className='app-left-show' onClick={handleLeftIsShowClick}>≡</div>
+            <div className="app-home__header__tools">
+                <div className='app-left-show' onClick={handleLeftIsShowClick}>≡</div>
+                <Searchbar/>
             </div>
         </header>
         <main className='app-home__main'>

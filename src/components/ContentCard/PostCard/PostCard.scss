@@ -1,17 +1,15 @@
 .post-card{
     flex:1 1 300px;
-    aspect-ratio: 1;
+    height: auto;
     background-color: var(--primary-color);
 }
 @media (min-width:650px) and (max-width:999px){
     .post-card{
         flex:1 1 250px;
-        aspect-ratio: 1;
     }
 }
 @media (max-width:649px){
     .post-card{
         flex:1 1 300px;
-        aspect-ratio: 1;
     }
 }
