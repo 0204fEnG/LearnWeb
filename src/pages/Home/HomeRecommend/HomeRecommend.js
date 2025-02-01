@@ -3,6 +3,7 @@ import Banner from '../../../components/Banner/Banner'
 import './HomeRecommend.scss'
 import SingleLineDisplayBar from'../../../components/HorizontalDisplayBar/SingleLineDisplayBar/SingleLineDisplayBar.js'
 import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer.js'
+import Loading from '../../../components/Loading/Loading.js'
 const HomeRecommend = () => {
     const videoUrl = '/videos/ban.mp4'
     const imgUrl = [

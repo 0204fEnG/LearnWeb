@@ -6,6 +6,7 @@
     overflow-x: auto;
     background-color: var(--background-color);
     scroll-snap-type: x mandatory;
+    scroll-behavior:smooth;
     @media (min-width:1000px){
         overflow-x: hidden;
     }
@@ -18,7 +19,7 @@
     height: 100%;
     overflow-y: auto;
     // scrollbar-gutter: stable;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     scroll-snap-stop: always; 
     &::-webkit-scrollbar{
         width: 10px;
@@ -30,9 +31,6 @@
     &::-webkit-scrollbar-track{
         background-color: var(--background-color);
     } 
-    }
-    .section--noActive{
-        background-color: aqua;
     }
 }
 @media (max-width:1499px) {

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import './Banner.scss'
 import PropTypes from 'prop-types'; 
+import Loading from '../Loading/Loading.js';
 const BannerVideo = lazy(() => import('./BannerVideo/BannerVideo.js'))
 const BannerText = lazy(() => import('./BannerText/BannerText.js'))
 const BannerImage=lazy(()=>import('./BannerImage/BannerImage.js'))
@@ -24,7 +25,7 @@ const Banner = ({ bannerType, bannerData}) => {
   return (
     <div className="banner">
       <Suspense fallback={
-        <div>Loading---------</div>
+        <Loading/>
       }>
         <BannerContent videoUrl={bannerData} text={bannerData} images={bannerData} />
       </Suspense>

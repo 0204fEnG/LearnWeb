@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 import './SectionCardContainer.scss'
+import Loading from '../../Loading/Loading'
 const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionSure,targetIndex,onSectionScroll}) => {
     const sections = sectionsFunc.map((sectionfunc, index) =>(
-        <div className={['section',sectionsIsActive[index]===false?'section--noActive':''].join(' ')} key={index}>{sectionsIsActive[index]===true?sectionfunc():''}</div>
+        <div className='section' key={index}>{sectionsIsActive[index]===true?sectionfunc():<Loading/>}</div>
         ))
     const divRef=useRef(null)
     useEffect(() => {
