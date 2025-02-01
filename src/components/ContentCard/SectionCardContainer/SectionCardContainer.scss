@@ -6,6 +6,9 @@
     overflow-x: auto;
     background-color: var(--background-color);
     scroll-snap-type: x mandatory;
+    @media (min-width:1000px){
+        overflow-x: hidden;
+    }
     &::-webkit-scrollbar{
         display: none;
     }

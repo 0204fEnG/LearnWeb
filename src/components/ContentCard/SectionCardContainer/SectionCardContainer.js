@@ -30,6 +30,12 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionSure,targe
         }
         divRef.current.addEventListener('scrollsnapchange',sectionScrollEnd)
         divRef.current.addEventListener('scroll', sectionScrollChange)
+        return () => {
+            if (divRef.current) {
+                divRef.current.removeEventListener('scrollsnapchange', sectionScrollEnd)
+                divRef.current.removeEventListener('scroll', sectionScrollChange)
+            }
+        }
     },[])
     return (
         <div className="section-card-container" ref={divRef}>
