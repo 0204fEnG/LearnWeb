@@ -17,7 +17,7 @@ const LayoutContainer = ({ items }) => {
             }
         }
     }
-    const containerRef = useRef()
+    const containerRef = useRef(null)
     useEffect(() => {
         const handleResizeColumnChange = () => {
             const currentContainerWidth = containerRef.current.offsetWidth
@@ -29,6 +29,9 @@ const LayoutContainer = ({ items }) => {
         }
         handleResizeColumnChange()
         window.addEventListener('resize', handleResizeColumnChange)
+        return () => {
+            window.removeEventListener('resize',handleResizeColumnChange)
+        }
     }, [])
     return (<div className="layout-container" ref={containerRef}>
         {

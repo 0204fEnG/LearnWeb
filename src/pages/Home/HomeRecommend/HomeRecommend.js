@@ -13,32 +13,6 @@ const HomeRecommend = () => {
 "/images/header/banner/诗野千里.jpg",
 "/images/header/banner/星蕴金.jpg",
     ]
-    const displayItems = [
-        {
-            name:'a'
-        },
-        {
-            name:'b'
-        },
-        {
-            name:'c'
-        },
-        {
-            name:'d'
-        },
-        {
-            name:'e'
-        },
-        {
-            name:'f'
-        },
-        {
-            name:'g'
-        },
-        {
-            name:'h'
-        }
-    ]
     const items = [
         {
             id: 1,
@@ -87,7 +61,32 @@ const HomeRecommend = () => {
            src:'/images/header/banner/1 (9).jpeg'
         }
     ]
-   
+           const displayItems = [
+        {
+            name:'a'
+        },
+        {
+            name:'b'
+        },
+        {
+            name:'c'
+        },
+        {
+            name:'d'
+        },
+        {
+            name:'e'
+        },
+        {
+            name:'f'
+        },
+        {
+            name:'g'
+        },
+        {
+            name:'h'
+        }
+    ]
     return (
         <div className="home-recommend">
             <header className="home-recommend__header">

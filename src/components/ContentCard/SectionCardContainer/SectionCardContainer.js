@@ -25,15 +25,11 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionSure,targe
         const sectionScrollChange = () => {
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
-            const currentIndex = SectionCardContainerScrollLeft / SectionCardContainerWidth
-            onSectionScroll(currentIndex)
+            const currentSrollPercent = SectionCardContainerScrollLeft / SectionCardContainerWidth
+            onSectionScroll(currentSrollPercent)
         }
         divRef.current.addEventListener('scrollsnapchange',sectionScrollEnd)
         divRef.current.addEventListener('scroll', sectionScrollChange)
-        // return () => {
-        // // divRef.current.removeEventListener('scrollsnapchange',sectionScrollEnd)
-        // // divRef.current.removeEventListener('scroll', sectionScrollChange)
-        // }
     },[])
     return (
         <div className="section-card-container" ref={divRef}>
