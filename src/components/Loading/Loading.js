@@ -1,7 +1,7 @@
 import './Loading.scss'
 const Loading = () => {
     return (
-      <div class="loading three-balls-bounce">
+      <div class="three-balls-bounce">
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>

@@ -14,8 +14,7 @@
         display: none;
     }
     .section{
-    flex-shrink: 0;
-    width: 100%;
+    flex:0 0 100%;
     height: 100%;
     overflow-y: auto;
     // scrollbar-gutter: stable;

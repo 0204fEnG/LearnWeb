@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import {useState } from 'react'
 import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
 import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'

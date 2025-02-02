@@ -3,8 +3,8 @@
 .app{
   @include flex(row,wrap,null,null,flex-start,null);
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   .app__left-mask{
     position: absolute;
     z-index: 2;
@@ -102,13 +102,13 @@
     height: 100%;
     // padding-left: 200px;
     margin-left: 200px;
-    transition: all 0.5s linear;
+    // transition: all 0.5s linear;
   }
   .app__bottom__navs{
     position: absolute;
     z-index: 1;
-    transition: all 0.125s linear;
     transform: translateY(100%);
+    transition: all 0.25s linear;
     bottom: 0;
     backdrop-filter: blur(20px);
     box-shadow: 0 0px 10px var(--shadow-color);
@@ -139,6 +139,7 @@
         border-bottom: 2px solid var(--active-color);
       }
   }
+
 }
   @keyframes leftEnter{
     to{
@@ -213,9 +214,6 @@
   .app .app__bottom__navs{
     transform: translateY(0);
   }
-  .app .app__bottom__navs{
-    transform: translateY(0);
-  }
     .app .bottom-close.app__bottom__navs{
     transform: translateY(100%);
   }
@@ -246,7 +244,7 @@
   .app .app__bottom__navs{
     transform: translateY(0);
   }
-      .app .bottom-close.app__bottom__navs{
+  .app .bottom-close.app__bottom__navs{
     transform: translateY(100%);
   }
 }

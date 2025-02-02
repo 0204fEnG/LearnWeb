@@ -1,7 +1,7 @@
 import React,{ createContext, useState ,useContext,createRef, useEffect} from 'react';
 import './App.scss';
 import { useTheme } from './contexts/ThemeContexts';
-import { NavLink, Link,  useLocation,useOutlet} from 'react-router-dom';
+import { NavLink,   useLocation,useOutlet} from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import ErrorPage from "./pages/ErrorPage/ErrorPage.js";
 import Home from "./pages/Home/Home.js";
@@ -13,7 +13,7 @@ export const appContext=createContext()
 const App = () => {
   const { theme, setTheme } = useTheme()
   const [leftIsShow, setLeftIsShow] = useState(false)
-  const [bottomIsClose, setBottomIsClose] = useState(false)
+  const [bottomIsShow, setBottomIsShow] = useState(false)
   const routes = [
   {
     path: "/",
@@ -54,17 +54,17 @@ const App = () => {
   const location = useLocation();
   useEffect(() => {
     if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
-      setBottomIsClose(false)
+      setBottomIsShow(true)
     }
     else {
-      setBottomIsClose(true)
+      setBottomIsShow(false)
     }
 }, [location.pathname]);
   const currentOutlet = useOutlet()
   const { nodeRef } =
     routes.find((route) => route.path === location.pathname) ?? {}
   return (
-    <appContext.Provider value={{handleLeftIsShowClick}}>
+    <appContext.Provider value={{ handleLeftIsShowClick, setBottomIsShow }}>
     <div className={['app', leftIsShow ? 'left-open' : ''].join(' ')}>
         <div className='app__left-mask' onClick={handleLeftIsShowClick}></div>
           <aside className="app__left__container">
@@ -77,7 +77,7 @@ const App = () => {
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
           </nav>
           <ul className='app__left__tools'>
-            <li className='app__left__tool' onClick={()=>setTheme(theme==='light'?'dark':'light')}>{ `切换${theme==='light'?'深色':'浅色'}模式`}</li>
+            <li className='app__left__tool' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{`切换${theme === 'light' ? '深色' : '浅色'}模式`}</li>
           </ul>
           </aside>
       <main className='app__right'>
@@ -97,13 +97,13 @@ const App = () => {
             )}
           </CSSTransition>
         </SwitchTransition>
-      </main>
-        <nav className={['app__bottom__navs',bottomIsClose?'bottom-close':''].join(' ')}>
+        </main>
+          <nav className={['app__bottom__navs',!bottomIsShow?'bottom-close':''].join(' ')}>
              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="/">首页</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="circles">圈子</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="shorts">短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
-        </nav>
+          </nav>
       </div>
       </appContext.Provider>
   );

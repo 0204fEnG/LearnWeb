@@ -1,7 +1,7 @@
 .three-balls-bounce{ 
-     position: relative;
-  width: 100px;
-  height: 62px;
+position: relative;
+  width: 120px;
+  height: 66px;
   margin: 100px auto;
 .circle {
   width: 20px;
@@ -13,11 +13,11 @@
   transform-origin: 50%;
   animation: balls-circle 0.5s alternate-reverse infinite ease;
   &:nth-child(2){
-      left: 45%;
+    left: calc(50% - 10px);
   animation-delay: 0.2s;
   }
   &:nth-child(3){
-      left: auto;
+  left:auto;
   right: 15%;
   animation-delay: 0.3s;
   }
@@ -26,16 +26,16 @@
   width: 20px;
   height: 4px;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 62px;
   transform-origin: 50%;
-  z-index: -1;
+  z-index: 1;
   left: 15%;
   filter: blur(1px);
   animation: balls-shadow 0.5s alternate-reverse infinite ease;
   &:nth-child(4){
-      left: 45%;
+      left: calc(50% - 10px);
   animation-delay: 0.2s;
   }
   &:nth-child(5){
@@ -52,7 +52,7 @@
     top: 60px;
     height: 5px;
     border-radius: 50px 50px 25px 25px;
-    transform: scaleX(1.7);
+    transform: scaleX(1.1);
   }
   40% {
     height: 20px;
@@ -65,7 +65,7 @@
 }
 @keyframes balls-shadow {
   0% {
-    transform: scaleX(1.5);
+    transform: scaleX(1.2);
   }
   40% {
     transform: scaleX(1);
