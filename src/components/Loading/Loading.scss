@@ -1,12 +1,18 @@
+@use'/src/styles/display/flex.scss'as *;
+.loading-container{
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  @include flex(row,nowrap,center,center,null,null);
 .three-balls-bounce{ 
 position: relative;
-  width: 120px;
-  height: 66px;
-  margin: 100px auto;
+flex:0 1 150px;
+height: 60px;
 .circle {
   width: 20px;
   height: 20px;
   position: absolute;
+  z-index: 1;
   border-radius: 50%;
   background-color: var(--active-color);
   left: 15%;
@@ -24,13 +30,13 @@ position: relative;
 }
   .shadow {
   width: 20px;
-  height: 4px;
+  height: 6px;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-color--opa);
   position: absolute;
-  top: 62px;
+  top: calc(100% - 4px);
   transform-origin: 50%;
-  z-index: 1;
+  z-index: 0;
   left: 15%;
   filter: blur(1px);
   animation: balls-shadow 0.5s alternate-reverse infinite ease;
@@ -45,13 +51,14 @@ position: relative;
   }
 }
   }
+}
 /* three-ball-bounce loading START */
 
 @keyframes balls-circle {
   0% {
-    top: 60px;
-    height: 5px;
-    border-radius: 50px 50px 25px 25px;
+    top:calc(100% - 15px);
+    height: 15px;
+    border-radius: 50%;
     transform: scaleX(1.1);
   }
   40% {
@@ -65,7 +72,7 @@ position: relative;
 }
 @keyframes balls-shadow {
   0% {
-    transform: scaleX(1.2);
+    transform: scaleX(1.1);
   }
   40% {
     transform: scaleX(1);

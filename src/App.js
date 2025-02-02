@@ -13,7 +13,7 @@ export const appContext=createContext()
 const App = () => {
   const { theme, setTheme } = useTheme()
   const [leftIsShow, setLeftIsShow] = useState(false)
-  const [bottomIsShow, setBottomIsShow] = useState(false)
+  const [bottomIsShow, setBottomIsShow] = useState(true)
   const routes = [
   {
     path: "/",
