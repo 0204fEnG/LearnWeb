@@ -6,7 +6,7 @@
   width: 100vw;
   height: 100vh;
   .app__left-mask{
-    position: absolute;
+    position: fixed;
     z-index: 2;
     display: none;
     width: 100%;
@@ -15,7 +15,7 @@
   }
     .app__left__container{
     @include flex(row,wrap,null,null,flex-start,5px);
-    position: absolute;
+    position: fixed;
     left:0;
     z-index: 2;
     width: 200px;
@@ -105,10 +105,10 @@
     // transition: all 0.5s linear;
   }
   .app__bottom__navs{
-    position: absolute;
+    position: fixed;
     z-index: 1;
     transform: translateY(100%);
-    transition: all 0.25s linear;
+    transition: all 0.2s linear;
     bottom: 0;
     backdrop-filter: blur(20px);
     box-shadow: 0 0px 10px var(--shadow-color);

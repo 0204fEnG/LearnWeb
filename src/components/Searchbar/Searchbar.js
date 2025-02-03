@@ -23,6 +23,13 @@ const iosKeybordShow=function () {
   }
       // IOS 键盘弹起后操作
     }
+  const iosKeybordHidden = () => {
+  setBottomIsShow(true)
+  if (inputRef) {
+    inputRef.current.value = 'IOS 键盘收起啦！'
+  }
+      // IOS 键盘收起后操作
+}
 const androidKeybordShow=function () {
   setBottomIsShow(false)
   if (inputRef) {
@@ -30,40 +37,41 @@ const androidKeybordShow=function () {
   }
       // IOS 键盘弹起后操作
 }
-const iosKeybordHidden=() => {
+const androidKeybordHidden=function () {
   setBottomIsShow(true)
   if (inputRef) {
-    inputRef.current.value = 'IOS 键盘收起啦！'
+    inputRef.current.value = 'Android 键盘收起啦！'
   }
-      // IOS 键盘收起后操作
+      // IOS 键盘弹起后操作
 }
-    const handleAndroidKeybordResize = function () {
-      let timer = null
-      var originHeight = document.documentElement.clientHeight || document.body.clientHeight;
-      return () => {
-        if (timer) {
-          clearTimeout(timer)
-        }
-        timer = setTimeout(() => {
-          var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
-          if (originHeight < resizeHeight) {
-            setBottomIsShow(true)
-            if (inputRef) {
-              inputRef.current.value = 'Android 键盘收起啦！'
-            }
-            // Android 键盘收起后操作
-          }
-          else {
-            setBottomIsShow(false)
-            if (inputRef) {
-              inputRef.current.value = 'Android 键盘弹起啦！'
-            }
-          }
-          originHeight = resizeHeight;
-        }
-          , 100)
-      }
-    }()
+
+    // const handleAndroidKeybordResize = function () {
+    //   let timer = null
+    //   var originHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //   return () => {
+    //     if (timer) {
+    //       clearTimeout(timer)
+    //     }
+    //     timer = setTimeout(() => {
+    //       var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //       if (originHeight < resizeHeight) {
+    //         setBottomIsShow(true)
+    //         if (inputRef) {
+    //           inputRef.current.value = 'Android 键盘收起啦！'
+    //         }
+    //         // Android 键盘收起后操作
+    //       }
+    //       else {
+    //         setBottomIsShow(false)
+    //         if (inputRef) {
+    //           inputRef.current.value = 'Android 键盘弹起啦！'
+    //         }
+    //       }
+    //       originHeight = resizeHeight;
+    //     }
+    //       , 100)
+    //   }
+    // }()
 // 监听输入框的软键盘弹起和收起事件
 function listenKeybord() {
   if (judgeDeviceType.isIOS) {
@@ -77,8 +85,9 @@ function listenKeybord() {
   // Andriod 键盘收起：Andriod 键盘弹起或收起页面高度会发生变化，以此为依据获知键盘收起
   if (judgeDeviceType.isAndroid) {
     if (inputRef.current) {
-      // inputRef.current.addEventListener('focus',androidKeybordShow,false)
-      window.addEventListener('resize', handleAndroidKeybordResize, false)
+      inputRef.current.addEventListener('focus',androidKeybordShow,false)
+      inputRef.current.addEventListener('blur',androidKeybordHidden,false)
+      // window.addEventListener('resize', handleAndroidKeybordResize, false)
     }
   }
 }
@@ -87,8 +96,9 @@ function listenKeybord() {
       if (inputRef.current) {
         inputRef.current.removeEventListener('focus', iosKeybordShow, false)
         inputRef.current.removeEventListener('blur', iosKeybordHidden, false)
-        window.removeEventListener('resize', handleAndroidKeybordResize, false)
-        // inputRef.current.removeEventListener('focus',androidKeybordShow,false)
+        // window.removeEventListener('resize', handleAndroidKeybordResize, false)
+        inputRef.current.removeEventListener('focus', androidKeybordShow, false)
+        inputRef.current.removeEventListener('blur',androidKeybordHidden,false)
       }
     }
 },[])
