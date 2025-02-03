@@ -54,9 +54,9 @@ const renderContentWithTags = (postItem) => {
         </div>
         <div className="post-title">{postItem.title}</div>
         <div className="post-content">{renderContentWithTags(postItem)}</div>
-        <div className={['post-img', postItem.imgs.length === 1 ? 'first' : ''].join(' ')}>
+        <div className='post-img'>
             {postItem.imgs.map((img,index)=>
-                <div className={['img', postItem.imgs.length === 1 ? 'first' : ''].join(' ')} key={ index}></div>)
+                <img className='img' key={index} src={img}/>)
             }
         </div>
         <div className="post-circle" onClick={() => handleTagClick(`/circles/circle/${postItem.circle.name}`)}>

@@ -14,6 +14,7 @@
             height: 40px;
             border-radius: 50%;
             object-fit: contain;
+            cursor: pointer;
         }
         .user-info{
             flex:0 0 fit-content;
@@ -54,14 +55,10 @@
         @include flex(row, wrap, null, null, null, 3px);
         .img {
             flex: 1 1 30%;
+            cursor: pointer;
+            max-width: calc(100%/3 - 2px);
             aspect-ratio: 1;
-            object-fit: contain;
-            &.first {
-                flex: 1 1 100%;
-            }
-        }
-        &.first {
-            width: 50%;
+            object-fit: cover;            
         }
     }
     .post-circle{
@@ -97,42 +94,29 @@
         .comment-container{
             width: 100%;
             height: auto;
+            cursor: pointer;
             padding: 3px;
             line-height: 25px;
             .name{
                 color: var(--active-color);
+                cursor: pointer;
             }
         }
     }
     .post-interactive-data{
         width: 100%;
-        height: 20px;
-        background-color: darkcyan;
+        height: 25px;
         @include flex(row,nowrap,null,null,null,null);
         .interactive-data{
+            cursor: pointer;
             flex:1 1 calc(100%/3);
-            height: 20px;
+            height: 25px;
             text-align: center;
-            line-height: 20px;
-            background-color: aquamarine;
+            line-height: 25px;
+            cursor: pointer;
+            &:hover{
+                background-color: var(--background-color--opa);
+            }
         }
-        // .like{
-        //     flex:1 1 calc(100%/3);
-        //     height: 15px;
-        //     text-align: center;
-        //     line-height: 15px;
-        // }
-        // .reply{
-        //     flex:1 1 calc(100%/3);
-        //     height: 15px;
-        //     text-align: center;
-        //     line-height: 15px;
-        // }
-        // .retweet{
-        //     flex:1 1 calc(100%/3);
-        //     height: 15px;
-        //     text-align: center;
-        //     line-height: 15px;
-        // }
     } 
 }
