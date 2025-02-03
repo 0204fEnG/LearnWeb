@@ -10,7 +10,6 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,tar
     // const [text2, setText2] = useState('false')
     useEffect(() => {
         const targetIndexChange = () => {
-            console.log(targetIndex)
             if (targetIndex.isScroll) {
                 const SectionCardContainerWidth = divRef.current.offsetWidth
                 divRef.current.scrollTo({
