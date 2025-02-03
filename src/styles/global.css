@@ -2,7 +2,7 @@ html{
     font-size: 16px;
     overflow: hidden;
 }
-@media (min-width:650px)and(max-width:999px) {
+@media (min-width:650px) and (max-width:999px) {
     html{
         font-size: 15px;
     }

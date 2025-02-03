@@ -1,121 +1,111 @@
 @use '/src/styles/display/flex.scss'as *;
 .post-card{
     color: var(--text-color);
-    font-size: 1rem;
-    flex:1 1 100%;
     padding: 5px;
     height: auto;
     background-color: var(--primary-color);
-    @include flex(row,wrap,null,null,null,5px);
     .post-header{
-        flex:1 1 100%;
-        height: 20px;
-        background-color: rgb(153, 208, 208);
+        width: fit-content;
+        height: 40px;
+        margin-bottom: 5px;
         @include flex(row ,nowrap,null,null,null,5px);
         .user-avator{
-            flex: 0 0 20px;
-            height: 20px;
+            flex: 0 0 40px;
+            height: 40px;
+            border-radius: 50%;
             object-fit: contain;
-            background-color: burlywood;
         }
         .user-info{
-            flex:0 0 auto;
-            height: 20px;
-            background-color: aquamarine;
-            @include flex(row,wrap,null,null,null,null);
+            flex:0 0 fit-content;
+            height: 40px;
         .user-name{
-            flex:0 0 auto;
-            height: 10px;
-            background-color: chartreuse;
+            width: fit-content;
+            height: 20px;
+            line-height: 20px;
         }
         .publish-time{
-            flex:0 0 auto;
+            width: fit-content;
+            color: var(--text-color--light);
             font-size: 0.8rem;
-            height: 10px;
-            background-color: blueviolet;
+            height: 20px;
+            line-height: 20px;
         }
         }
     }
     .post-title{
-        flex:0 0 auto;
+        width: fit-content;
+        margin-bottom: 5px;
         font-size: 1.2rem;
         font-weight: bold;
     }
     .post-content{
-        flex:1 1 100%;
+        width: 100%;
+        margin-bottom: 5px;
         height: auto;
-        background-color: turquoise;
-        color: var(--text-color--light);
         .tag{
             color: var(--active-color);
             cursor: pointer;
         }
     }
-    .post-img{
-        flex:1 1 100%;
+   .post-img {
+        width: 100%;
         height: auto;
-        @include flex(row,wrap,null,null,null,2px);
-        .img{
-            flex:1 1 calc(100%/3);
+        margin-bottom: 5px;
+        @include flex(row, wrap, null, null, null, 3px);
+        .img {
+            flex: 1 1 30%;
             aspect-ratio: 1;
             object-fit: contain;
-            &.first{
+            &.first {
                 flex: 1 1 100%;
             }
         }
-        &.first{
-            flex: 0 0 calc(100%/3);
-            aspect-ratio: 1;
+        &.first {
+            width: 50%;
         }
     }
     .post-circle{
-        flex:0 0 auto;
-        height: 13px;
-        padding: 1.5px;
+        width: fit-content;
+        height: 25px;
+        margin-bottom: 5px;
+        padding: 2.5px;
+        cursor: pointer;
+        background-color: var(--background-color--opa);
         @include flex(row,nowrap,null,null,null,1.5px);
-        background-color: blueviolet;
         .circle-avator{
-            flex:0 0 10px;
-            height: 10px;
-            background-color: chocolate;
+            flex:0 0 20px;
+            height: 20px;
         }
         .circle-name{
-            flex:0 0 auto;
-            height: 10px;
-            background-color: cornflowerblue;
+            flex:0 0 fit-content;
+            height: 20px;
+            line-height: 20px;
         }
     }
     .popular-comment{
-        flex:1 1 100%;
-        height: 20px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 5px;
+        background-color: var(--background-color--opa);
         .like{
-            width: 30px;
-            height: 10px;
-            background-color: aquamarine;
+            width: fit-content;
+            height: 20px;
+            line-height: 20px;
+            color: white;
+            background-color: var(--active-color);
         }
         .comment-container{
             width: 100%;
-            height: 10px;
-            padding: 2px;
-            background-color: bisque;
-            @include flex(row,nowrap,null,null,null,null);
+            height: auto;
+            padding: 3px;
+            line-height: 25px;
             .name{
-                flex:1 1 10px;
-                height: 8px;
                 color: var(--active-color);
-                &::after{
-                    content:'楼主:'
-                }
-            }
-            .comment{
-                flex:1 1 10px;
-                height: 8px;
-                background-color: darkmagenta;
             }
         }
     }
     .post-interactive-data{
-        flex:1 1 100%;
+        width: 100%;
         height: 20px;
         background-color: darkcyan;
         @include flex(row,nowrap,null,null,null,null);

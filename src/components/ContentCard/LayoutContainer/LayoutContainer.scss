@@ -8,16 +8,9 @@
             flex:1 1 300px;
             height: auto;
             .row-item{
-                color: var(--text-color);
                 flex:1 1 100%;
                 height: auto;
                 background-color: var(--primary-color);
-                @include flex(row,wrap,null,null,null,null);
-                .row-img{
-                    width: 100%;
-                    height: auto;
-                    object-fit: contain;
-                }
             }
         }
 }

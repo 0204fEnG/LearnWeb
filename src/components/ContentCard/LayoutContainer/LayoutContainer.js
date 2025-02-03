@@ -1,5 +1,6 @@
 import{useState,useEffect,useRef}from 'react'
 import './LayoutContainer.scss'
+import PostCard from '../PostCard/PostCard'
 const LayoutContainer = ({ items }) => {
     const [columns, setColumns] = useState(0);
     const [columnItems, setColumnItems] = useState([]);
@@ -16,7 +17,7 @@ const LayoutContainer = ({ items }) => {
                 setColumns(newColumn)
             }
                 else {
-                    const newColumn = Math.floor(currentContainerWidth / 390)
+                    const newColumn = Math.floor(currentContainerWidth / 400)
                 setColumns(newColumn)
             }
         }
@@ -39,15 +40,9 @@ const LayoutContainer = ({ items }) => {
         {
             columns > 0 && columnItems&& columnItems.map((columnItem, index) => (
                     <div className="column-item" key={index}>
-                        {
-                            columnItem.map((rowItem) => (
-                                <div className="row-item" key={rowItem.id}>
-                                    {
-                                        rowItem.name
-                                    }
-                                    <img src={rowItem.src} alt="no" className="row-img" />
-                                </div>
-                            ))
+                    {
+                        
+                            columnItem.map((rowItem) => <div className="row-item"><PostCard postItem={rowItem}/></div>)
                         }
                     </div>
             ))

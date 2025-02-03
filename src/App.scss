@@ -22,7 +22,7 @@
     height: 100%;
     overflow: auto;
     padding: 5px;
-    transition: all 0.2s linear;
+    transition: transform 0.2s linear,background-color 0.5s ease;
     background-color: var(--background-color);
     .app__left-close{
       cursor: pointer;
@@ -108,7 +108,7 @@
     position: fixed;
     z-index: 1;
     transform: translateY(100%);
-    transition: all 0.2s linear;
+    transition: transform 0.2s linear,background-color 0.5s ease;
     bottom: 0;
     backdrop-filter: blur(20px);
     box-shadow: 0 0px 10px var(--shadow-color);
