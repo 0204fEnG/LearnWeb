@@ -2,7 +2,9 @@
 .post-card{
     color: var(--text-color);
     padding: 5px;
+    border-radius: 5px;
     height: auto;
+    // cursor: pointer;
     background-color: var(--primary-color);
     .post-header{
         width: fit-content;
@@ -43,6 +45,7 @@
         width: 100%;
         margin-bottom: 5px;
         height: auto;
+        cursor: pointer;
         .tag{
             color: var(--active-color);
             cursor: pointer;
@@ -51,11 +54,14 @@
    .post-img {
         width: 100%;
         height: auto;
+        border-radius: 5px;
+        overflow: hidden;
         margin-bottom: 5px;
         @include flex(row, wrap, null, null, null, 3px);
         .img {
             flex: 1 1 30%;
             cursor: pointer;
+            border-radius: 5px;
             max-width: calc(100%/3 - 2px);
             aspect-ratio: 1;
             object-fit: cover;            
@@ -67,15 +73,18 @@
         margin-bottom: 5px;
         padding: 2.5px;
         cursor: pointer;
-        background-color: var(--background-color--opa);
+        border-radius: 5px;
+        background-color: var(--background-color);
         @include flex(row,nowrap,null,null,null,1.5px);
         .circle-avator{
             flex:0 0 20px;
             height: 20px;
+            border-radius: 2.5px;
         }
         .circle-name{
             flex:0 0 fit-content;
             height: 20px;
+            color: var(--text-color--light);
             line-height: 20px;
         }
     }
@@ -83,20 +92,23 @@
         width: 100%;
         height: auto;
         margin-bottom: 5px;
+        border-radius: 5px;
+        overflow: hidden;
         background-color: var(--background-color--opa);
         .like{
             width: fit-content;
             height: 20px;
+            font-size: 0.9rem;
             line-height: 20px;
             color: white;
+            border-radius: 0 0 5px 0;
             background-color: var(--active-color);
         }
         .comment-container{
             width: 100%;
             height: auto;
             cursor: pointer;
-            padding: 3px;
-            line-height: 25px;
+            padding: 10px;
             .name{
                 color: var(--active-color);
                 cursor: pointer;
@@ -110,6 +122,8 @@
         .interactive-data{
             cursor: pointer;
             flex:1 1 calc(100%/3);
+            color: var(--text-color--light);
+            border-radius: 5px;
             height: 25px;
             text-align: center;
             line-height: 25px;
