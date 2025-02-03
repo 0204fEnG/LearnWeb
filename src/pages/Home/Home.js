@@ -18,7 +18,7 @@ const Home = () => {
             component:()=><HomeConcern/>
         }
     ]
-    const [homeNavTargetIndex, setHomeNavTargetIndex] = useState(0)
+    const [homeNavTargetIndex, setHomeNavTargetIndex] = useState({index:0,isScroll:false})
     const [homeSectionsScrollInstance, setHomeSectionsScrollInstance] = useState(0)
     const [sectionsIsActive, setSectionsIsActive] = useState(new Array(homeSections.length).fill(false).map((_, index) => index === 0))
     const handleSectionsIsActiveChange = (activeIndex) => {
@@ -28,7 +28,7 @@ const Home = () => {
     }
     const handleHomeNavTargetIndexChange = (targetIndex) => {
         setHomeNavTargetIndex(targetIndex)
-        handleSectionsIsActiveChange(targetIndex)
+        handleSectionsIsActiveChange(targetIndex.index)
     }
     const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
         setHomeSectionsScrollInstance(scrollInstanceIndex)
@@ -46,7 +46,7 @@ const Home = () => {
             </div>
         </header>
         <main className='app-home__main'>
-            <SectionCardContainer sectionsIsActive={sectionsIsActive} sectionsFunc={sectionsFuc} onSectionScroll={ handleHomeSectionsScrollInstanceChange} onSectionSure={handleHomeNavTargetIndexChange} targetIndex={homeNavTargetIndex} />
+            <SectionCardContainer sectionsIsActive={sectionsIsActive} sectionsFunc={sectionsFuc} onSectionScroll={ handleHomeSectionsScrollInstanceChange} onSectionActive={handleHomeNavTargetIndexChange} targetIndex={homeNavTargetIndex} />
         </main>
     </div>
 }
