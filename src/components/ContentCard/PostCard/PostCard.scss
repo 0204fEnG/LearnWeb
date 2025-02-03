@@ -1,12 +1,148 @@
+@use '/src/styles/display/flex.scss'as *;
 .post-card{
     color: var(--text-color);
+    font-size: 1rem;
     flex:1 1 100%;
+    padding: 5px;
     height: auto;
     background-color: var(--primary-color);
-    @include flex(row,wrap,null,null,null,null);
-    .row-img{
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+    @include flex(row,wrap,null,null,null,5px);
+    .post-header{
+        flex:1 1 100%;
+        height: 20px;
+        background-color: rgb(153, 208, 208);
+        @include flex(row ,nowrap,null,null,null,5px);
+        .user-avator{
+            flex: 0 0 20px;
+            height: 20px;
+            object-fit: contain;
+            background-color: burlywood;
+        }
+        .user-info{
+            flex:0 0 auto;
+            height: 20px;
+            background-color: aquamarine;
+            @include flex(row,wrap,null,null,null,null);
+        .user-name{
+            flex:0 0 auto;
+            height: 10px;
+            background-color: chartreuse;
+        }
+        .publish-time{
+            flex:0 0 auto;
+            font-size: 0.8rem;
+            height: 10px;
+            background-color: blueviolet;
+        }
+        }
     }
+    .post-title{
+        flex:0 0 auto;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .post-content{
+        flex:1 1 100%;
+        height: auto;
+        background-color: turquoise;
+        color: var(--text-color--light);
+        .active-text{
+            color: var(--active-color);
+            cursor: pointer;
+        }
+    }
+    .post-img{
+        flex:1 1 100%;
+        height: auto;
+        @include flex(row,wrap,null,null,null,2px);
+        .img{
+            flex:1 1 calc(100%/3);
+            aspect-ratio: 1;
+            object-fit: contain;
+            &.first{
+                flex: 1 1 100%;
+            }
+        }
+        &.first{
+            flex: 0 0 calc(100%/3);
+            aspect-ratio: 1;
+        }
+    }
+    .post-circle{
+        flex:0 0 auto;
+        height: 13px;
+        padding: 1.5px;
+        @include flex(row,nowrap,null,null,null,1.5px);
+        background-color: blueviolet;
+        .circle-avator{
+            flex:0 0 10px;
+            height: 10px;
+            background-color: chocolate;
+        }
+        .circle-name{
+            flex:0 0 auto;
+            height: 10px;
+            background-color: cornflowerblue;
+        }
+    }
+    .popular-comment{
+        flex:1 1 100%;
+        height: 20px;
+        .like{
+            width: 30px;
+            height: 10px;
+            background-color: aquamarine;
+        }
+        .comment-container{
+            width: 100%;
+            height: 10px;
+            padding: 2px;
+            background-color: bisque;
+            @include flex(row,nowrap,null,null,null,null);
+            .name{
+                flex:1 1 10px;
+                height: 8px;
+                color: var(--active-color);
+                &::after{
+                    content:'楼主:'
+                }
+            }
+            .comment{
+                flex:1 1 10px;
+                height: 8px;
+                background-color: darkmagenta;
+            }
+        }
+    }
+    .post-interactive-data{
+        flex:1 1 100%;
+        height: 20px;
+        background-color: darkcyan;
+        @include flex(row,nowrap,null,null,null,null);
+        .interactive-data{
+            flex:1 1 calc(100%/3);
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            background-color: aquamarine;
+        }
+        // .like{
+        //     flex:1 1 calc(100%/3);
+        //     height: 15px;
+        //     text-align: center;
+        //     line-height: 15px;
+        // }
+        // .reply{
+        //     flex:1 1 calc(100%/3);
+        //     height: 15px;
+        //     text-align: center;
+        //     line-height: 15px;
+        // }
+        // .retweet{
+        //     flex:1 1 calc(100%/3);
+        //     height: 15px;
+        //     text-align: center;
+        //     line-height: 15px;
+        // }
+    } 
 }

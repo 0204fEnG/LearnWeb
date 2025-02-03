@@ -166,7 +166,7 @@
 
 .page-enter-active {
   opacity: 1;
-  transition: all 125ms ease;
+  transition: all 125ms ease-in;
 }
 
 .page-exit {
