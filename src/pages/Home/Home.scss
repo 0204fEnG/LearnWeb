@@ -47,7 +47,7 @@
         width: calc((100% - 800px)*3/4 + 800px);
     }
 }
-@media (min-width:650px) and (max-width:999px){
+@media (min-width:650px) and (max-width:1000px){
     .app-home{
         width: 100%;
         margin: 0;
@@ -77,7 +77,7 @@
         }
     }
 }
-@media (max-width:649px){
+@media (max-width:650px){
     .app-home{
         width: 100%;
         margin: 0;

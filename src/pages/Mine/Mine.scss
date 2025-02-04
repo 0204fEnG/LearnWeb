@@ -25,13 +25,13 @@
         width: calc((100% - 800px)*2/3 + 800px);
     }
 }
-@media (min-width:650px) and (max-width:999px){
+@media (min-width:650px) and (max-width:1000px){
     .app-mine{
         width: 100%;
         margin: 0;
     }
 }
-@media (max-width:649px){
+@media (max-width:650px){
     .app-mine{
         width: 100%;
         margin: 0;

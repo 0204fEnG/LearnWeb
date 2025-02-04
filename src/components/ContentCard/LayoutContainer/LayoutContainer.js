@@ -9,11 +9,11 @@ const LayoutContainer = ({ items }) => {
         const onResizeColumnChange = () => {
                 // const currentContainerWidth = containerRef.current.offsetWidth
                 const currentContainerWidth = window.innerWidth
-                if (currentContainerWidth < 300) {
-                    return
+                if (currentContainerWidth < 350) {
+                    setColumns(1)
             }
             else if(currentContainerWidth < 1000){
-                const newColumn = Math.floor(currentContainerWidth / 300)
+                const newColumn = Math.floor(currentContainerWidth / 350)
                 setColumns(newColumn)
             }
                 else {

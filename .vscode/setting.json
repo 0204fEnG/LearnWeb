@@ -1,0 +1,6 @@
+{
+    "eslint.runtimeArgs": [
+        "--env",
+        "NODE_ENV=development"
+    ]
+}

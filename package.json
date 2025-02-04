@@ -62,18 +62,22 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development node scripts/start.js",
-    "build": "NODE_ENV=development node scripts/build.js",
-    "test": "NODE_ENV=development node scripts/test.js"
+    "start": "cross-env NODE_ENV=development node scripts/start.js",
+    "build": "cross-env NODE_ENV=production node scripts/build.js",
+    "test": "cross-env NODE_ENV=test node scripts/test.js"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ], 
-    "env": {
-      "NODE_ENV": "development"
-    }
+    ],
+"parserOptions": {
+"babelOptions": {
+"presets": [
+["babel-preset-react-app", false],
+"babel-preset-react-app/prod"]
+  }
+}
   },
   "browserslist": {
     "production": [
@@ -140,5 +144,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "cross-env": "^7.0.3"
   }
 }

@@ -33,12 +33,12 @@ position: absolute;
 //     height: auto;
 //   }
 // }
-@media (min-width:650px) and (max-width:999px){
+@media (min-width:650px) and (max-width:1000px){
    .banner-video-container{
          height: 300px;
    }
 }
-@media (max-width:649px){
+@media (max-width:650px){
    .banner-video-container{
          height: 200px;
    }

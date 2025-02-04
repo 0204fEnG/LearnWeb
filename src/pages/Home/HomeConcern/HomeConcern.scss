@@ -5,10 +5,10 @@
     height: auto;
     padding: 5px;
     padding-top: calc(5px + 50px);
-    @media (min-width:650px) and (max-width:999px){
+    @media (min-width:650px) and (max-width:1000px){
         padding-top: calc(5px + 72px);
 }
-@media (max-width:649px){
+@media (max-width:650px){
     padding-top: calc(5px + 72px);
 }
     background-color: var(--background-color);

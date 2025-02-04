@@ -181,7 +181,7 @@
   opacity: 0;
   transition: all 125ms ease-out;
 }
-@media (min-width:650px) and (max-width:999px){
+@media (min-width:650px) and (max-width:1000px){
   .app .app__left-mask{
     display: block;
     animation: leftClose 0s linear 0.2s forwards;
@@ -211,7 +211,7 @@
     transform: translateY(100%);
   }
 }
-@media (max-width:649px){
+@media (max-width:650px){
   .app .app__left-mask{
     display: block;
     animation: leftClose 0s linear 0.2s forwards;
