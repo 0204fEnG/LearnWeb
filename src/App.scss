@@ -110,7 +110,7 @@
     transform: translateY(100%);
     transition: transform 0.2s linear,background-color 0.5s ease;
     bottom: 0;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(15px);
     box-shadow: 0 0px 10px var(--shadow-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;
@@ -135,7 +135,7 @@
         font-size: 16px;
         font-weight:bold;
         padding: 16px;
-        background-color: var(--background-color--opa);
+        // background-color: var(--background-color--opa);
         border-bottom: 2px solid var(--active-color);
       }
   }

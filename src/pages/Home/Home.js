@@ -1,4 +1,4 @@
-import {useState } from 'react'
+import {useEffect, useState } from 'react'
 import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
 import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
@@ -7,6 +7,12 @@ import HomeRecommend from './HomeRecommend/HomeRecommend'
 import {useAppContext} from'../../App.js'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 const Home = () => {
+    useEffect(() => {
+        console.log('home挂载！')
+        return () => {
+            console.log('home退出！')
+        }
+    },[])
     const {handleLeftIsShowClick}=useAppContext()
     const homeSections = [
         {

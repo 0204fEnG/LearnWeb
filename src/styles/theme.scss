@@ -17,7 +17,7 @@ body.dark-theme{
  body {
   &.light-theme {
     --primary-color: white;
-    --primary-color--opa:rgb(255, 255, 255,0.5);
+    --primary-color--opa:rgb(255, 255, 255,0.3);
     --background-color: rgb(227, 227, 227);
     --background-color--opa: rgba(227, 227, 227, 0.5);
     --background-color--deep1:rgb(208, 208, 208);
@@ -31,7 +31,7 @@ body.dark-theme{
 
   &.dark-theme {
     --primary-color: rgb(54, 54, 54);
-    --primary-color--opa: rgba(54, 54, 54, 0.5);
+    --primary-color--opa: rgba(54, 54, 54, 0.3);
     --background-color: rgb(0, 0, 0);
     --background-color--opa: rgba(0, 0, 0, 0.5);
     --background-color--deep1: rgb(38, 38, 38);

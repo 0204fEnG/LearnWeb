@@ -46,7 +46,7 @@ const renderContentWithTags = (postItem) => {
 };
     return <article className="post-card">
         <div className="post-header">
-            <img className="user-avator" src={postItem.userAvator } />
+            <img className="user-avator" src={postItem.userAvator } alt="用户头像"/>
             <div className="user-info">
                 <div className="user-name">{postItem.userName }</div>
                 <div className="publish-time">{postItem.publishTime }</div>
@@ -54,13 +54,15 @@ const renderContentWithTags = (postItem) => {
         </div>
         <div className="post-title">{postItem.title}</div>
         <div className="post-content">{renderContentWithTags(postItem)}</div>
-        <div className='post-img'>
-            {postItem.imgs.map((img,index)=>
-                <img className='img' key={index} src={img}/>)
+        <div className={`post-img ${postItem.imgs.length===1?'first':postItem.imgs.length===2?'second':''}`}>
+        {postItem.imgs.map((img, index) =>
+              <div className="img-container">
+                <img className='img' key={index} src={img} alt="帖子图片" loading="lazy"/>
+                </div>)
             }
         </div>
         <div className="post-circle" onClick={() => handleTagClick(`/circles/circle/${postItem.circle.name}`)}>
-            <img src={postItem.circle.avator} alt="" className="circle-avator" />
+            <img src={postItem.circle.avator} alt="圈子头像" className="circle-avator" />
             <div className="circle-name">{postItem.circle.name }</div>
         </div>
         <div className="popular-comment">
