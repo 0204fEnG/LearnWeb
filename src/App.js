@@ -10,6 +10,7 @@ import Shorts from "./pages/Shorts/Shorts.js";
 import Mine from "./pages/Mine/Mine.js";
 import Circle from "./pages/Circle/Circle.js";
 import { AppContext } from './contexts/AppContext.js';
+// import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
   const { theme, setTheme } = useTheme()
   const {handleLeftIsShowClick,setBottomIsShow,leftIsShow,bottomIsShow }=useContext(AppContext)
@@ -82,7 +83,7 @@ const App = () => {
             key={location.pathname}
             nodeRef={nodeRef}
               timeout={350}
-            classNames='page'
+            classNames='page-push'
             unmountOnExit
           >
             {(state) => (

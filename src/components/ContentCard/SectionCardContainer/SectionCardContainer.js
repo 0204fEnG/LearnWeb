@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import './SectionCardContainer.scss'
 import Loading from '../../Loading/Loading'
-const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,targetIndex,onSectionScroll}) => {
-    const sections = sectionsFunc.map((sectionfunc, index) =>(
-        <div className='section' key={index}>{sectionsIsActive[index]===true?sectionfunc():<Loading/>}</div>
+const SectionCardContainer = ({ sectionsIsActive, sectionsFunc, onSectionActive, targetIndex, onSectionScroll }) => {
+    const [sections,setSections]=useState([])
+    useEffect(() => {
+        const newSections = sectionsFunc.map((sectionfunc, index) => (
+            <div className='section' key={index}>{sectionsIsActive[index] === true ? sectionfunc() : <Loading />}</div>
         ))
+        setSections(newSections)
+    },[sectionsIsActive,sectionsFunc])
     const divRef = useRef(null)
-    // const [text, setText] = useState('无')
-    // const [text2, setText2] = useState('false')
     useEffect(() => {
         const targetIndexChange = () => {
             if (targetIndex.isScroll) {
@@ -21,21 +23,18 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,tar
         targetIndexChange()
     }, [targetIndex])
     useEffect(() => {       
+        console.log(targetIndex)
         const sectionScrollSnapChange = () => {
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
-            const currentIndex=Math.floor(SectionCardContainerScrollLeft/SectionCardContainerWidth)
-            onSectionActive({index:currentIndex,isScroll:false})
-            // setText('snap')
-            // setText2(`width:${SectionCardContainerWidth}left:${SectionCardContainerScrollLeft}index:${currentIndex}`)
+            const currentIndex=Math.round(SectionCardContainerScrollLeft/SectionCardContainerWidth)
+            onSectionActive({ index: currentIndex, isScroll: false })
         }
         const sectionScrollEnd = () => {
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
             const currentIndex = Math.round(SectionCardContainerScrollLeft / SectionCardContainerWidth)
-            onSectionActive({index:currentIndex,isScroll:false})
-            // setText('end')
-            // setText2(`width:${SectionCardContainerWidth}left:${SectionCardContainerScrollLeft}index:${currentIndex}`)
+            onSectionActive({ index: currentIndex, isScroll: false })
         }
         const sectionScrollCommonEnd = function () {
             let timer = null
@@ -45,9 +44,7 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,tar
                     const SectionCardContainerWidth = divRef.current.offsetWidth
                     const SectionCardContainerScrollLeft = divRef.current.scrollLeft
                     const currentIndex = Math.floor(SectionCardContainerScrollLeft / SectionCardContainerWidth)
-                    onSectionActive({index:currentIndex,isScroll:false})
-                    // setText('scroll')
-                    // setText2(`width:${SectionCardContainerWidth}left:${SectionCardContainerScrollLeft}index:${currentIndex}`)
+                    onSectionActive({ index: currentIndex, isScroll: false })
                 },200)
             }
         }()
@@ -57,15 +54,19 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,tar
             const currentSrollPercent = SectionCardContainerScrollLeft / SectionCardContainerWidth
             onSectionScroll(currentSrollPercent)
         }
-        if ('onscrollsnapchange' in divRef.current) {
-           // 浏览器支持 scrollsnap，所以我们可以使用 scrollsnapchange 事件
-            divRef.current.addEventListener('scrollsnapchange',sectionScrollSnapChange)
-        }
-        else if ('onscrollend' in divRef.current) {
-             divRef.current.addEventListener('scrollend',sectionScrollEnd)
-        }
-        else {
-            divRef.current.addEventListener('scroll',sectionScrollCommonEnd)
+        switch (true) {
+        case 'onscrollsnapchange' in divRef.current:
+          // 浏览器支持 scrollsnap，所以我们可以使用 scrollsnapchange 事件
+          divRef.current.addEventListener('scrollsnapchange', sectionScrollSnapChange);
+          break;
+        case 'onscrollend' in divRef.current:
+          // 浏览器支持 scrollend 事件
+          divRef.current.addEventListener('scrollend', sectionScrollEnd);
+          break;
+        default:
+          // 使用通用的 scroll 事件
+          divRef.current.addEventListener('scroll', sectionScrollCommonEnd);
+          break;
         }
         divRef.current.addEventListener('scroll', sectionScrolling)
         return () => {
@@ -79,7 +80,6 @@ const SectionCardContainer = ({sectionsIsActive,sectionsFunc,onSectionActive,tar
     },[])
     return (
         <div className="section-card-container" ref={divRef}>
-            {/* <div className={['test', text].join(' ')}>{text}{text2 }</div> */}
             {sections}
         </div>
     )
