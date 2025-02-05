@@ -1,19 +1,20 @@
-import {useEffect, useState } from 'react'
+import {useEffect, useState,useContext } from 'react'
 import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
 import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
 import HomeConcern from './HomeConcern/HomeConcern'
 import HomeRecommend from './HomeRecommend/HomeRecommend'
-import {useAppContext} from'../../App.js'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
+import { AppContext } from '../../contexts/AppContext.js'
+// import { useOutletContext } from 'react-router-dom'
 const Home = () => {
+    const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
     useEffect(() => {
         console.log('home挂载！')
         return () => {
             console.log('home退出！')
         }
-    },[])
-    const {handleLeftIsShowClick}=useAppContext()
+    }, [])
     const homeSections = [
         {
             name: '推荐',
@@ -48,7 +49,7 @@ const Home = () => {
             </div>
             <div className="app-home__header__tools">
                 <div className='app-left-show' onClick={handleLeftIsShowClick}>≡</div>
-                <Searchbar/>
+                <Searchbar setBottomIsShow={setBottomIsShow}/>
             </div>
         </header>
         <main className='app-home__main'>

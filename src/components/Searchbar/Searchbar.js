@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import './Searchbar.scss'
-import { useAppContext} from "../../App";
-const Searchbar = () => {
-  const { setBottomIsShow } = useAppContext()
+const Searchbar = ({setBottomIsShow}) => {
   const inputRef=useRef(null)
  // 判断设备类型
   useEffect(() => {

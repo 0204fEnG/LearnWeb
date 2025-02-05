@@ -40,6 +40,7 @@
     "postcss-preset-env": "^7.0.1",
     "prompts": "^2.4.2",
     "react": "^18.3.1",
+    "react-activation": "^0.13.0",
     "react-app-polyfill": "^3.0.0",
     "react-dev-utils": "^12.0.1",
     "react-dom": "^18.3.1",
@@ -71,13 +72,17 @@
       "react-app",
       "react-app/jest"
     ],
-"parserOptions": {
-"babelOptions": {
-"presets": [
-["babel-preset-react-app", false],
-"babel-preset-react-app/prod"]
-  }
-}
+    "parserOptions": {
+      "babelOptions": {
+        "presets": [
+          [
+            "babel-preset-react-app",
+            false
+          ],
+          "babel-preset-react-app/prod"
+        ]
+      }
+    }
   },
   "browserslist": {
     "production": [

@@ -1,19 +1,18 @@
-import React,{ createContext, useState ,useContext,createRef, useEffect} from 'react';
+import React,{createRef, useEffect, useContext} from 'react';
 import './App.scss';
-import { useTheme } from './contexts/ThemeContexts';
-import { NavLink,   useLocation,useOutlet} from 'react-router-dom';
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
+import { useTheme } from './contexts/ThemeContext.js';
+import { NavLink,    useLocation,useOutlet} from 'react-router-dom';
+import { CSSTransition,TransitionGroup} from 'react-transition-group'
 import ErrorPage from "./pages/ErrorPage/ErrorPage.js";
 import Home from "./pages/Home/Home.js";
 import Circles from "./pages/Circles/Circles.js";
 import Shorts from "./pages/Shorts/Shorts.js";
 import Mine from "./pages/Mine/Mine.js";
 import Circle from "./pages/Circle/Circle.js";
-export const appContext=createContext()
+import { AppContext } from './contexts/AppContext.js';
 const App = () => {
   const { theme, setTheme } = useTheme()
-  const [leftIsShow, setLeftIsShow] = useState(false)
-  const [bottomIsShow, setBottomIsShow] = useState(true)
+  const {handleLeftIsShowClick,setBottomIsShow,leftIsShow,bottomIsShow }=useContext(AppContext)
   const routes = [
   {
     path: "/",
@@ -48,9 +47,6 @@ const App = () => {
     errorElement:<ErrorPage/>
   },
 ]
-  const handleLeftIsShowClick = () => {
-    setLeftIsShow(leftIsShow===true?false:true)
-  }
   const location = useLocation();
   useEffect(() => {
     if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
@@ -59,12 +55,11 @@ const App = () => {
     else {
       setBottomIsShow(false)
     }
-}, [location.pathname]);
+  }, [location.pathname]);
   const currentOutlet = useOutlet()
   const { nodeRef } =
     routes.find((route) => route.path === location.pathname) ?? {}
   return (
-    <appContext.Provider value={{ handleLeftIsShowClick, setBottomIsShow }}>
     <div className={['app', leftIsShow ? 'left-open' : ''].join(' ')}>
         <div className='app__left-mask' onClick={handleLeftIsShowClick}></div>
           <aside className="app__left__container">
@@ -82,11 +77,11 @@ const App = () => {
           </aside>
       <main className='app__right'>
           {/* <Outlet/> */}
-           <SwitchTransition mode='out-in'>
+           <TransitionGroup>
            <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
-              timeout={125}
+              timeout={350}
             classNames='page'
             unmountOnExit
           >
@@ -94,10 +89,10 @@ const App = () => {
               <div ref={nodeRef} className='page'>
                 {currentOutlet}
               </div>
-            )}
+              )}
           </CSSTransition>
-        </SwitchTransition>
-        </main>
+        </TransitionGroup>
+      </main>
           <nav className={['app__bottom__navs',!bottomIsShow?'bottom-close':''].join(' ')}>
              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="/">首页</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="circles">圈子</NavLink>
@@ -105,9 +100,6 @@ const App = () => {
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
           </nav>
       </div>
-      </appContext.Provider>
   );
 }
-
 export default App
-export const useAppContext=()=> useContext(appContext)

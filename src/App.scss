@@ -161,25 +161,25 @@
   z-index: 1;
     top:0;
   left: 0;
-  opacity: 0;
+  transform: translateX(100%);
 }
 
 .page-enter-active {
-  opacity: 1;
-  transition: all 125ms ease-in;
+  transform: translateX(0);
+  transition: all 0.35s ease-in-out;
 }
 
 .page-exit {
-  opacity: 1;
+  transform: translateX(0);
     position: absolute;
-  z-index: 1;
+  z-index: 0;
     top:0;
   left: 0;
 }
 
 .page-exit-active {
-  opacity: 0;
-  transition: all 125ms ease-out;
+  transform: translateX(-50%);
+  transition: all 0.35s ease-in-out;
 }
 @media (min-width:650px) and (max-width:1000px){
   .app .app__left-mask{

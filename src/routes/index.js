@@ -1,11 +1,14 @@
-import { createBrowserRouter, useLocation } from "react-router-dom";
-import App from "../App.js";
-import ErrorPage from "../pages/ErrorPage/ErrorPage.js";
-import Home from "../pages/Home/Home.js";
-import Circles from "../pages/Circles/Circles.js";
-import Shorts from "../pages/Shorts/Shorts.js";
-import Mine from "../pages/Mine/Mine.js";
-import Circle from "../pages/Circle/Circle.js";
+import { useRoutes} from "react-router-dom";
+// import App from "../App.js";
+// import ErrorPage from "../pages/ErrorPage/ErrorPage.js";
+// import Home from "../pages/Home/Home.js";
+// import Circles from "../pages/Circles/Circles.js";
+// import Shorts from "../pages/Shorts/Shorts.js";
+// import Mine from "../pages/Mine/Mine.js";
+// import Circle from "../pages/Circle/Circle.js";
+import KeepAlive from "react-activation";
+import { lazy, Suspense } from "react";
+import Loading from "../components/Loading/Loading.js";
 // import { useState } from "react";
 // const CachedRoute = ({ Component }) => {
 //     const [cachedComponents, setCachedComponents] = useState({})
@@ -26,33 +29,81 @@ import Circle from "../pages/Circle/Circle.js";
 
 //     return renderComponent();
 // };
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     children: [
+//       {
+//         index:true,
+//         element: < Home />,
+//       },
+//       {
+//         path: "circles",
+//         element:<Circles/>
+//       },
+//         {
+//     path: "/circles/circle/:circleName",
+//     element:<Circle/>
+//   },
+//       {
+//         path: "shorts",
+//         element:<Shorts/>
+//       },
+//       {
+//         path: "mine",
+//         element:<Mine/>
+//       }
+//     ],
+//     errorElement:<ErrorPage/>
+//   },
+// ]);
+const routes=[
   {
     path: "/",
-    element: <App />,
+    component: lazy(()=>import("../App.js")),
     children: [
       {
         index:true,
-        element: < Home />,
+        component: lazy(()=>import("../pages/Home/Home.js"))
       },
       {
         path: "circles",
-        element:<Circles/>
+        component:lazy(()=>import("../pages/Circles/Circles.js"))
       },
-        {
-    path: "/circles/circle/:circleName",
-    element:<Circle/>
-  },
+      {
+        path: "/circles/circle/:circleName",
+        component:lazy(()=>import("../pages/Circle/Circle.js"))
+      },
       {
         path: "shorts",
-        element:<Shorts/>
+        component:lazy(()=>import("../pages/Shorts/Shorts.js"))
       },
       {
         path: "mine",
-        element:<Mine/>
+        component:lazy(()=>import("../pages/Mine/Mine.js"))
       }
     ],
-    errorElement:<ErrorPage/>
+    // errorElement:lazy(()=>import("../pages/ErrorPage/ErrorPage.js"))
   },
-]);
-export default router
+]
+// 路由处理方式
+const generateRouter = (routes) => {
+  return routes.map((item) => {
+    if (item.children) {
+      item.children = generateRouter(item.children)
+    }
+    item.element = <Suspense fallback={
+      <Loading/>
+    }>
+      {/* 把懒加载的异步路由变成组件装载进去 */}
+      <KeepAlive cacheKey={item.path}>
+        <item.component />
+      </KeepAlive>
+    </Suspense>
+    return item
+  })
+}
+
+const Router = () => useRoutes(generateRouter(routes))
+export default Router
