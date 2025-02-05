@@ -1,4 +1,4 @@
-import React,{createRef, useEffect, useContext} from 'react';
+import React,{createRef, useEffect, useContext,useState} from 'react';
 import './App.scss';
 import { useTheme } from './contexts/ThemeContext.js';
 import { NavLink,    useLocation,useOutlet} from 'react-router-dom';
@@ -10,10 +10,13 @@ import Shorts from "./pages/Shorts/Shorts.js";
 import Mine from "./pages/Mine/Mine.js";
 import Circle from "./pages/Circle/Circle.js";
 import { AppContext } from './contexts/AppContext.js';
+// import useAnimationClassName from './hooks/useAnimationClassName.js';
 // import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
   const { theme, setTheme } = useTheme()
-  const {handleLeftIsShowClick,setBottomIsShow,leftIsShow,bottomIsShow }=useContext(AppContext)
+  const { handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow } = useContext(AppContext)
+  // const animationClass = useAnimationClassName()
+  const location = useLocation();
   const routes = [
   {
     path: "/",
@@ -22,7 +25,7 @@ const App = () => {
       {
         index:true,
         element: <Home />,
-        nodeRef: createRef()
+        nodeRef: createRef(),
       },
       {
         path: "circles",
@@ -45,10 +48,9 @@ const App = () => {
         nodeRef: createRef()
       }
     ],
-    errorElement:<ErrorPage/>
+      errorElement: <ErrorPage />
   },
 ]
-  const location = useLocation();
   useEffect(() => {
     if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
       setBottomIsShow(true)
@@ -82,8 +84,8 @@ const App = () => {
            <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
-              timeout={350}
-            classNames='page-push'
+              timeout={400}
+            classNames='page-left'
             unmountOnExit
           >
             {(state) => (

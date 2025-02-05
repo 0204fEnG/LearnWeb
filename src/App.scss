@@ -162,7 +162,7 @@
   width: 100%;
   height: 100%;
 }
-.page-push-enter {
+.page-left-enter {
   position: absolute;
   z-index: 1;
     top:0;
@@ -170,12 +170,12 @@
   transform: translateX(100%);
 }
 
-.page-push-enter-active {
+.page-left-enter-active {
   transform: translateX(0);
-  transition: all 0.35s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
-.page-push-exit {
+.page-left-exit {
   transform: translateX(0);
     position: absolute;
   z-index: 0;
@@ -183,9 +183,35 @@
   left: 0;
 }
 
-.page-push-exit-active {
+.page-left-exit-active {
   transform: translateX(-50%);
-  transition: all 0.35s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.page-right-enter {
+  position: absolute;
+  z-index: 0;
+    top:0;
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.page-right-enter-active {
+  transform: translateX(0);
+  transition: all 0.4s ease-in-out;
+}
+
+.page-right-exit {
+  transform: translateX(0);
+    position: absolute;
+  z-index: 1;
+    top:0;
+  left: 0;
+}
+
+.page-right-exit-active {
+  transform: translateX(100%);
+  transition: all 0.4s ease-in-out;
 }
 @media (min-width:650px) and (max-width:1000px){
   .app .app__left-mask{
