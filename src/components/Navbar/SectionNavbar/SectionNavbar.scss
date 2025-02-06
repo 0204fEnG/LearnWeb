@@ -28,12 +28,6 @@
           color: var(--active-color);
           background-color: var(--background-color--opa);
         }
-        @media (min-width:0px) and (max-width:1000px){
-          &:hover{
-            color: var(--text-color);
-            background-color: transparent;
-          }
-        }
     }
     .section-navbar__nav--active{
     color: var(--active-color);
