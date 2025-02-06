@@ -16,7 +16,7 @@ const routes=[
         component:lazy(()=>import("../pages/Circles/Circles.js"))
       },
       {
-        path: "/circles/circle/:circleName",
+        path: "circles/circle/:circleName",
         component:lazy(()=>import("../pages/Circle/Circle.js"))
       },
       {

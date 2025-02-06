@@ -10,6 +10,7 @@ const Circles = () => {
             <div className='app-left-show' onClick={handleLeftIsShowClick}>≡</div>
         </header>
         <main className='app-circles__main'>
+            circle!
         </main>
     </div>
 }
