@@ -42,6 +42,7 @@
     .app__left__img{
       width: 130px;
       height: 130px;
+      cursor: pointer;
       margin: 0 auto;
       border: 1px var(--primary-color) solid;
       line-height: 130px;
@@ -82,6 +83,27 @@
       border-radius: 5px;
       background-color: var(--primary-color);
       .app__left__tool{
+        cursor: pointer;
+        user-select: none;
+        color:var(--text-color);
+        font-size: 16px;
+        width: 100%;
+        padding:16px;
+        height: 48px;
+        &:hover{
+          color: var(--active-color);
+          background-color: var(--background-color--opa);
+        }
+      }
+  }
+  .app__left__signs{
+      @include flex(row,wrap,center,null,null,null);
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      .app__left__sign{
         cursor: pointer;
         user-select: none;
         color:var(--text-color);

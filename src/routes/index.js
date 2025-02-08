@@ -1,6 +1,6 @@
 import {useRoutes} from "react-router-dom";
 import KeepAlive from "react-activation";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense,createRef } from "react";
 import Loading from "../components/Loading/Loading.js";
 const routes=[
   {
@@ -48,5 +48,39 @@ const generateRouter = (routes) => {
   })
 }
 
+export const transitionRoutes = [
+  {
+    path: "/",
+    element: lazy(()=>import("../App.js")),
+    children: [
+      {
+        index:true,
+        element: lazy(()=>import("../pages/Home/Home.js")),
+        nodeRef: createRef(),
+      },
+      {
+        path: "circles",
+        element: lazy(()=>import("../pages/Circles/Circles.js")),
+        nodeRef: createRef()
+      },
+        {
+        path: "/circle/:circleName",
+        element: lazy(()=>import("../pages/Circle/Circle.js")),
+        nodeRef: createRef()
+  },
+      {
+        path: "shorts",
+        element: lazy(()=>import("../pages/Shorts/Shorts.js")),
+        nodeRef: createRef()
+      },
+      {
+        path: "mine",
+        element: lazy(()=>import("../pages/Mine/Mine.js")),
+        nodeRef: createRef()
+      }
+    ],
+  }
+]
 const Router = () => useRoutes(generateRouter(routes))
 export default Router
+

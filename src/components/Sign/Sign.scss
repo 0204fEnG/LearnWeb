@@ -1,0 +1,111 @@
+@use '/src/styles/display/flex.scss'as *;
+.container{
+    color: var(--text-color);
+    position: fixed;
+    z-index: 3;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(34, 34, 34,0.5);
+    backdrop-filter: blur(2px);
+    @include flex(row,nowrap,center,center,null,null);
+    .content{
+        background-color: var(--primary-color);
+        position: relative;
+        flex:0 1 600px;
+        height: 350px;
+        border-radius: 10px;
+        overflow: auto;
+        @media (max-height:350px){
+            height: 100%;
+        }
+        .close{
+        position: absolute;
+        top:0;
+        right: 0;
+        width: 36px;
+        height: 36px;
+        text-align: center;
+        line-height: 36px;
+        font-size: 2rem;
+        cursor: pointer;
+        }
+        .nav-container{
+            position: sticky;
+            z-index: 1;
+            top:0;
+            width: 100%;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-bottom:1px solid var(--background-color--deep1);
+            @include flex(row,nowrap,center,center,null,null);
+            .nav{
+                width: 75px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                cursor: pointer;
+            }
+            .nav-click{
+                font-size: 1.05rem;
+                color:var(--active-color);
+                font-weight: bold;
+                border-bottom: 2px solid var(--active-color);
+            }
+        }
+        .form-container{
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            @include flex(row,wrap,center,center,space-around,null);
+            .form-element{
+                flex:0 1 400px;
+                position: relative;
+                @include flex(row,nowrap,space-between,center,null,null);
+                height: 40px;
+                .label{
+                    @include flex(row,nowrap,flex-start,center,null,null);
+                    flex:0 1 80px;
+                    height: 35px;
+                }
+                .element{
+                    flex:0 1 320px;
+                    color: var(--text-color);
+                    height: 35px;
+                    border-radius: 5px;
+                    padding: 0 10px;
+                    background-color: var(--background-color--opa);
+                    transition: background-color 0.25s;
+                    &:focus{
+                        background-color: var(--background-color--deep1);
+                    }
+                }
+                .element-error{
+                    border: 2px rgb(255, 0, 0) solid;
+                }
+                .error{
+                    position: absolute;
+                    font-size: 0.8rem;
+                    width: fit-content;
+                    left:80px;
+                    color: red;
+                    bottom:0;
+                    transform:translateY(100%);
+                }
+            }
+            .form-button{
+                color: var(--text-color);
+                cursor: pointer;
+                flex:0 1 100px;
+                margin: 0 calc(50% - 50px);
+                height: 40px;
+                border-radius: 5px;
+                background-color: var(--background-color--opa);
+                &:active{
+                    transform: scale(0.95);
+                }
+            }
+        }
+    }
+}
