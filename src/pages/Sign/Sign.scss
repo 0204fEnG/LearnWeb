@@ -1,14 +1,9 @@
 @use '/src/styles/display/flex.scss'as *;
 .container{
     color: var(--text-color);
-    position: fixed;
-    z-index: 3;
-    top:0;
-    left:0;
     width: 100%;
     height: 100%;
-    background-color: rgb(34, 34, 34,0.5);
-    backdrop-filter: blur(2px);
+    background-color: var(--background-color);
     @include flex(row,nowrap,center,center,null,null);
     .content{
         background-color: var(--primary-color);
@@ -20,17 +15,7 @@
         @media (max-height:350px){
             height: 100%;
         }
-        .close{
-        position: absolute;
-        top:0;
-        right: 0;
-        width: 36px;
-        height: 36px;
-        text-align: center;
-        line-height: 36px;
-        font-size: 2rem;
-        cursor: pointer;
-        }
+
         .nav-container{
             position: sticky;
             z-index: 1;
@@ -40,7 +25,7 @@
             background-color: var(--primary-color);
             border-bottom:1px solid var(--background-color--deep1);
             @include flex(row,nowrap,center,center,null,null);
-            .nav{
+                .nav{
                 width: 75px;
                 height: 50px;
                 text-align: center;

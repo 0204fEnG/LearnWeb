@@ -30,6 +30,10 @@ const routes=[
     ],
     errorElement:lazy(()=>import("../pages/ErrorPage/ErrorPage.js"))
   },
+  {
+    path: "/auth",
+    component:lazy(()=>import("../pages/Sign/Sign.jsx"))
+  }
 ]
 const generateRouter = (routes) => {
   return routes.map((item) => {
