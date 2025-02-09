@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 动态 `baseURL`（可在 `.env` 文件中配置）
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3100/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.178.8:3100/api";
 
 // 创建 Axios 实例
 const instance = axios.create({

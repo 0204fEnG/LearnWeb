@@ -11,6 +11,8 @@ import Router from './routes/index.js'
 import {BrowserRouter} from 'react-router-dom';
 import { AliveScope } from 'react-activation'
 import { AppContextProvider } from './contexts/AppContext.js';
+import { Provider } from 'react-redux'
+import store from './store/store.js';
 // import reportWebVitals from './reportWebVitals';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +20,7 @@ import { AppContextProvider } from './contexts/AppContext.js';
 //     <ThemeProvider><AliveScope><RouterProvider router={router} /></AliveScope></ThemeProvider>
 // );
 ReactDOM.render(
+  <Provider store={store}>
   <ThemeProvider>
     <AppContextProvider>
     <BrowserRouter>
@@ -26,7 +29,8 @@ ReactDOM.render(
       </AliveScope>
       </BrowserRouter>
       </AppContextProvider>
-  </ThemeProvider>,
+    </ThemeProvider>
+    </Provider>,
   document.getElementById('root')
 )
 

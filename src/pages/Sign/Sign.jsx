@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import "./Sign.scss";
 import { registerUser, loginUser } from "../../api/auth"; // 引入 API 方法
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../actions/userActions';
 const Sign = () => {
   const [signType, setSignType] = useState("signIn");
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Sign = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [debounceTimer, setDebounceTimer] = useState(null); // 存储防抖计时器
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // **输入变更处理**
@@ -29,7 +31,7 @@ const Sign = () => {
     // 设置新的防抖计时器
     const newTimer = setTimeout(() => {
         validateField(name, value);
-    }, 250); // 设置防抖时间 500ms（可调整）
+    }, 500); // 设置防抖时间 ms（可调整）
     setDebounceTimer(newTimer);
   };
 
@@ -79,13 +81,21 @@ const Sign = () => {
       if (signType === "signUp") {
         // 进行注册
         const response = await registerUser(formData);
-        console.log(formData)
-        alert("注册成功，请登录！");
-        setSignType("signIn"); // 切换到登录模式
+        console.log(response)
+        
+        setFormData({
+         username: "",
+         password: "",
+         email: "",
+         confirmPassword: "",
+       })
+      setSignType("signIn"); // 切换到登录模式
       } else {
-        // 进行登录
+        // // 进行登录
         const response = await loginUser({ username: formData.username, password: formData.password });
-        localStorage.setItem("token", response.token); // 保存 Token
+        console.log(response)
+        const {id,username,email,token}=response.user
+        dispatch(loginSuccess({ id, username, email, token }));
         navigate("/mine"); // 跳转到用户主页
       }
     } catch (error) {
