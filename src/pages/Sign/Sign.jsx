@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Sign.scss";
 import { registerUser, loginUser } from "../../api/auth"; // 引入 API 方法
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../actions/userActions';
+import Tip from "../../components/Tip/Tip";
 const Sign = () => {
+  const [tips, setTips] = useState([])
+  const [tipClear,setTipClear]=useState(null)
   const [signType, setSignType] = useState("signIn");
   const [formData, setFormData] = useState({
     username: "",
@@ -17,7 +20,12 @@ const Sign = () => {
   const [debounceTimer, setDebounceTimer] = useState(null); // 存储防抖计时器
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    clearTimeout(tipClear)
+    setTipClear(setTimeout(() => {
+      setTips([])
+    },2000))
+  },[tips])
   // **输入变更处理**
   const handleChangeForm = (e) => {
     const { name, value } = e.target;
@@ -30,7 +38,8 @@ const Sign = () => {
 
     // 设置新的防抖计时器
     const newTimer = setTimeout(() => {
-        validateField(name, value);
+      const error=validateField(name, value);
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
     }, 500); // 设置防抖时间 ms（可调整）
     setDebounceTimer(newTimer);
   };
@@ -62,52 +71,69 @@ const Sign = () => {
         break;
     }
 
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+      return error
   };
 
   // **提交表单**
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-   // 进行所有字段的验证
-    Object.keys(formData).forEach((field) => validateField(field, formData[field])); 
+    // 进行所有字段的验证
+    const newError={}
+    Object.keys(formData).forEach((field) => {
+      if (signType === 'signIn' && (field === 'email' || field === 'confirmPassword')) {
+        newError['email'] = ''
+        newError['confirmPassword']=''
+        return
+      }
+      newError[field]=validateField(field,formData[field])
+    }); 
     // 检查是否有错误
-    if (Object.values(errors).some((err) => err)) {
+    if (Object.values(newError).some((err) => err)) {
+      setTips((prev) => [...prev, { message: '输入格式有错误', color: 'rgb(223, 37, 37)'}])
       setLoading(false);
+      setErrors(newError)
       return;
     }
-
     try {
-      if (signType === "signUp") {
-        // 进行注册
-        const response = await registerUser(formData);
-        console.log(response)
-        
-        setFormData({
-         username: "",
-         password: "",
-         email: "",
-         confirmPassword: "",
-       })
+  if (signType === "signUp") {
+    // 进行注册
+    const response = await registerUser(formData);
+    // 假设 registerUser 函数返回的数据结构中包含了一个表示操作是否成功的字段，例如 success
+    if (response.data.status === 'success') {
+      setTips((prev) => [...prev, { message: response.data.message, color: 'rgb(51, 232, 51)'}])
+      setFormData({
+        username: "",
+        password: "",
+        email: "",
+        confirmPassword: "",
+      });
       setSignType("signIn"); // 切换到登录模式
-      } else {
-        // // 进行登录
-        const response = await loginUser({ username: formData.username, password: formData.password });
-        console.log(response)
-        const {id,username,email,token}=response.user
-        dispatch(loginSuccess({ id, username, email, token }));
-        navigate("/mine"); // 跳转到用户主页
-      }
-    } catch (error) {
-      alert(error.message || "请求失败，请重试！");
+    } else {
+      throw new Error(response.data.message);
     }
-
+  } else{
+    // 进行登录
+    const response = await loginUser({ username: formData.username, password: formData.password });
+    if (response.data.status === 'success') {
+      setTips((prev) => [...prev, { message: response.data.message, color: 'rgb(51, 232, 51)'}])
+      const { id, username, email, token } = response.data.user;
+      dispatch(loginSuccess({ id, username, email, token }));
+      setTimeout(() => { navigate("/mine") },1000); // 跳转到用户主页
+    } else {
+      throw new Error(response.data.message);
+    }
+  }
+} catch (error) {
+      // 这里捕获到的是 try 块中抛出的错误
+      setTips((prev) => [...prev, { message: error.response.data.message, color: 'rgb(223, 37, 37)'}])
+}
     setLoading(false);
   };
 
   return (
     <div className="container">
-          <div className="content" onClick={(e) => e.stopPropagation()}>
+          <div className="content">
         <header className="nav-container">
           <nav className={`nav ${signType === "signIn" ? "nav-click" : ""}`} onClick={() => setSignType("signIn")}>
             登录
@@ -150,6 +176,9 @@ const Sign = () => {
           </button>
         </form>
       </div>
+      {
+        tips.map((tip) => <Tip message={tip.message} color={tip.color} />)
+      }
     </div>
   );
 };

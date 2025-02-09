@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 动态 `baseURL`（可在 `.env` 文件中配置）
-const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.178.8:3100/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.178.8:3200/api";
 
 // 创建 Axios 实例
 const instance = axios.create({
@@ -13,54 +13,52 @@ const instance = axios.create({
 });
 
 // 请求拦截器（可添加 Token）
-instance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token"); 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`; 
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// instance.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem("token"); 
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`; 
+//     }
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
 // 响应拦截器（更详细的错误处理）
-instance.interceptors.response.use(
-  (response) => response.data, 
-  (error) => {
-    if (error.response) {
-      const { status, data } = error.response;
-      // **不同状态码的错误处理**
-      switch (status) {
-        case 400:
-          console.error("请求参数错误:", data);
-          break;
-        case 401:
-          console.warn("未授权，请重新登录");
-          localStorage.removeItem("token");
-          window.location.href = "/auth"; // 可跳转到登录页
-          break;
-        case 403:
-          console.warn("权限不足");
-          break;
-        case 404:
-          console.warn("请求资源不存在:", data);
-          break;
-        case 500:
-          console.error("服务器错误，请稍后再试");
-          break;
-        default:
-          console.error("请求错误:", data);
-      }
-    } else if (error.request) {
-      console.error("请求超时或网络错误，请检查网络");
-    } else {
-      console.error("请求配置错误:", error.message);
-    }
+// instance.interceptors.response.use(
+//   (response) => response.data, 
+//   (error) => {
+//     if (error.response) {
+//       const { status, data } = error.response;
+//       // **不同状态码的错误处理**
+//       switch (status) {
+//         case 400:
+//           console.error("请求参数错误:", data);
+//           break;
+//         case 401:
+//           console.warn("未授权，请重新登录");// 可跳转到登录页
+//           break;
+//         case 403:
+//           console.warn("权限不足");
+//           break;
+//         case 404:
+//           console.warn("请求资源不存在:", data);
+//           break;
+//         case 500:
+//           console.error("服务器错误，请稍后再试");
+//           break;
+//         default:
+//           console.error("请求错误:", data);
+//       }
+//     } else if (error.request) {
+//       console.error("请求超时或网络错误，请检查网络");
+//     } else {
+//       console.error("请求配置错误:", error.message);
+//     }
 
-    return Promise.reject(error.response?.data || error.message);
-  }
-);
+//     return Promise.reject(error.response?.data || error.message);
+//   }
+// );
 
 // // **自动刷新 Token（可选）**
 // const refreshToken = async () => {
