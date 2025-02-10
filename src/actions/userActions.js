@@ -1,12 +1,12 @@
 // src/actions/userActions.js
-export const loginSuccess = (user) => ({
+export const loginSuccess = (data) => ({
   type: 'LOGIN_SUCCESS',
-  payload: user,
+  payload: data,
 });
 
-export const authLoginSuccess = (user) => ({
+export const authLoginSuccess = (data) => ({
   type: 'AUTH_LOGIN_SUCCESS',
-  payload:user
+  payload:data
 });
 export const logout = () => ({
   type: 'LOGOUT',

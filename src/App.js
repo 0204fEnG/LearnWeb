@@ -6,7 +6,7 @@ import { CSSTransition,TransitionGroup} from 'react-transition-group'
 import { AppContext } from './contexts/AppContext.js';
 import { transitionRoutes } from './routes/index.js';
 import { authLoginUser } from "./api/auth.js";
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { authLoginSuccess, logout } from '../../actions/userActions';
 import Tip from './components/Tip/Tip.js';
 // import useAnimationClassName from './hooks/useAnimationClassName.js';
@@ -34,21 +34,14 @@ const checkAutoLogin = async () => {
       return
     }
     const response = await authLoginUser()
-    if (response.status === 'success') {
-      setTips((prev) => [...prev, { message: response.message, color: 'rgb(51, 232, 51)' }])
-      dispatch(authLoginSuccess(response.user));
-    }
-    else {
-      dispatch(logout());
-      throw new Error(response);
-    }
+    setTips((prev) => [...prev, { message: response.message, color: 'rgb(51, 232, 51)' }])
+    dispatch(authLoginSuccess(response.user));
   } catch (error) {
-    setTips((prev) => [...prev, { message: error.response.message, color: 'rgb(223, 37, 37)'}])
+    setTips((prev) => [...prev, { message: error.message, color: 'rgb(223, 37, 37)'}])
   }
 };
   useEffect(() => {
     checkAutoLogin()
-
   },[])
   useEffect(() => {
     if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {

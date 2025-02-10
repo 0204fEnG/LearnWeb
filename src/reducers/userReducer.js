@@ -24,7 +24,7 @@ const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         ...action.payload.user,
-        ...action.payload.token
+        token:action.payload.token
       };
     case 'AUTH_LOGIN_SUCCESS':
       return {
