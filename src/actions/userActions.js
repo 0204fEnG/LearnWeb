@@ -4,8 +4,8 @@ export const loginSuccess = (data) => ({
   payload: data,
 });
 
-export const authLoginSuccess = (data) => ({
-  type: 'AUTH_LOGIN_SUCCESS',
+export const autoLoginSuccess = (data) => ({
+  type: 'AUTO_LOGIN_SUCCESS',
   payload:data
 });
 export const logout = () => ({

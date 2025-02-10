@@ -1,12 +1,8 @@
 const tokenFromLocalStorage = localStorage.getItem("token");
 
-// 如果 userFromLocalStorage 不是 null 且不是字符串 "undefined"，才进行 JSON.parse
-const parsedToken = tokenFromLocalStorage && tokenFromLocalStorage !== "undefined" 
-  ? JSON.parse(tokenFromLocalStorage) 
-  : null;
-
 const initialUserState = {
-  token: parsedToken ? parsedToken : null,
+  token: tokenFromLocalStorage ? tokenFromLocalStorage : null,
+  isLogin:false,
   userId: null,
   username:null,
   email: null,
@@ -14,22 +10,22 @@ const initialUserState = {
   bio: null,
   preferences: null,
   phone:null
-  
 };
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
       // 登录成功时，更新 state 并存储到 localStorage
-      localStorage.setItem("token", JSON.stringify(action.payload.token));
+      localStorage.setItem("token", action.payload.token);
       return {
-        ...state,
         ...action.payload.user,
-        token:action.payload.token
+        token: action.payload.token,
+        isLogin:true
       };
-    case 'AUTH_LOGIN_SUCCESS':
+    case 'AUTO_LOGIN_SUCCESS':
       return {
-        ...state,
-        ...action.payload.user,
+        token: state.token,
+        isLogin:true,
+        ...action.payload,
       }
     case 'LOGOUT':
       // 登出时，清空用户数据和 token

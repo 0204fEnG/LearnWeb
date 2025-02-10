@@ -8,6 +8,18 @@
     transform: translateY(-50%) translateX(-50%);
     color: var(--text-color);
 }
+.red{
+    border: 2px solid var(--dialog-red);
+    background-color: var(--dialog-red--opa);
+}
+.green{
+    border: 2px solid var(--dialog-green);
+    background-color: var(--dialog-green--opa);
+}
+.blue{
+    border: 2px solid var(--dialog-blue);
+    background-color: var(--dialog-blue--opa);
+}
 .enter{
     animation: enter 0.3s ease-in-out forwards;
 }

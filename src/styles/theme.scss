@@ -29,6 +29,13 @@ body.dark-theme{
     --text-color: black;
     --text-color--light: rgb(82, 82, 82);
     --active-color: rgb(103, 159, 222);
+    --active-color--opa: rgba(103, 159, 222, 0.5);
+    --dialog-red:rgb(237, 59, 59);
+    --dialog-red--opa:rgb(237, 59, 59,0.7);
+    --dialog-blue:rgb(86, 171, 237);
+    --dialog-blue--opa:rgb(86, 171, 237,0.7);
+    --dialog-green:rgb(114, 237, 86);
+    --dialog-green--opa:rgb(114, 237, 86,0.7);
   }
 
   &.dark-theme {
@@ -46,6 +53,13 @@ body.dark-theme{
     --text-color: rgb(255, 255, 255);
     --text-color--light: rgb(191, 191, 191);
     --active-color: rgb(103, 159, 222);
+    --active-color--opa: rgb(103, 159, 222,0.5);
+    --dialog-red:rgb(237, 59, 59);
+    --dialog-red--opa:rgb(237, 59, 59,0.7);
+    --dialog-blue:rgb(86, 171, 237);
+    --dialog-blue--opa:rgb(86, 171, 237,0.7);
+    --dialog-green:rgb(114, 237, 86);
+    --dialog-green--opa:rgb(114, 237, 86,0.7);
   }
 }
 

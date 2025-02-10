@@ -23,7 +23,6 @@ const SectionCardContainer = ({ sectionsIsActive, sectionsFunc, onSectionActive,
         targetIndexChange()
     }, [targetIndex])
     useEffect(() => {       
-        console.log(targetIndex)
         const sectionScrollSnapChange = () => {
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft

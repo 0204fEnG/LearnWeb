@@ -9,12 +9,6 @@ import { AppContext } from '../../contexts/AppContext.js'
 // import { useOutletContext } from 'react-router-dom'
 const Home = () => {
     const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
-    useEffect(() => {
-        console.log('home挂载！')
-        return () => {
-            console.log('home退出！')
-        }
-    }, [])
     const homeSections = [
         {
             name: '推荐',
