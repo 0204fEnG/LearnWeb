@@ -100,8 +100,8 @@ const Sign = () => {
     // 进行注册
     const response = await registerUser(formData);
     // 假设 registerUser 函数返回的数据结构中包含了一个表示操作是否成功的字段，例如 success
-    if (response.data.status === 'success') {
-      setTips((prev) => [...prev, { message: response.data.message, color: 'rgb(51, 232, 51)'}])
+    if (response.status === 'success') {
+      setTips((prev) => [...prev, { message: response.message, color: 'rgb(51, 232, 51)'}])
       setFormData({
         username: "",
         password: "",
@@ -110,18 +110,18 @@ const Sign = () => {
       });
       setSignType("signIn"); // 切换到登录模式
     } else {
-      throw new Error(response.data.message);
+      throw new Error(response);
     }
   } else{
     // 进行登录
     const response = await loginUser({ username: formData.username, password: formData.password });
-    if (response.data.status === 'success') {
-      setTips((prev) => [...prev, { message: response.data.message, color: 'rgb(51, 232, 51)'}])
-      const { id, username, email, token } = response.data.user;
+    if (response.status === 'success') {
+      setTips((prev) => [...prev, { message: response.message, color: 'rgb(51, 232, 51)'}])
+      const { id, username, email, token } = response.user;
       dispatch(loginSuccess({ id, username, email, token }));
       setTimeout(() => { navigate("/mine") },1000); // 跳转到用户主页
     } else {
-      throw new Error(response.data.message);
+      throw new Error(response);
     }
   }
 } catch (error) {

@@ -4,6 +4,10 @@ export const loginSuccess = (user) => ({
   payload: user,
 });
 
+export const authLoginSuccess = (user) => ({
+  type: 'AUTH_LOGIN_SUCCESS',
+  payload:user
+});
 export const logout = () => ({
   type: 'LOGOUT',
 });

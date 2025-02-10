@@ -1,18 +1,55 @@
-import React,{ useEffect, useContext,useState, lazy, Suspense} from 'react';
+import React,{ useEffect, useContext,useState} from 'react';
 import './App.scss';
 import { useTheme } from './contexts/ThemeContext.js';
-import { Navigate, NavLink, useLocation, useOutlet, useNavigate } from 'react-router-dom';
+import {  NavLink, useLocation, useOutlet, useNavigate } from 'react-router-dom';
 import { CSSTransition,TransitionGroup} from 'react-transition-group'
 import { AppContext } from './contexts/AppContext.js';
 import { transitionRoutes } from './routes/index.js';
+import { authLoginUser } from "./api/auth.js";
+import { useDispatch } from 'react-redux';
+import { authLoginSuccess, logout } from '../../actions/userActions';
+import Tip from './components/Tip/Tip.js';
 // import useAnimationClassName from './hooks/useAnimationClassName.js';
 // import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
   const { theme, setTheme } = useTheme()
+  const [tips, setTips] = useState([])
+  const [tipClear,setTipClear]=useState(null)
   const { handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow } = useContext(AppContext)
   // const animationClass = useAnimationClassName()
+  const { token, username,avator }=useSelector(state => state.user);
+  const dispatch=useDispatch()
   const nav=useNavigate()
   const location = useLocation();
+
+  useEffect(() => {
+    clearTimeout(tipClear)
+    setTipClear(setTimeout(() => {
+      setTips([])
+    },2000))
+  },[tips])
+const checkAutoLogin = async () => {
+  try {
+    if (token === null) {
+      return
+    }
+    const response = await authLoginUser()
+    if (response.status === 'success') {
+      setTips((prev) => [...prev, { message: response.message, color: 'rgb(51, 232, 51)' }])
+      dispatch(authLoginSuccess(response.user));
+    }
+    else {
+      dispatch(logout());
+      throw new Error(response);
+    }
+  } catch (error) {
+    setTips((prev) => [...prev, { message: error.response.message, color: 'rgb(223, 37, 37)'}])
+  }
+};
+  useEffect(() => {
+    checkAutoLogin()
+
+  },[])
   useEffect(() => {
     if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
       setBottomIsShow(true)
@@ -67,6 +104,9 @@ const App = () => {
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="shorts">短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
       </nav>
+          {
+        tips.map((tip) => <Tip message={tip.message} color={tip.color} />)
+           }
       </div>
   );
 }
