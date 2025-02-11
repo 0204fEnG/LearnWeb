@@ -64,7 +64,7 @@ const checkAutoLogin = async () => {
     dispatch(autoLoginSuccess(response.user));
   } catch (error) {
     console.log("自动登录失败:",error)
-    setTips((prev) => [...prev, { message: error.message, status:'red' }])
+    setTips((prev) => [...prev, { message: error.message || error, status:'red' }])
     if (error.message === "Token 失效，请重新登录") {
       dispatch(logout())
     }

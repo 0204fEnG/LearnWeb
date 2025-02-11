@@ -16,15 +16,16 @@ body.dark-theme{
 } */
  body {
   &.light-theme {
+    --single-color:white;
     --primary-color: white;
-    --primary-color--opa:rgb(255, 255, 255,0.3);
+    --primary-color--opa:rgb(255, 255, 255,0.5);
     --background-color: rgb(227, 227, 227);
     --background-color--opa: rgba(227, 227, 227, 0.5);
     --background-color--deep1:rgb(208, 208, 208);
     --background-color--deep1--opa:rgb(208, 208, 208,0.5);
     --background-color--deep2:rgb(169, 169, 169);
     --background-color--deep2--opa:rgb(169, 169, 169,0.5);
-    --border-color:rgb(88, 88, 88);
+    --border-color:rgb(165, 165, 165);
     --shadow-color: grey;
     --text-color: black;
     --text-color--light: rgb(82, 82, 82);
@@ -39,17 +40,18 @@ body.dark-theme{
   }
 
   &.dark-theme {
+    --single-color:rgb(24, 24, 24);
     --primary-color: rgb(54, 54, 54);
-    --primary-color--opa: rgba(54, 54, 54, 0.3);
-    --background-color: rgb(0, 0, 0);
-    --background-color--opa: rgba(0, 0, 0, 0.5);
+    --primary-color--opa: rgba(54, 54, 54, 0.5);
+    --background-color: rgb(15, 15, 15);
+    --background-color--opa: rgba(15, 15, 15, 0.5);
     --background-color--deep1: rgb(38, 38, 38);
     --background-color--deep1--opa: rgba(38, 38, 38, 0.5);
-    --background-color--deep2: rgb(51, 51, 51);
-    --background-color--deep2--opa: rgb(51, 51, 51,0.5);
+    --background-color--deep2: rgb(65, 65, 65);
+    --background-color--deep2--opa: rgb(65, 65, 65,0.5);
     --shadow-color: rgba(0, 0, 0, 0.5); 
-    --border-color:rgb(168, 168, 168);
-    --shadow-color: grey;
+    --border-color:rgb(84, 84, 84);
+    --shadow-color: rgb(69, 69, 69);
     --text-color: rgb(255, 255, 255);
     --text-color--light: rgb(191, 191, 191);
     --active-color: rgb(103, 159, 222);

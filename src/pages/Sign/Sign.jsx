@@ -128,7 +128,7 @@ const Sign = () => {
     } catch (error) {
       console.log("注册/登录失败:",error)
           // 这里捕获到的是 try 块中抛出的错误
-          setTips((prev) => [...prev, { message: error.message, status:'red'}])
+          setTips((prev) => [...prev, { message: error.message || error, status:'red'}])
     }
         setLoading(false);
   };

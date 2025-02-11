@@ -5,13 +5,14 @@
     position: relative;
     .app-circles__header{ 
         @include flex(row,wrap,null,null,null,null);
-        width: 100%;
-        height: auto;
-        position: fixed;
-        top:0;
-        backdrop-filter: blur(20px);
-        box-shadow: 0 0 10px var(--shadow-color);
-        background-color: var(--primary-color--opa);
+       width: 100%;
+       position:absolute;
+       z-index: 1;
+       top:0;
+       height:48px;
+       backdrop-filter: blur(15px);
+       box-shadow: 0 0 10px var(--shadow-color);
+       background-color: var(--primary-color--opa);
         .app-left-show{
         color:var(--text-color);
         width: 50px;

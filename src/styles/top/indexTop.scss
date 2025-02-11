@@ -1,0 +1,15 @@
+@mixin indexTop{ 
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    z-index: 1;
+    top:0;
+    left: 0;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 10px var(--shadow-color);
+    background-color: var(--primary-color--opa);
+    @media (max-width:1000px){
+        flex-direction: column;
+        height: 72px;
+    }
+}

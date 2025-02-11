@@ -4,14 +4,15 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: var(--primary-color);
     @include flex(row,nowrap,center,center,null,null);
     @media (max-height:448px) or (max-width:1000px) {
+         background-color: var(--single-color);
         @include flex(row,nowrap,center,flex-start,null,null);
     }
+     background-color: var(--primary-color);
     .content{
-        border:1px solid var(--background-color--deep1);
-    background-color: var(--primary-color);
+        border:1px solid var(--border-color);
+    background-color: var(--single-color);
         position: relative;
         flex:0 1 602px;
         height: 352px;
@@ -38,13 +39,14 @@
             top:0;
             width: 100%;
             height: 50px;
-            background-color: var(--primary-color);
-            border-bottom:1px solid var(--background-color--deep1);
+            background-color: var(--single-color);
+            border-bottom:1px solid var(--border-color);
             @include flex(row,nowrap,center,center,null,null);
-                .nav{
+            .nav{
                 width: 75px;
                 height: 50px;
                 text-align: center;
+                color:var(--text-color);
                 line-height: 50px;
                 cursor: pointer;
             }
@@ -71,7 +73,7 @@
                     flex:0 0 40px;
                     height: 40px;
                     border-radius: 5px 0 0 5px;
-                    border: 2px solid var(--background-color);
+                    border: 2px solid var(--border-color);
                     background-color: var(--primary-color);
                     border-right: 0;
                 }
@@ -81,7 +83,7 @@
                     height: 40px;
                     padding: 0 7px;
                     border-radius: 0 5px 5px 0 ;
-                    border: 2px solid var(--background-color);
+                    border: 2px solid var(--border-color);
                     background-color: var(--primary-color);
                     transition: background-color 0.25s;
                     &:focus{

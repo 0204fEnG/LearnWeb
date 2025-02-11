@@ -1,33 +1,44 @@
 @use '/src/styles/display/flex.scss'as *;
+@use '../../styles/main/pageMain.scss'as *;
+@use '../../styles/top/indexTop.scss'as *;
 .app-home{
     width: 100%;
     height: 100%;
     position: relative;
     .app-home__header{
         @include flex(row,wrap,null,null,null,null);
-        width: 100%;
-        height: auto;
-        position: absolute;
-        z-index: 1;
-        top:0;
-        left: 0;
-        backdrop-filter: blur(15px);
-        box-shadow: 0 0 10px var(--shadow-color);
-        background-color: var(--primary-color--opa);
+        @include indexTop();
         .app-home__header__navs{
             width: 30%;
             height: 50px;
+            @media (max-width:1000px){
+                height: 36px;
+                order:2;
+                width: 100%;
+             }
         }
         .app-home__header__tools{
-            width: 50%;
+            width: 70%;
             height: 50px;
+            @media (max-width:1000px){
+                order:1;
+                width: 100%;
+                height: 36px;
+            }
             @include flex(row,nowrap,null,null,null,null);
-        .app-left-show{
+            .app-left-show{
             color:var(--text-color);
             height: 100%;
             aspect-ratio: 1;
+            font-size: 24px;
+            display: block;
+            text-align: center;
+            line-height: 36px;
             cursor: pointer;
             display: none;
+            @media (max-width:1000px){
+                display: block;
+            }
         }
         .searchbar{
             flex:1 1 100%;
@@ -36,71 +47,6 @@
         }
     }
     .app-home__main{
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        // transition: all 0.5s linear;
-    }
-}
-@media (min-width:1500px){
-    .app .app-home__main{
-        width: calc((100% - 800px)*3/4 + 800px);
-    }
-}
-@media (min-width:650px) and (max-width:1000px){
-    .app-home{
-        width: 100%;
-        margin: 0;
-    }
-    .app-home .app-home__header{
-        flex-direction: column;
-    }
-    .app-home .app-home__header .app-home__header__navs{
-        height: 36px;
-    }
-    .app-home .app-home__header .app-left-show{
-        display: block;
-    }
-    .app-home .app-home__header .app-home__header__navs{
-        order:2;
-        width: 100%;
-    }
-    .app-home .app-home__header .app-home__header__tools{
-        order:1;
-        width: 100%;
-        height: 36px;
-        .app-left-show{
-            font-size: 24px;
-            display: block;
-            text-align: center;
-            line-height: 36px;
-        }
-    }
-}
-@media (max-width:650px){
-    .app-home{
-        width: 100%;
-        margin: 0;
-    }
-    .app-home .app-home__header{
-        flex-direction: column;
-    }
-    .app-home .app-home__header .app-home__header__navs{
-        height: 36px;
-    }
-    .app-home .app-home__header .app-home__header__navs{
-        order:2;
-        width: 100%;
-    }
-    .app-home .app-home__header .app-home__header__tools{
-        order:1;
-        width: 100%;
-        height: 36px;
-        .app-left-show{
-            font-size: 24px;
-            display: block;
-            text-align: center;
-            line-height: 36px;
-        }
+        @include pageMain();
     }
 }

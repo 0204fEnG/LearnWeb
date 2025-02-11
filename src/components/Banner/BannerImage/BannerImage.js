@@ -6,6 +6,11 @@ const BannerImage = ({ images }) => {
   // const [indexScroll,setIndexScroll]=useState()
   const imgDiv = useRef()
   const allImages = [images[images.length - 1], ...images, images[0]]
+  const autoScrollInterval = useRef(null);
+  const currentIndex = useRef(imageIndex)
+  useEffect(() => {
+    currentIndex.current=imageIndex
+  },[imageIndex])
   const handleClickScroll = (index) => {
     const currentScrollWidth = imgDiv.current.offsetWidth
     imgDiv.current.scrollTo({
@@ -13,6 +18,15 @@ const BannerImage = ({ images }) => {
       behavior:'smooth'
     })
   }
+    const startAutoScroll = () => {
+      autoScrollInterval.current = setInterval(() => {
+      handleClickScroll(currentIndex.current+1)
+    }, 3000); // 3 秒自动滚动
+  };
+    const resetAutoScroll = () => {
+    clearInterval(autoScrollInterval.current); // 清除之前的定时器
+    startAutoScroll(); // 重新启动自动滚动
+  };
   useEffect(() => {
     const initScroll = () => {
       const currentScrollWidth = imgDiv.current.offsetWidth
@@ -20,6 +34,9 @@ const BannerImage = ({ images }) => {
             left: currentScrollWidth * imageIndex,
             behavior:'instant'
     })
+    }
+    const handleImagesScroll = () => {
+      resetAutoScroll()
     }
     const handleImagesScrollEnd = () => {
       const currentScrollWidth = imgDiv.current.offsetWidth
@@ -42,7 +59,19 @@ const BannerImage = ({ images }) => {
       }
     }
     initScroll()
-    imgDiv.current.addEventListener('scrollsnapchange', handleImagesScrollEnd)
+    if (imgDiv.current) {
+      imgDiv.current.addEventListener('scrollsnapchange', handleImagesScrollEnd)
+      imgDiv.current.addEventListener('scroll', handleImagesScroll)
+    }
+
+    startAutoScroll();
+    return () => {
+      if (imgDiv.current) {
+        imgDiv.current.removeEventListener('scrollsnapchange', handleImagesScrollEnd)
+        imgDiv.current.removeEventListener('scroll', handleImagesScroll)
+      } 
+      clearInterval(autoScrollInterval.current)
+    }
     // window.addEventListener('resize',initScroll)
   },[])
   return (
