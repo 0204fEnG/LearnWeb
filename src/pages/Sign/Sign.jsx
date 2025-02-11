@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../actions/userActions';
 import Tip from "../../components/Tip/Tip";
+import Title from "../../components/Title/Title";
 const Sign = () => {
   const [tips, setTips] = useState([])
   const [tipClear,setTipClear]=useState(null)
@@ -134,6 +135,7 @@ const Sign = () => {
 
   return (
     <div className="container">
+      <Title title='登录/注册'/>
           <div className="content">
         <header className="nav-container">
           <nav className={`nav ${signType === "signIn" ? "nav-click" : ""}`} onClick={() => setSignType("signIn")}>
@@ -145,28 +147,28 @@ const Sign = () => {
         </header>
         <form onSubmit={handleSubmit} className="form-container" noValidate>
           <div className="form-element">
-            <label className="label">用户名 :</label>
-            <input className={`element ${errors.username&&'element-error'}`} type="text" name="username" value={formData.username} onChange={handleChangeForm} required />
+            <label htmlFor="username" className="label">😊</label>
+            <input placeholder='请输入用户名'id='username' className={`element ${errors.username&&'element-error'}`} type="text" name="username" value={formData.username} onChange={handleChangeForm} required />
             {errors.username && <p className="error">{errors.username}</p >}
           </div>
 
           <div className="form-element">
-            <label className="label">密码 :</label>
-            <input className={`element ${errors.password&&'element-error'}`} type="password" name="password" value={formData.password} onChange={handleChangeForm} required />
+            <label htmlFor="password" className="label">🔑</label>
+            <input placeholder='请输入密码'id="password" className={`element ${errors.password&&'element-error'}`} type="password" name="password" value={formData.password} onChange={handleChangeForm} required />
             {errors.password && <p className="error">{errors.password}</p >}
           </div>
 
           {signType === "signUp" && (
             <>
               <div className="form-element">
-                <label className="label">邮箱 :</label>
-                <input className={`element ${errors.email&&'element-error'}`} type="email" name="email" value={formData.email} onChange={handleChangeForm} required />
+                <label htmlFor="email" className="label">📧</label>
+                <input placeholder='请输入邮箱'id='email' className={`element ${errors.email&&'element-error'}`} type="email" name="email" value={formData.email} onChange={handleChangeForm} required />
                 {errors.email && <p className="error">{errors.email}</p >}
               </div>
 
               <div className="form-element">
-                <label className="label">确认密码 :</label>
-                <input className={`element ${errors.confirmPassword&&'element-error'}`} type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChangeForm} required />
+                <label htmlFor="confirmPassword" className="label">🔐</label>
+                <input placeholder='请再次输入密码'id='confirmPassword' className={`element ${errors.confirmPassword&&'element-error'}`} type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChangeForm} required />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p >}
               </div>
             </>

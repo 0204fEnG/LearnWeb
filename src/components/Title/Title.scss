@@ -1,0 +1,36 @@
+.title-container{
+    width: 100%;
+    position:absolute;
+    top:0;
+    height:48px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 10px var(--shadow-color);
+    background-color: var(--primary-color--opa);
+    .back{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        text-align: center;
+        line-height: 36px;
+        border-radius: 50%;
+        background-color: var(--background-color--deep1);
+        color:var(--text-color);
+        left: 6px;
+        top:6px;
+        cursor: pointer;
+        &:active{
+            box-shadow: 0 0 2px var(--shadow-color);
+            transform: scale(1.1);
+            border: none;
+        }
+    }
+    .title{
+        position: absolute;
+        width: fit-content;
+        top:50%;
+        left:50%;
+        transform: translateX(-50%) translateY(-50%);
+        color:var(--text-color);
+    }
+}

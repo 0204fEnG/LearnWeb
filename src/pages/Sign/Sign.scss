@@ -3,19 +3,35 @@
     color: var(--text-color);
     width: 100%;
     height: 100%;
-    background-color: var(--background-color);
+    position: relative;
+    background-color: var(--primary-color);
     @include flex(row,nowrap,center,center,null,null);
+    @media (max-height:448px) or (max-width:1000px) {
+        @include flex(row,nowrap,center,flex-start,null,null);
+    }
     .content{
-        background-color: var(--primary-color);
+        border:1px solid var(--background-color--deep1);
+    background-color: var(--primary-color);
         position: relative;
-        flex:0 1 600px;
-        height: 350px;
+        flex:0 1 602px;
+        height: 352px;
         border-radius: 10px;
         overflow: auto;
-        @media (max-height:350px){
-            height: 100%;
+        @media (max-width:1000px) {
+            flex-basis: 100%;
+            margin-top:120px;
+            border:0;
+            border-radius: 0;
+        }
+        @media (max-height:448px){
+            flex-basis: 100%;
+            margin-top: 50px;
+            height: calc(100% - 50px);
+            border:0;
+            border-radius: 0;
         }
 
+        @include flex(row,wrap,center,center,null,null);
         .nav-container{
             position: sticky;
             z-index: 1;
@@ -40,53 +56,59 @@
             }
         }
         .form-container{
-            width: 100%;
+            flex:0 1 602px;
             height: 300px;
             padding: 10px;
             @include flex(row,wrap,center,center,space-around,null);
             .form-element{
-                flex:0 1 400px;
+                flex:0 1 340px;
                 position: relative;
                 @include flex(row,nowrap,space-between,center,null,null);
                 height: 40px;
+                border-radius: 5px;
                 .label{
-                    @include flex(row,nowrap,flex-start,center,null,null);
-                    flex:0 1 80px;
-                    height: 35px;
+                    @include flex(row,wrap,center,center,null,null);
+                    flex:0 0 40px;
+                    height: 40px;
+                    border-radius: 5px 0 0 5px;
+                    border: 2px solid var(--background-color);
+                    background-color: var(--primary-color);
+                    border-right: 0;
                 }
                 .element{
-                    flex:0 1 320px;
+                    flex:0 1 300px;
                     color: var(--text-color);
-                    height: 35px;
-                    border-radius: 5px;
-                    padding: 0 10px;
-                    background-color: var(--background-color--opa);
+                    height: 40px;
+                    padding: 0 7px;
+                    border-radius: 0 5px 5px 0 ;
+                    border: 2px solid var(--background-color);
+                    background-color: var(--primary-color);
                     transition: background-color 0.25s;
                     &:focus{
-                        background-color: var(--background-color--deep1);
+                        border: 2px solid var(--dialog-blue);
                     }
-                }
-                .element-error{
-                    border: 2px rgb(255, 0, 0) solid;
+                    &.element-error{
+                        border: 2px  solid var(--dialog-red);
+                    }
                 }
                 .error{
                     position: absolute;
-                    font-size: 0.8rem;
+                    font-size: 0.9rem;
                     width: fit-content;
-                    left:80px;
-                    color: rgb(197, 29, 29);
+                    left:40px;
+                    color: var(--dialog-red);
                     bottom:0;
                     transform:translateY(100%);
                 }
             }
             .form-button{
-                color: var(--text-color);
+                color: white;
                 cursor: pointer;
                 flex:0 1 100px;
                 margin: 0 calc(50% - 50px);
                 height: 40px;
                 border-radius: 5px;
-                background-color: var(--background-color--opa);
+                background-color: var(--active-color);
                 &:active{
                     transform: scale(0.95);
                 }
