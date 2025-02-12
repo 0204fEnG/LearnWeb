@@ -56,8 +56,8 @@ const renderContentWithTags = (postItem) => {
         <div className="post-content">{renderContentWithTags(postItem)}</div>
         <div className={`post-img ${postItem.imgs.length===1?'first':postItem.imgs.length===2?'second':''}`}>
         {postItem.imgs.map((img, index) =>
-              <div className="img-container">
-                <img className='img' key={index} src={img} alt="帖子图片" loading="lazy"/>
+              <div className="img-container" key={index}>
+                <img className='img'  src={img} alt="帖子图片" loading="lazy"/>
                 </div>)
             }
         </div>

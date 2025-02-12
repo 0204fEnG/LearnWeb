@@ -28,33 +28,31 @@ instance.interceptors.response.use(
   async (error) => {
     if (error.response) {
       const { status, config,data } = error.response;
-      if (status === 403&&data.message==='Token失效' && !isRefreshTokenRequest(config)) {
-        // 如果是 token 失效，且当前请求不是刷新 token 请求
-        try {
-          const refreshIsSuccess = await refreshToken();
-          if (refreshIsSuccess) {
-            // 刷新成功后重新发起原请求
-            const newToken = getToken();
-            config.headers.Authorization = `Bearer ${newToken}`;
-            const retryResponse = await instance.request(config); // 重新发起原请求
-            return retryResponse; // 返回重新发起的请求的响应数据
-          } else {
-            clearToken();
-            return Promise.reject('身份信息过期,请重新登录');
-          }
-        } catch (err) {
-          clearToken();
-          return Promise.reject(err);
-        }
-      }
-      // 处理其他状态码
       switch (status) {
         case 400:
           console.error("请求参数错误:", error.response.data);
           break;
-        case 403:
-          console.warn("权限不足:", error.response.data);
+        case 403: {
+          if (data.message === 'Token失效' && !isRefreshTokenRequest(config)){
+            try {
+              const refreshIsSuccess = await refreshToken();
+              if (refreshIsSuccess) {
+                // 刷新成功后重新发起原请求
+                const newToken = getToken();
+                config.headers.Authorization = `Bearer ${newToken}`;
+                const retryResponse = await instance.request(config); // 重新发起原请求
+                return retryResponse; // 返回重新发起的请求的响应数据
+              } else {
+                clearToken();
+                return Promise.reject('身份信息过期,请重新登录');
+              }
+            } catch (err) {
+              clearToken();
+              return Promise.reject(err);
+            }
+          }
           break;
+        }
         case 404:
           console.warn("请求资源不存在:", error.response.data);
           break;

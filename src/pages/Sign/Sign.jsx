@@ -175,7 +175,7 @@ const Sign = () => {
         </form>
       </div>
       {
-        tips.map((tip) => <Tip message={tip.message} status={tip.status} />)
+        tips.map((tip, index) => <Tip key={index} message={tip.message} status={tip.status} />)
       }
     </div>
   );

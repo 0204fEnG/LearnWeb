@@ -61,10 +61,6 @@
         width: 100%;
         padding:16px;
         height: 48px;
-        border-bottom: 1px solid var(--background-color);
-        &:last-child{
-          border-bottom: none;
-        }
         &:hover{
           color: var(--active-color);
           background-color: var(--background-color--opa);
@@ -94,7 +90,8 @@
         width: 100%;
         padding:16px;
         height: 48px;
-        border-bottom: 1px solid var(--background-color);
+        border-bottom: 2px solid;
+        border-image: linear-gradient(to right, var(--primary-color) 5%, var(--background-color) 5%, var(--background-color) 95%, var(--primary-color) 95%) 1;
         &:last-child{
           border-bottom: none;
         }
@@ -119,7 +116,8 @@
         width: 100%;
         padding:16px;
         height: 48px;
-        border-bottom: 1px solid var(--background-color);
+        border-bottom: 2px solid;
+        border-image: linear-gradient(to right, var(--primary-color) 5%, var(--background-color) 5%, var(--background-color) 95%, var(--primary-color) 95%) 1;
         &:last-child{
           border-bottom: none;
         }
@@ -134,7 +132,7 @@
     flex:1 1 100%;
     position: relative;
     height: 100%;
-    background-color: var(--background-color);
+    background-color: var(--background-color--deep1);
     // padding-left: 200px;
     margin-left: 200px;
     // transition: all 0.5s linear;
@@ -202,21 +200,23 @@
   height: 100%;
 }
 .page-left-enter {
+  opacity: 0;
   transform: translateX(100%);
 }
 
 .page-left-enter-active {
+  opacity: 1;
   transform: translateX(0);
   z-index: 1;
   transition: all 0.4s ease-in-out;
 }
 
 .page-left-exit {
-  transform: translateX(0);
+  opacity: 1;
 }
 
 .page-left-exit-active {
-  transform: translateX(-50%);
+  opacity: 0;
   z-index: 0;
   transition: all 0.4s ease-in-out;
 }

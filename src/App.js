@@ -13,7 +13,7 @@ import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog.js';
 // import useAnimationClassName from './hooks/useAnimationClassName.js';
 // import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
-  const { theme, setTheme } = useTheme()
+  const {theme, setTheme } = useTheme()
   const [tips, setTips] = useState([])
   const [tipClear, setTipClear] = useState(null)
   const [confirmDialogIsOpen,setConfirmDialogIsOpen]=useState(false)
@@ -135,7 +135,7 @@ const App = () => {
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
       </nav>
           {
-        tips.map((tip) => <Tip message={tip.message} status={tip.status} />)
+        tips.map((tip, index) => <Tip key={ index} message={tip.message} status={tip.status} />)
       }
       { confirmDialogIsOpen&&<ConfirmDialog message={confirmDialogMessage} onCancel={handleConfirmDialogCancel} onConfirm={handleConfirmDialogConfirm} />}
       </div>
