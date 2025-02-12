@@ -1,4 +1,5 @@
 @use '/src/styles/display/flex.scss'as *;
+@use '/src/styles/scrollbar/scrollbar.scss'as *;
 .section-card-container{
     @include flex(row,nowrap,null,null,null,null);
     width: 100%;
@@ -19,25 +20,6 @@
     // scrollbar-gutter: stable;
     scroll-snap-align: center;
     scroll-snap-stop: always; 
-    &::-webkit-scrollbar{
-        width: 10px;
+    @include scrollbar();
     }
-    &::-webkit-scrollbar-thumb{
-        border-right:5px solid var(--background-color);
-        background-color: var(--primary-color);
-    } 
-    &::-webkit-scrollbar-track{
-        background-color: var(--background-color);
-    } 
-    }
-
-}
-@media (max-width:1500px) {
-.section-card-container{
-    .section{
-    &::-webkit-scrollbar{
-        display: none;
-    }
-}
-}
 }
