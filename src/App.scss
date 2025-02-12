@@ -61,6 +61,10 @@
         width: 100%;
         padding:16px;
         height: 48px;
+        border-bottom: 1px solid var(--background-color);
+        &:last-child{
+          border-bottom: none;
+        }
         &:hover{
           color: var(--active-color);
           background-color: var(--background-color--opa);
@@ -90,6 +94,10 @@
         width: 100%;
         padding:16px;
         height: 48px;
+        border-bottom: 1px solid var(--background-color);
+        &:last-child{
+          border-bottom: none;
+        }
         &:hover{
           color: var(--active-color);
           background-color: var(--background-color--opa);
@@ -111,6 +119,10 @@
         width: 100%;
         padding:16px;
         height: 48px;
+        border-bottom: 1px solid var(--background-color);
+        &:last-child{
+          border-bottom: none;
+        }
         &:hover{
           color: var(--active-color);
           background-color: var(--background-color--opa);

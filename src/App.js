@@ -5,7 +5,7 @@ import {  NavLink, useLocation, useOutlet, useNavigate } from 'react-router-dom'
 import { CSSTransition,TransitionGroup} from 'react-transition-group'
 import { AppContext } from './contexts/AppContext.js';
 import { transitionRoutes } from './routes/index.js';
-import { authLoginUser } from "./api/auth.js";
+import { authLoginUser,test } from "./api/auth.js";
 import { useDispatch ,useSelector} from 'react-redux';
 import { autoLoginSuccess, logout } from './actions/userActions.js';
 import Tip from './components/Tip/Tip.js';
@@ -20,9 +20,9 @@ const App = () => {
   const [confirmDialogMessage,setConfirmDialogMessage]=useState('')
   const [handleConfirmDialogCancel,setHandleConfirmDialogCancel]=useState(null)
   const [handleConfirmDialogConfirm,setHandleConfirmDialogConfirm]=useState(null)
-  const { handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow } = useContext(AppContext)
+  const {handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow } = useContext(AppContext)
   // const animationClass = useAnimationClassName()
-  const { token,avatar,username,email,isLogin}=useSelector(state => state.user);
+  const { avatar,isLogin}=useSelector(state => state.user);
   const dispatch=useDispatch()
   const nav=useNavigate()
   const location = useLocation();
@@ -33,12 +33,24 @@ const App = () => {
       setTips([])
     },2000))
   }, [tips])
+  const handleTest = async() => {
+    try {
+      const res = await test()
+    }
+    catch (error) {
+      setTips((prev) => [...prev, { message: error.message || error, status: 'red' }])
+      if (error.message||error === "身份信息过期,请重新登录") {
+        dispatch(logout())
+      }
+    }
+  }
   const handleLeftSignClick = () => {
-    if (token && isLogin) {
+    if (isLogin) {
       const confirm = () => {
         setConfirmDialogIsOpen(false)
         dispatch(logout())
-        setTips((prev) => [...prev, { message: '退出成功,请重新登录!', status:'green' }])
+        setTips((prev) => [...prev, { message: '退出成功,请重新登录!', status: 'green' }])
+        setTimeout(()=>nav('/auth'),1000)
       }
       const cancel = () => {
         setConfirmDialogIsOpen(false)
@@ -52,22 +64,16 @@ const App = () => {
       nav('/auth')
     }
   }
-const checkAutoLogin = async () => {
-  try {
-    console.log("自动登录toke:",token)
-    if (!token||isLogin) {
+  const checkAutoLogin = async () => {
+    try {
+    if (isLogin) {
       return
     }
     const response = await authLoginUser()
-    console.log("自动登录成功:",response)
     setTips((prev) => [...prev, { message: response.message, status:'green' }])
     dispatch(autoLoginSuccess(response.user));
   } catch (error) {
-    console.log("自动登录失败:",error)
     setTips((prev) => [...prev, { message: error.message || error, status:'red' }])
-    if (error.message === "Token 失效，请重新登录") {
-      dispatch(logout())
-    }
   }
 };
   useEffect(() => {
@@ -100,7 +106,8 @@ const checkAutoLogin = async () => {
             <li className='app__left__tool' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{`切换${theme === 'light' ? '深色' : '浅色'}模式`}</li>
           </ul>
           <ul className='app__left__signs'>
-          <li className='app__left__sign' onClick={handleLeftSignClick}>{!token?'登录/注册':'退出登录'}</li>
+          <li className='app__left__sign' onClick={handleLeftSignClick}>{!isLogin?'登录/注册':'退出登录'}</li>
+          <li className='app__left__sign' onClick={handleTest}>受保护的接口</li>
           </ul>
           </aside>
       <main className='app__right'>

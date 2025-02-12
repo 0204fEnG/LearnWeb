@@ -1,7 +1,6 @@
-const tokenFromLocalStorage = localStorage.getItem("token");
+import {clearToken } from "../utils/token";
 
 const initialUserState = {
-  token: tokenFromLocalStorage ? tokenFromLocalStorage : null,
   isLogin:false,
   userId: null,
   username:null,
@@ -14,26 +13,24 @@ const initialUserState = {
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      // 登录成功时，更新 state 并存储到 localStorage
-      localStorage.setItem("token", action.payload.token);
       return {
-        ...action.payload.user,
-        token: action.payload.token,
+        ...state,
+        ...action.payload,
         isLogin:true
       };
     case 'AUTO_LOGIN_SUCCESS':
       return {
-        token: state.token,
-        isLogin:true,
+        ...state,
         ...action.payload,
+        isLogin:true,
       }
-    case 'LOGOUT':
+    case 'LOGOUT': {
       // 登出时，清空用户数据和 token
-      localStorage.removeItem("token");
+      clearToken()
       return {
-        ...initialUserState,
-        token: null
+        ...initialUserState
       }
+    }
     default:
       return state;
   }

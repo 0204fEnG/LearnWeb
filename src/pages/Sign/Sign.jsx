@@ -101,7 +101,6 @@ const Sign = () => {
         case "signUp": {
           const response = await registerUser(formData);
           // 假设 registerUser 函数返回的数据结构中包含了一个表示操作是否成功的字段，例如 success
-          console.log("注册成功:",response)
             setTips((prev) => [...prev, { message: response.message, status:'green' }])
             setFormData({
               username: "",
@@ -114,19 +113,15 @@ const Sign = () => {
         }
         case "signIn": {
           const response = await loginUser({ username: formData.username, password: formData.password });
-          console.log("登录成功:",response)
-            setTips((prev) => [...prev, { message: response.message, status:'green' }])
-          const { id, username, email, avatar, phone, preferences, bio } = response.user;
-          const token=response.token
-          dispatch(loginSuccess({ user: { id, username, email, avatar, phone, preferences, bio },token }));
-            setTimeout(() => { navigate("/mine") }, 1000); // 跳转到用户主页
+          setTips((prev) => [...prev, { message: response.message, status:'green' }])
+          dispatch(loginSuccess({...response.user }));
+            setTimeout(() => { navigate("/") }, 1000); // 跳转到用户主页
           break;
         }
         default:
           break;
       }
     } catch (error) {
-      console.log("注册/登录失败:",error)
           // 这里捕获到的是 try 块中抛出的错误
           setTips((prev) => [...prev, { message: error.message || error, status:'red'}])
     }

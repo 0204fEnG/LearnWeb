@@ -1,7 +1,6 @@
 import axios from "axios";
-import { getToken,setToken,setRefreshToken } from "./token";
+import { getToken,setToken,setRefreshToken,clearToken } from "./token";
 import { refreshToken,isRefreshTokenRequest } from "../api/auth";
-// 动态 `baseURL`（可在 `.env` 文件中配置）
 const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.178.8:3200/api";
 
 // 创建 Axios 实例
@@ -15,51 +14,60 @@ const instance = axios.create({
 });
 
 
-//响应拦截器（更详细的错误处理）
 instance.interceptors.response.use(
   async (response) => {
-    // 如果 response.data 中包含 token 和 refreshToken，保存到本地
+    // 如果响应中包含新的 token 和 refreshToken，保存它们
     if (response.data.token) {
       setToken(response.data.token);
     }
     if (response.data.refreshToken) {
       setRefreshToken(response.data.refreshToken);
     }
-    if (response.data.message === 'Token失效'&&!isRefreshTokenRequest(response.config)) {
-      await refreshToken()
-      response.config.headers.Authorization=`Bearer ${getToken()}`
-      const newResponse = await instance.request(response.config)
-      return newResponse
-    }
-    return response.data
+    return response.data; // 返回正常的响应数据
   },
   async (error) => {
     if (error.response) {
-      const { status } = error.response;
-      // **不同状态码的错误处理**
+      const { status, config,data } = error.response;
+      if (status === 403&&data.message==='Token失效' && !isRefreshTokenRequest(config)) {
+        // 如果是 token 失效，且当前请求不是刷新 token 请求
+        try {
+          const refreshIsSuccess = await refreshToken();
+          if (refreshIsSuccess) {
+            // 刷新成功后重新发起原请求
+            const newToken = getToken();
+            config.headers.Authorization = `Bearer ${newToken}`;
+            const retryResponse = await instance.request(config); // 重新发起原请求
+            return retryResponse; // 返回重新发起的请求的响应数据
+          } else {
+            clearToken();
+            return Promise.reject('身份信息过期,请重新登录');
+          }
+        } catch (err) {
+          clearToken();
+          return Promise.reject(err);
+        }
+      }
+      // 处理其他状态码
       switch (status) {
         case 400:
-          console.error(400);
-          break;
-        case 401:
-          console.warn(401);
+          console.error("请求参数错误:", error.response.data);
           break;
         case 403:
-          console.warn(403);
+          console.warn("权限不足:", error.response.data);
           break;
         case 404:
-          console.warn(404);
+          console.warn("请求资源不存在:", error.response.data);
           break;
         case 500:
-          console.error(500);
+          console.error("服务器错误:", error.response.data);
           break;
         default:
-          console.error('default error');
+          console.error("请求错误:", error.response.data);
       }
     } else if (error.request) {
-      console.error("request error");
+      console.error("请求超时或网络错误，请检查网络");
     } else {
-      console.error('config error');
+      console.error("请求配置错误:", error.message);
     }
 
     return Promise.reject(error.response?.data || error.message);
