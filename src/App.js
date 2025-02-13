@@ -116,7 +116,7 @@ const App = () => {
            <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
-              timeout={400}
+              timeout={300}
             classNames='page-left'
             unmountOnExit
           >

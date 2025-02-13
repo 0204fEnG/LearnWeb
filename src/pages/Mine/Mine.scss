@@ -48,7 +48,7 @@
         position: relative;
         border-radius: 5px;
         @media (max-width:1300px) {
-            height: 140px;
+            height: 120px;
         }
         @media (max-width:650px) {
                 height: 170px;
@@ -62,8 +62,8 @@
             border-radius: 50%;
             object-fit: cover;
             @media (max-width:1300px) {
-            top:20px;
-            left: 20px;
+            top:10px;
+            left: 10px;
             height: 100px;
         }
         }
@@ -92,8 +92,9 @@
             top:43px;
             left: 200px;
              @media (max-width:1300px) {
-                    left: 140px;
+                    left: 120px;
                     height: 100px;
+                    top:28px;
                 }
             .name{
                 color: var(--text-color);
@@ -190,6 +191,13 @@
                     line-height: 30px;
                 }
             }
+        }
+    }
+    .bottom{
+        width: 100%;
+        height: 43px;
+        @media (min-width:1000px) {
+            display: none;
         }
     }
     }

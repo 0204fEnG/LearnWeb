@@ -15,138 +15,123 @@ useEffect(() => {
   useEffect(() => {
     const axiosData = [
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(1).jpeg',
-        name: '第1个圈子',
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第1个圈子212121212',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(2).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第2个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(3).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第3个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(4).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第4个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(5).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第5个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(6).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第6个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(7).jpeg',
-        name: '第7个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(8).jpeg',
-        name: '第8个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(9).jpeg',
-        name: '第9个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(1).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第1个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(2).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第2个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(3).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第3个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(4).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第4个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(5).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第5个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(6).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第6个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(7).jpeg',
-        name: '第7个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(8).jpeg',
-        name: '第8个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(9).jpeg',
-        name: '第9个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(1).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第1个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(2).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第2个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(3).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第3个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(4).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第4个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(5).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第5个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(6).jpeg',
+        avatar: '/images/header/banner/小小陈.png',
         name: '第6个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(7).jpeg',
-        name: '第7个圈子',
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第1个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(8).jpeg',
-        name: '第8个圈子',
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第2个圈子',
         page:'/circles/circle/'
       },
       {
-        avatar: 'http://192.168.178.8:3100/uploads/avatar/circle/1(9).jpeg',
-        name: '第9个圈子',
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第3个圈子',
+        page:'/circles/circle/'
+      },
+      {
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第4个圈子',
+        page:'/circles/circle/'
+      },
+      {
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第5个圈子',
+        page:'/circles/circle/'
+      },
+      {
+        avatar: '/images/header/banner/小小陈.png',
+        name: '第6个圈子',
         page:'/circles/circle/'
       }
     ]
@@ -204,11 +189,7 @@ useEffect(() => {
         </header>
         <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
         <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
+        <div className="bottom"></div>
         </main>
     </div>
 }
