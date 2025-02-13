@@ -1,29 +1,35 @@
-import {useEffect, useState,useContext } from 'react'
+import {useEffect, useState,useContext, lazy } from 'react'
 import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer'
 import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
-import HomeConcern from './HomeConcern/HomeConcern'
-import HomeRecommend from './HomeRecommend/HomeRecommend'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 import { AppContext } from '../../contexts/AppContext.js'
+const LazyHomeRecommend = lazy(() => import('./HomeRecommend/HomeRecommend'))
+const LazyHomeConcern=lazy(()=>import('./HomeConcern/HomeConcern')) 
 // import { useOutletContext } from 'react-router-dom'
 const Home = () => {
     const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
-    const homeSections = [
+    const [homeSections,sethomeSections] =useState( [
         {
             name: '推荐',
-            component:()=><HomeRecommend/>
+            component:<LazyHomeRecommend/>
         },
         {
             name: '关注',
-            component:()=><HomeConcern/>
+            component:<LazyHomeConcern/>
         }
-    ]
+    ])
+    const [sectionsName, setSectionsName] = useState([])
+    const [sectionsFuc,setSectionsFuc] =useState([]) 
+    useEffect(() => {
+        setSectionsName(homeSections.map((section) => section.name))
+        setSectionsFuc(homeSections.map((section) => section.component))
+    },[homeSections])
     const [homeNavTargetIndex, setHomeNavTargetIndex] = useState({index:0,isScroll:false})
     const [homeSectionsScrollInstance, setHomeSectionsScrollInstance] = useState(0)
     const [sectionsIsActive, setSectionsIsActive] = useState(new Array(homeSections.length).fill(false).map((_, index) => index === 0))
     const handleSectionsIsActiveChange = (activeIndex) => {
-        const newSectionIsActive = sectionsIsActive
+        const newSectionIsActive = [...sectionsIsActive]
         newSectionIsActive[activeIndex]=true
         setSectionsIsActive(newSectionIsActive)
     }
@@ -34,8 +40,6 @@ const Home = () => {
     const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
         setHomeSectionsScrollInstance(scrollInstanceIndex)
     }
-    const sectionsName=homeSections.map((section)=>section.name)
-    const sectionsFuc = homeSections.map((section) => section.component)
     return <div className="app-home">
         <header className='app-home__header'>
             <div className="app-home__header__navs">

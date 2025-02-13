@@ -201,7 +201,7 @@
 }
 .page-left-enter {
   opacity: 0;
-  @media (max-width:650px) {
+  @media (max-width:800px) {
       transform: translateX(100%);
   }
 }
@@ -209,15 +209,15 @@
 .page-left-enter-active {
   opacity: 1;
   z-index: 1;
-  transition: all 0.3s ease-in-out;
-  @media (max-width:650px) {
+  transition: all .3s ease-in-out;
+  @media (max-width:800px) {
       transform: translateX(0);
   }
 }
 
 .page-left-exit {
   opacity: 1;
-    @media (max-width:650px) {
+    @media (max-width:800px) {
       transform: translateX(0);
   }
 }
@@ -225,8 +225,8 @@
 .page-left-exit-active {
   opacity: 0;
   z-index: 0;
-  transition: all 0.3s ease-in-out;
-    @media (max-width:650px) {
+  transition: all .3s ease-in-out;
+    @media (max-width:800px) {
       transform: translateX(-50%);
   }
 }
