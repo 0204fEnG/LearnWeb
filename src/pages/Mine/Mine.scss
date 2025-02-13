@@ -8,6 +8,7 @@
     position: relative;
     .app-mine__top{
        @include pageTop();
+    transition: 0.3s all linear;
        @include flex(row,nowrap,center,center,null,null);
        .info{
         width: fit-content;
@@ -20,6 +21,7 @@
             height: 40px;
             object-fit: cover;
             border-radius: 50%;
+            // opacity: 1 !important;
         }
         .name{
             width: 60px;
@@ -28,9 +30,56 @@
             text-align: center;
             line-height: 40px;
             border-radius: 20px;
+            // opacity: inherit;
             color:var(--text-color);
         }
        }
+    }
+    .tools{
+        width: fit-content;
+        height: auto;
+        position: absolute;
+        right: 0;
+        top:0;
+        z-index: 1;
+        @include flex(row,nowrap,null,null,null,null);
+        .tool{
+            width: 48px;
+            height: 48px;
+            margin: 0 5px;
+            @include flex(row,wrap,center,center,center,null);
+            cursor: pointer;
+            &:hover{
+                animation: icon-jump 0.35s ease-in-out forwards;
+            }
+            .svg{
+                width: 26px;
+                aspect-ratio: 1;
+                color: var(--text-color);
+                @media (min-width:650px) and (max-width:1000px) {
+                width: 24px;
+                }
+                @media (max-width:650px) {
+                    width: 22px;
+                }
+            }
+            .name{
+                color: var(--text-color);
+                width: fit-content;
+                height: auto;
+            }
+        }
+        @keyframes icon-jump {
+        0%{
+            transform: translateY(0);
+        }
+        50%{
+            transform: translateY(-10%);
+        }
+        100%{
+            transform: translateY(0);
+        }
+    }
     }
     .app-mine__main{
         @include pageMain();
@@ -39,32 +88,6 @@
             width: 100%;
             height: 300px;
             background-color: aquamarine;
-            .tools{
-            width: fit-content;
-            height: auto;
-            position: absolute;
-            right: 0;
-            top:0;
-            z-index: 1;
-            @include flex(row,nowrap,null,null,null,null);
-            .tool{
-                width: 48px;
-                height: 48px;
-                padding: 10px;
-                cursor: pointer;
-                .svg{
-                    width: 100%;
-                    height: 100%;
-                    color: var(--text-color);
-                }
-                @media (min-width:650px) and (max-width:1000px) {
-                    padding: 12px;
-                }
-                @media (max-width:650px) {
-                    padding: 14px;
-                }
-            }
-        }
         }
         .main{
 
