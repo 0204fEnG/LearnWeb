@@ -9,29 +9,28 @@
     .app-mine__top{
        @include pageTop();
        transition: 0.3s all linear;
-       z-index: 2;
+       z-index:2;
        @include flex(row,nowrap,center,center,null,null);
        .info{
         width: fit-content;
-        height: 44px;
+        height: 100%;
         padding: 2px;
-        border-radius: 22px;
-        @include flex(row,nowrap,center,center,null,null);
+        border-radius: 24px;
+        @media (max-width:1000px) {
+            border-radius: 18px;
+        }
+        @include flex(row,nowrap,flex-start,flex-start,null,5px);
         .avatar{
-            width: 40px;
-            height: 40px;
+            height: 100%;
+            aspect-ratio: 1;
             object-fit: cover;
             border-radius: 50%;
-            // opacity: 1 !important;
         }
         .name{
-            width: 60px;
-            height: 40px;
+            width: fit-content;
+            height: 100%;
             font-size: 1.2rem;
-            text-align: center;
-            line-height: 40px;
-            border-radius: 20px;
-            // opacity: inherit;
+            @include flex(column,nowrap,center,null,null,null);
             color:var(--text-color);
         }
        }
@@ -48,25 +47,31 @@
             width: 48px;
             height: 48px;
             margin: 0 5px;
+            padding: 5px;
+            @media (max-width:1000px) {
+                width: 36px;
+                height: 36px;
+            }
             @include flex(row,wrap,center,center,center,null);
             cursor: pointer;
             &:hover{
                 animation: icon-jump 0.35s ease-in-out forwards;
             }
             .svg{
-                width: 26px;
+                width: 23px;
                 aspect-ratio: 1;
                 color: var(--text-color);
                 @media (max-width:1000px) {
-                    width: 23px;
+                    width: 20px;
                 }
             }
             .name{
                 color: var(--text-color);
                 @media (max-width:1000px) {
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                 }
                 width: fit-content;
+                white-space: nowrap;
                 height: auto;
             }
         }
@@ -229,7 +234,16 @@
             }
             }
         }
-        .main{
+        .mine-main{
+            width: 100%;
+            height: calc(100% - 48px);
+            position: relative;
+            @media (max-width:1000px) {
+            height: calc(100% - 36px);        
+            }
+            .mine-nav{
+                @include pageTop();
+            }
         }
     }
 }

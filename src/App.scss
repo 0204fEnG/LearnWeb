@@ -17,7 +17,7 @@
     @include flex(row,wrap,null,null,flex-start,5px);
     position: fixed;
     left:0;
-    z-index: 2;
+    z-index: 3;
     width: 200px;
     height: 100%;
     overflow: auto;
@@ -176,7 +176,7 @@
 }
   @keyframes leftEnter{
     to{
-      z-index: 2;
+      z-index: 3;
     }
   }
   @keyframes leftClose{

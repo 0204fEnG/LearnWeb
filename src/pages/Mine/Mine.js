@@ -1,37 +1,47 @@
 // import { useEffect} from 'react'
-import { useEffect, useRef, useState } from 'react'
-import colorthief from 'colorthief'
+import { useEffect, useRef, useState ,lazy} from 'react'
 import './Mine.scss'
 import SingleRowDisplayBar from '../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar';
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer';
+import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar';
+const LazyMineHome = lazy(()=>import('./MineHome/MineHome'))
+const LazyMineDynamics =lazy(()=>import ('./MineDynamics/MineDynamics'))
 const Mine = () => {
     const divTop = useRef(null)
-
     const [topOpacity, setTopOpacity] = useState(0);
   const topOpacityRef = useRef(topOpacity);
   const [circles, setCircles] = useState([])
-//     const divImg = useRef(null)
-//   const [mainColor, setMainColor] = useState('transparent');
-//   const ColorThief = new colorthief();
-//   const getMainColor=async (imageElement)=> {
-//     try {
-//       imageElement.crossOrigin = 'anonymous'
-//       const color = await ColorThief.getColor(imageElement);
-//       const rgbColor = `${color.join(',')}`
-//       const lastColor=`radial-gradient(circle at center, rgba(${rgbColor}, 1) 0%, rgba(${rgbColor}, 0.5) 100%)`
-//         setMainColor(lastColor)// 打印颜色的RGB数组
-//     } catch (err) {
-//         console.error(err);
-//     }
-// }
-//     useEffect(() => {
-//       const img = divImg.current;
-//   if (img && img.complete) {
-//     getMainColor(img);
-//   } else if (img) {
-//     img.onload = () => getMainColor(img);
-//   }
-//   }, []);
+      const [homeSections,sethomeSections] =useState( [
+          {
+              name: '主页',
+              component:<LazyMineHome/>
+          },
+          {
+              name: '动态',
+              component:<LazyMineDynamics/>
+          }
+      ])
+      const [sectionsName, setSectionsName] = useState([])
+      const [sectionsFuc,setSectionsFuc] =useState([]) 
+      useEffect(() => {
+          setSectionsName(homeSections.map((section) => section.name))
+          setSectionsFuc(homeSections.map((section) => section.component))
+      },[homeSections])
+      const [homeNavTargetIndex, setHomeNavTargetIndex] = useState({index:0,isScroll:false})
+      const [homeSectionsScrollInstance, setHomeSectionsScrollInstance] = useState(0)
+      const [sectionsIsActive, setSectionsIsActive] = useState(new Array(homeSections.length).fill(false).map((_, index) => index === 0))
+      const handleSectionsIsActiveChange = (activeIndex) => {
+          const newSectionIsActive = [...sectionsIsActive]
+          newSectionIsActive[activeIndex]=true
+          setSectionsIsActive(newSectionIsActive)
+      }
+      const handleHomeNavTargetIndexChange = (targetIndex) => {
+          setHomeNavTargetIndex(targetIndex)
+          handleSectionsIsActiveChange(targetIndex.index)
+      }
+      const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
+          setHomeSectionsScrollInstance(scrollInstanceIndex)
+      }
 useEffect(() => {
   topOpacityRef.current = topOpacity; // 每次 topOpacity 更新时，同步到 ref
 }, [topOpacity]);
@@ -106,30 +116,6 @@ useEffect(() => {
             </li>
           </ul> 
       <main className='app-mine__main' ref={divTop}>
-        {/* <header className='app-mine__header'>
-          <img src="/images/header/banner/小小陈.png" alt="用户头像" className="avatar" />
-          <div className="tools">
-            <button className='tool'>⚙</button>
-            <button className='tool'>✉</button>
-          </div>
-          <div className="info">
-            <div className="name">
-              feng
-              <div className="level">Lv 6</div>
-            </div>
-            <div className="bio">且将新火试新茶,诗酒趁年华</div>
-            <div className="experience-value">
-              <div className="bar"></div>
-            </div>
-            <div className="progress">经验值:800/1000</div>
-
-          </div>
-          <div className="list3">
-            <div className="item">动态</div>
-            <div className="item">关注</div>
-            <div className="item">粉丝</div>
-          </div>
-        </header> */}
         <div className="header">
           <div className="back">
           <img src='http://192.168.178.8:3100/uploads/avatar/circle/you.png' alt="空间背景图" className="backimg"/>
@@ -141,7 +127,7 @@ useEffect(() => {
               <span className="name">feng
                 <span className="level">Lv6</span>
               </span>
-              <p className="bio">ColorThief因其简便性和高效性被广泛应用于前端开发和图像处理相关的项目中。</p>
+              <p className="bio">ColorThief因其简便性和高效性被广泛应用于前端开发和图像处理相关的项目中。尽管直接指定与之集成的“典型生态项目”较为困难，因为它的适用范围非常广，ColorThief常与其他前端框架或者图像服务结合使用，如在构建响应式网页设计、React或Vue.js应用程序中的个性化功能模块。开发者通常会在自己的项目中嵌入ColorThief以实现特定的色彩分析需求，从而增强用户体验或进行数据分析的辅助。</p>
               <div className="experience">
                 <div className="bar"></div>
               </div>
@@ -155,10 +141,12 @@ useEffect(() => {
            
           </div>
         </div>
-        <div className="main">
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        <SingleRowDisplayBar cards={circles} title='我关注的圈子' />
-        </div>
+        <div className="mine-main">
+          <div className="mine-nav">
+            <SectionNavbar sectionsName={sectionsName} scrollInstance={homeSectionsScrollInstance } targetIndex={homeNavTargetIndex} onNavClick={ handleHomeNavTargetIndexChange} />
+          </div>
+          <SectionCardContainer sectionsIsActive={sectionsIsActive} sectionsFunc={sectionsFuc} onSectionScroll={ handleHomeSectionsScrollInstanceChange} onSectionActive={handleHomeNavTargetIndexChange} targetIndex={homeNavTargetIndex} />
+          </div>
         </main>
     </div>
 }

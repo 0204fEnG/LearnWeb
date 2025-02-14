@@ -32,9 +32,6 @@
             font-weight: bold;
             transition: all 0.15s linear;
             cursor: pointer;
-            &.toOpen{
-                transform: rotate(90deg);
-            }
         }
     }
     .cards{
@@ -43,15 +40,8 @@
         height: 150px;
         padding: 5px;
         transition: height 0.2s ease-out;
-        &.toOpen{
-            flex-wrap: wrap;
-            height: 260px;
-        }
         @media (max-width:1000px) {
             height: 120px;
-            &.toOpen{
-                height: 180px;
-            }
         }
         @include scrollbar();
         @include flex(row,nowrap,flex-start,flex-start,flex-start,5px);
@@ -59,15 +49,9 @@
             flex:0 0 100px;
             height: 130px;
             overflow: hidden;
-            &.toOpen{
-                height: 130px;
-            }
             @media (max-width:1000px) {
                 flex-basis: 80px;
                 height: 105px;
-                &.toOpen{
-                    height: 105px;
-                }
             }
             @include flex(row,wrap,center,center,space-between,null);
             .avatar{
