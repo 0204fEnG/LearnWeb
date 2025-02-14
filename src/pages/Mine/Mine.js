@@ -1,13 +1,37 @@
 // import { useEffect} from 'react'
 import { useEffect, useRef, useState } from 'react'
+import colorthief from 'colorthief'
 import './Mine.scss'
 import SingleRowDisplayBar from '../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar';
+const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 const Mine = () => {
     const divTop = useRef(null)
+
     const [topOpacity, setTopOpacity] = useState(0);
   const topOpacityRef = useRef(topOpacity);
-  const [circles,setCircles]=useState([])
-
+  const [circles, setCircles] = useState([])
+//     const divImg = useRef(null)
+//   const [mainColor, setMainColor] = useState('transparent');
+//   const ColorThief = new colorthief();
+//   const getMainColor=async (imageElement)=> {
+//     try {
+//       imageElement.crossOrigin = 'anonymous'
+//       const color = await ColorThief.getColor(imageElement);
+//       const rgbColor = `${color.join(',')}`
+//       const lastColor=`radial-gradient(circle at center, rgba(${rgbColor}, 1) 0%, rgba(${rgbColor}, 0.5) 100%)`
+//         setMainColor(lastColor)// 打印颜色的RGB数组
+//     } catch (err) {
+//         console.error(err);
+//     }
+// }
+//     useEffect(() => {
+//       const img = divImg.current;
+//   if (img && img.complete) {
+//     getMainColor(img);
+//   } else if (img) {
+//     img.onload = () => getMainColor(img);
+//   }
+//   }, []);
 useEffect(() => {
   topOpacityRef.current = topOpacity; // 每次 topOpacity 更新时，同步到 ref
 }, [topOpacity]);
@@ -107,7 +131,29 @@ useEffect(() => {
           </div>
         </header> */}
         <div className="header">
-          这里是背图和个人简介等等
+          <div className="back">
+          <img src='http://192.168.178.8:3100/uploads/avatar/circle/you.png' alt="空间背景图" className="backimg"/>
+            <img src='http://192.168.178.8:3100/uploads/avatar/circle/you.png' alt="空间背景图" className="backimg-mask" />
+          </div>
+          <div className="info">
+            <img src="/images/header/banner/小小陈.png" alt="头像" className="avatar" />
+            <div className="person">
+              <span className="name">feng
+                <span className="level">Lv6</span>
+              </span>
+              <p className="bio">ColorThief因其简便性和高效性被广泛应用于前端开发和图像处理相关的项目中。</p>
+              <div className="experience">
+                <div className="bar"></div>
+              </div>
+              <div className="progress">经验值:300/1000</div>
+            </div>
+            <ul className='three'>
+              <li className='item'><div className="count">120</div><div className="name">关注</div></li>
+              <li className='item'><div className="count">30</div><div className="name">粉丝</div></li>
+              <li className='item'><div className="count">12131</div><div className="name">获赞</div></li>
+            </ul>
+           
+          </div>
         </div>
         <div className="main">
         <SingleRowDisplayBar cards={circles} title='我关注的圈子' />

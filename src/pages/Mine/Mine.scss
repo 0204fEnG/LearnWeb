@@ -8,7 +8,8 @@
     position: relative;
     .app-mine__top{
        @include pageTop();
-    transition: 0.3s all linear;
+       transition: 0.3s all linear;
+       z-index: 2;
        @include flex(row,nowrap,center,center,null,null);
        .info{
         width: fit-content;
@@ -41,7 +42,7 @@
         position: absolute;
         right: 0;
         top:0;
-        z-index: 1;
+        z-index: 2;
         @include flex(row,nowrap,null,null,null,null);
         .tool{
             width: 48px;
@@ -56,15 +57,15 @@
                 width: 26px;
                 aspect-ratio: 1;
                 color: var(--text-color);
-                @media (min-width:650px) and (max-width:1000px) {
-                width: 24px;
-                }
-                @media (max-width:650px) {
-                    width: 22px;
+                @media (max-width:1000px) {
+                    width: 23px;
                 }
             }
             .name{
                 color: var(--text-color);
+                @media (max-width:1000px) {
+                    font-size: 0.9rem;
+                }
                 width: fit-content;
                 height: auto;
             }
@@ -86,11 +87,149 @@
         @include scrollbar();
         .header{
             width: 100%;
-            height: 300px;
-            background-color: aquamarine;
+            height: auto;
+            position: relative;
+            margin-bottom: 5px;
+            .back{
+                width: 100%;
+                height: 400px;
+                position: relative;
+                overflow: hidden;
+                @media (max-width:1500px) {
+                    height: 300px;
+                }
+                @media (max-width:1000px) {
+                    height: 200px;
+                }
+            .backimg{
+                position: absolute;
+                top:0;
+                left: 0;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .backimg-mask{
+                position: absolute;
+                top:0;
+                left: 0;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                filter: blur(5px);
+                object-fit: cover;
+            }
+           }
+            .info{
+                width: 100%;
+                height: auto;
+                background-color: var(--primary-color);
+                @include flex(row,wrap,flex-start,flex-start,flex-start,null);
+                .avatar{
+                    height: 150px;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                    margin:0 20px;
+                    z-index: 1;
+                    transform: translateY(-50%);
+                    @media (max-width:1000px) {
+                        height: 120px;
+                        margin:0 10px;
+                    }
+                    @media (max-width:650px) {
+                        height: 100px;
+                    }
+                }
+                .person{
+                    flex: 1 1 30px;
+                    height: auto;
+                .name{
+                    color:var(--text-color);
+                    width: fit-content;
+                    font-size: 2rem;
+                    display: block;
+                    height: auto;
+                    margin-bottom: 5px;
+                    position: relative;
+                    @media (max-width:1000px) {
+                        font-size: 1.4rem;
+                    }
+                    .level{
+                        display: block;
+                        position: absolute;
+                        width: fit-content;
+                        font-size: 1rem;
+                        @media (max-width:1000px) {
+                            font-size: 0.8rem;
+                        }
+                        height: auto;
+                        color: white;
+                        background-color: var(--active-color);
+                        top:50%;
+                        right:0;
+                        transform: translateX(110%) translateY(-50%);                    
+                    }
+                }
+                .bio{
+                    color:var(--text-color);
+                    width: fit-content;
+                    height: auto;
+                    margin-bottom: 5px;
+                }
+                .experience{
+                    width: 100%;
+                    height: .9rem;
+                    padding: 2px;
+                    margin-bottom: 5px;
+                    background-color: var(--background-color);
+                    .bar{
+                        width: 30%;
+                        height: 100%;
+                        background-color: var(--active-color);
+                    }
+                }
+                .progress{
+                    color:var(--text-color);
+                    width: fit-content;
+                    height: auto;
+                    margin-bottom: 5px;
+                }
+            }
+            .three{
+                flex:0 0 200px;
+                height: 55px;
+                margin-left: auto;
+                @media (max-width:650px) {
+                    flex:1 1 100%;
+                    height: 40px;
+                }
+                @include flex(row,nowrap,center,center,null,null);
+                .item{
+                    flex:1 1 calc(100% / 3);
+                    height: 100%;
+                    &:nth-child(2){
+                    border-left: 2px solid;
+                    border-right: 2px solid;
+                    border-image: linear-gradient(to bottom, transparent 10%, var(--text-color) 10%, var(--text-color) 90%, transparent 90%) 1;
+                    }
+                    .count{
+                        color:var(--text-color);
+                        width: 100%;
+                        height: 50%;
+                        @include flex(row,nowrap,center,center,null,null);
+                    }
+                    .name{
+                        color:var(--text-color);
+                        width: 100%;
+                        height: 50%;
+                        @include flex(row,nowrap,center,center,null,null);
+                    }
+                }
+            }
+            }
         }
         .main{
-
         }
     }
 }
