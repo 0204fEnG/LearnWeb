@@ -1,5 +1,6 @@
 @use '/src/styles/main/pageMain.scss'as *;
 @use '/src/styles/top/pageTop.scss'as *;
+@use '/src/styles/display/flex.scss'as *;
 .post-mask{
     width: 100vw;
     height: 100vh;
@@ -7,47 +8,139 @@
     top:0;
     left: 0;
     z-index: 999;
-    animation: mask-enter 0.3s ease-in-out;
     background-color: rgb(0, 0, 0,0.5);
+    @media (min-width:1000px) {
+        animation: mask-enter1 0.3s ease-in-out;
+    }
     &.leave{
-        animation-name: mask-leave;
+    @media (min-width:1000px) {
+        animation-name: mask-leave1;
         animation-fill-mode: forwards;
+    }
     }
     .post-container{
         width: 1000px;
         height: 90vh;
         margin: 5vh auto;
-        background-color: rgb(235, 196, 145);
-        animation: container-enter 0.3s ease-in-out;
+        position: relative;
+        background-color: var(--background-color);
+        animation: container-enter1 0.3s ease-in-out;
+        border-radius: 24px;
+        overflow: hidden;            
         @media (min-width:650px) and (max-width:1000px) {
+            border-radius: 0;
             width: 100%;
             height: 100%;
             margin: 0;
         }
         @media (max-width:650px){
+            border-radius: 0;
             width: 100%;
             height: 100%;
             margin: 0;
+            animation: container-enter2 0.3s ease-in-out;
         }
         &.leave{
-            animation-name: container-leave;
+            animation-name: container-leave1;
+            animation-fill-mode: forwards;                
+            @media (max-width:650px) {
+            animation-name: container-leave2;
             animation-fill-mode: forwards;
+        }
+        }
+        @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
+        .header{
+            @include pageTop();
+            @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
+            .back-container{
+                height: 100%;
+                padding: 10px;
+                aspect-ratio: 1;
+                cursor: pointer;
+            .back{
+                width: 100%;
+                height: 100%;
+                color: var(--text-color);
+            }
+        }
+            .author-info{
+                width: fit-content;
+                height: 100%;
+                position: relative;
+                @include flex(row,nowrap,null,center,flex-start,null);
+                .img-container{
+                    height: 100%;
+                    aspect-ratio: 1;
+                .avatar{
+                    height: 100%;
+                    padding: 5px;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+                }
+                .name-container{
+                    height: 100%;
+                    width: fit-content;
+                    @include flex(column,nowrap,center,null,null,null);
+                .name{
+                    width: fit-content;
+                }
+            }
+            }
+            .follow-container{
+                height: 100%;
+                width: 96px;
+                padding: 5px;
+                margin-left: auto;
+                @media (max-width:1000px) {
+                    width: 80px;
+                }
+                .follow{
+                    cursor: pointer;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 19px;
+                    background-color: var(--active-color);
+                    color: white;
+                    @media (max-width:1000px) {
+                        border-radius: 13px;
+                    }
+                }
+            }
+        }
+        .content-container{
+            flex:1 1 50%;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-right: 1px solid var(--background-color);
+        }
+        .comments-container{
+            flex:1 1 50%;
+            height: 100%;
+            border-left: 1px solid var(--background-color);
+            background-color: var(--primary-color);
         }
     }
 }
 
-@keyframes mask-leave {
+@keyframes mask-leave1 {
     to{
         background-color: transparent;
     }
 }
-@keyframes container-leave {
+@keyframes container-leave1 {
     to{
         transform: scale(0);
         opacity: 0;
     }
 }   
-@keyframes mask-enter {
+@keyframes container-leave2 {
+    to{
+        transform: translateX(100%);
+    }
+}   
+@keyframes mask-enter1 {
     0%{
         background-color: transparent;
     }
@@ -55,7 +148,7 @@
         background-color: rgb(0, 0, 0,0.5);
     }
 }
-@keyframes container-enter {
+@keyframes container-enter1 {
     0%{
         transform: scale(0);
         opacity: 0;
@@ -63,5 +156,13 @@
     100%{
         transform: scale(1);
         opacity: 1;
+    }
+}
+@keyframes container-enter2 {
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
     }
 }    

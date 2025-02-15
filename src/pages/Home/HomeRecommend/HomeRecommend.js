@@ -7,12 +7,12 @@ import Loading from '../../../components/Loading/Loading.js'
 const HomeRecommend = () => {
     const videoUrl = '/videos/ban.mp4'
     const imgUrl = [
-"/images/header/banner/春霖翠意.jpg",
-"/images/header/banner/迭翠千里.jpg",
-"/images/header/banner/冬夜小镇.jpg",
-"/images/header/banner/星蕴蓝.jpg",
-"/images/header/banner/诗野千里.jpg",
-"/images/header/banner/星蕴金.jpg",
+"/images/header/banner/1.png",
+"/images/header/banner/2.png",
+"/images/header/banner/3.png",
+"/images/header/banner/4.png",
+"/images/header/banner/5.png",
+"/images/header/banner/6.png",
     ]
     const postItems = [
         {
