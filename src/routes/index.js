@@ -8,8 +8,14 @@ const routes=[
     component: lazy(()=>import("../App.js")),
     children: [
       {
-        index:true,
-        component: lazy(()=>import("../pages/Home/Home.js"))
+        path:'home',
+        component: lazy(() => import("../pages/Home/Home.js")),
+        children: [
+          {
+          path: "post/:postId",
+          component: lazy(() => import("../pages/Post/Post.js"))
+          }
+        ]
       },
       {
         path: "circles",
@@ -55,10 +61,10 @@ const generateRouter = (routes) => {
 export const transitionRoutes = [
   {
     path: "/",
-    element: lazy(()=>import("../App.js")),
+    element: lazy(() => import("../App.js")),
     children: [
       {
-        index:true,
+        path:'home',
         element: lazy(()=>import("../pages/Home/Home.js")),
         nodeRef: createRef(),
       },
@@ -67,11 +73,11 @@ export const transitionRoutes = [
         element: lazy(()=>import("../pages/Circles/Circles.js")),
         nodeRef: createRef()
       },
-        {
-        path: "/circle/:circleName",
+      {
+        path: "circle/:circleName",
         element: lazy(()=>import("../pages/Circle/Circle.js")),
         nodeRef: createRef()
-  },
+      },
       {
         path: "shorts",
         element: lazy(()=>import("../pages/Shorts/Shorts.js")),

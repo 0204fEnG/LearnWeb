@@ -1,10 +1,10 @@
 import React,{ useEffect, useContext,useState} from 'react';
 import './App.scss';
 import { useTheme } from './contexts/ThemeContext.js';
-import {  NavLink, useLocation, useOutlet, useNavigate } from 'react-router-dom';
+import {  NavLink, useLocation, useOutlet, useNavigate,Outlet} from 'react-router-dom';
 import { CSSTransition,TransitionGroup} from 'react-transition-group'
 import { AppContext } from './contexts/AppContext.js';
-import { transitionRoutes } from './routes/index.js';
+// import { transitionRoutes } from './routes/index.js';
 import { authLoginUser,test } from "./api/auth.js";
 import { useDispatch ,useSelector} from 'react-redux';
 import { autoLoginSuccess, logout } from './actions/userActions.js';
@@ -67,18 +67,21 @@ const App = () => {
 };
   useEffect(() => {
     checkAutoLogin()
+  }, [])
+  useEffect(() => {
+    nav('/home')
   },[])
   useEffect(() => {
-    if (['/', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
+    if (['/home', '/circles', '/shorts', '/mine'].includes(location.pathname)) {
       setBottomIsShow(true)
     }
     else {
       setBottomIsShow(false)
     }
   }, [location.pathname]);
-  const currentOutlet = useOutlet()
-  const { nodeRef } =
-    transitionRoutes.find((route) => route.path === location.pathname) ?? {}
+  // const currentOutlet = useOutlet()
+  // const { nodeRef } =
+  //   transitionRoutes.find((route) => route.path === location.pathname) ?? {}
   return (
     <div className={['app', leftIsShow ? 'left-open' : ''].join(' ')}>
         <div className='app__left-mask' onClick={handleLeftIsShowClick}></div>
@@ -86,13 +89,13 @@ const App = () => {
             <div className='app__left-close' onClick={handleLeftIsShowClick}>x</div>
         <img className='app__left__img' src={avatar} alt='请设置头像'/>
             <nav className='app__left__navs'>
-              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="/">首页</NavLink>
+              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="home">首页</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="circles">圈子</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="shorts">短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>
           </nav>
           <ul className='app__left__tools'>
-            <li className='app__left__tool'>消息</li>
+            <li className='app__left__tool' onClick={()=>nav('/post')}>消息</li>
             <li className='app__left__tool' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{`切换${theme === 'light' ? '深色' : '浅色'}模式`}</li>
             <li className='app__left__tool'>设置</li>
             <li className='app__left__tool'>帮助与反馈</li>
@@ -102,8 +105,8 @@ const App = () => {
           </ul>
           </aside>
       <main className='app__right'>
-          {/* <Outlet/> */}
-           <TransitionGroup>
+          <Outlet/>
+           {/* <TransitionGroup>
            <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
@@ -117,10 +120,10 @@ const App = () => {
               </div>
               )}
           </CSSTransition>
-        </TransitionGroup>
+        </TransitionGroup> */}
       </main>
           <nav className={['app__bottom__navs',!bottomIsShow?'bottom-close':''].join(' ')}>
-             <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="/">首页</NavLink>
+             <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="home">首页</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="circles">圈子</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="shorts">短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="mine">我的</NavLink>

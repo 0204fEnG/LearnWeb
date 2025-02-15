@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './PostCard.scss'
 const PostCard = ({postItem}) => {
       const navigate = useNavigate()
-
+      const location=useLocation()
   const handleTagClick = (path) => {
     // 使用 navigate 导航到新路由
     navigate(path);
@@ -43,7 +43,15 @@ const renderContentWithTags = (postItem) => {
 
   // 返回包含文本和标签元素的数组
   return contentParts;
-};
+  };
+  const handlePostContentClick = (event) => {
+    if (event.target !== event.currentTarget) {
+    return;
+    }
+    else {
+      handleTagClick(`/home/post/${postItem.postId}`)
+    }
+  }
     return <article className="post-card">
         <div className="post-header">
             <img className="user-avator" src={postItem.userAvator } alt="用户头像"/>
@@ -53,7 +61,7 @@ const renderContentWithTags = (postItem) => {
             </div>
         </div>
         <div className="post-title">{postItem.title}</div>
-        <div className="post-content">{renderContentWithTags(postItem)}</div>
+        <div className="post-content" onClick={handlePostContentClick}>{renderContentWithTags(postItem)}</div>
         <div className={`post-img ${postItem.imgs.length===1?'first':postItem.imgs.length===2?'second':''}`}>
         {postItem.imgs.map((img, index) =>
               <div className="img-container" key={index}>
@@ -61,7 +69,7 @@ const renderContentWithTags = (postItem) => {
                 </div>)
             }
         </div>
-        <div className="post-circle" onClick={() => handleTagClick(`/circles/circle/${postItem.circle.name}`)}>
+        <div className="post-circle" onClick={() => handleTagClick(`circles/circle/${postItem.circle.name}`)}>
             <img src={postItem.circle.avator} alt="圈子头像" className="circle-avator" />
             <div className="circle-name">{postItem.circle.name }</div>
         </div>

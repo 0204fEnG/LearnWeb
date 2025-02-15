@@ -4,10 +4,13 @@ import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar'
 import './Home.scss'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 import { AppContext } from '../../contexts/AppContext.js'
+import { Outlet, useLocation } from 'react-router-dom'
 const LazyHomeRecommend = lazy(() => import('./HomeRecommend/HomeRecommend'))
 const LazyHomeConcern=lazy(()=>import('./HomeConcern/HomeConcern')) 
 // import { useOutletContext } from 'react-router-dom'
 const Home = () => {
+    // const location = useLocation()
+    const [outletShow,setOutletShow]=useState(false)
     const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
     const [homeSections,sethomeSections] =useState( [
         {
@@ -40,6 +43,18 @@ const Home = () => {
     const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
         setHomeSectionsScrollInstance(scrollInstanceIndex)
     }
+    // useEffect(() => {
+    //         // 获取当前路径
+    // const currentPath = location.pathname;
+    // // 定义二级路由的匹配规则
+    // const isNestedRoute = currentPath.startsWith('/home/post');
+    //     if (isNestedRoute) {
+    //     setOutletShow(true)
+    //     }
+    //     else {
+    //         setOutletShow(false)
+    //     }
+    //   }, [location.pathname]);
     return <div className="app-home">
         <header className='app-home__header'>
             <div className="app-home__header__navs">
@@ -53,6 +68,7 @@ const Home = () => {
         <main className='app-home__main'>
             <SectionCardContainer sectionsIsActive={sectionsIsActive} sectionsFunc={sectionsFuc} onSectionScroll={ handleHomeSectionsScrollInstanceChange} onSectionActive={handleHomeNavTargetIndexChange} targetIndex={homeNavTargetIndex} />
         </main>
+        <Outlet/>
     </div>
 }
 export default Home

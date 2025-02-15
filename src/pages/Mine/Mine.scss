@@ -90,6 +90,7 @@
     .app-mine__main{
         @include pageMain();
         @include scrollbar();
+        background-color: var(--background-color);
         .header{
             width: 100%;
             height: auto;
