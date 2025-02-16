@@ -145,7 +145,7 @@
     transition: transform 0.2s linear,background-color 0.5s ease;
     bottom: 0;
     backdrop-filter: blur(15px);
-    box-shadow: 0 0px 10px var(--shadow-color);
+    border-top: 1px solid var(--border-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;
       height: auto;

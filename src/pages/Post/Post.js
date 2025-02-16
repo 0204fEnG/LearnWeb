@@ -67,36 +67,35 @@ const Post = () => {
                     <div className="comments-top">共3条评论</div>
                     <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="" className="avatar" /></Link>
+                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
                                 <Link className="name">SLZ</Link>
-                                <div className="level">Lv4</div>
-                                <div className="author">作者</div>                                    
+                                <span className="level">Lv4</span>
+                                <span className="author">作者</span>                                    
                                 </div>
                                 <div className="time"><span className="publish-time">1月29日</span></div>
                             </div>
                         </div>
-                        <div className="comment">我觉得一般，卵豪那天说完我去玩了玩，金银角强度是有的而且不低，但是和霸体的适配性没想象中的高，主要是这个b银角一个劈会打断自己的霸体那天两把都是因为这个情况白给了，我还是觉得带起手秘卷雷电 来去 散 真空波或者反手秘卷烈焰蛋 鬼灯笼都挺不错的，我自己在玩散和雷电金银角目前还在取舍，还是觉得给他带霸体有点不稳霸体紫狗普通人外星人活二或者三代雷四代雷都挺不错的，就是这个霸体金银角玩起来不舒服，玩肯定可以玩但是说最强霸体位不敢顺从</div>
+                        <div className="comment">自</div>
                         <ul className="tools">
-                            <li className="tool">点赞</li>
-                            <li className="tool">反对</li>
-                            <li className="tool">转发</li>
-                            <li className="more">:</li>
+                            <button className="tool">点赞</button>
+                            <button className="tool">反对</button>
+                            <button className="tool">转发</button>
+                            <button className="more">:</button>
                         </ul>
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <span className='user-name'>24feng</span>
-                                :首先，汤汁豪的金银角熟练度绝对不算特别高，污垢那一波葫芦之后七星剑的连招就可以看出来，七星剑丢了至少一半的伤害。其次是模拟器神力问题，绳子换人加七星剑确实可以吃掉满级霸体，但是这是建立在模拟器无延迟的情况下，手机稍微卡顿一下破不掉霸体不说包露大后摇的。最后是最后一波金银角赌大招，已经算是放手一搏了，对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓的，纯狗运
+                                <Link className='user-name'>24feng: </Link>
+                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓的，纯狗运
                             </div>
                             <div className="pre-reply">
-                                <i className='user-name'>24yd21ng</i>
-                                不是下一个无限火力，他本来就是无限火力。。。但是金银角的机动性差，不像金氏能随随便便破通灵所以要是说最强霸体位还是说过头了的（拿霸体还是强的）
-你要说真能算最强霸体位不是应该是紫狗长十郎么[笑哭]
+                                <Link className='user-name'>24yd21ng: </Link>
+                                不是下一个无限火力，他
                                 </div>
                             </div>
-                            <div className="reply-count">共 133 条回复&gt;</div>
+                            <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
                 </div>

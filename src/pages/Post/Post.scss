@@ -2,6 +2,7 @@
 @use '/src/styles/top/pageTop.scss'as *;
 @use '/src/styles/display/flex.scss'as *;
 @use '/src/styles/padding/topPadding.scss'as *;
+@use '/src/styles/padding/topPadding2.scss'as *;
 @use '/src/styles/scrollbar/scrollbar.scss'as*;
 @use '/src/styles/lineheight/lineheight.scss'as *;
 .post-mask{
@@ -52,6 +53,9 @@
         .header{
             @include pageTop();
             @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
+            @media (max-width:650px) {
+                position: fixed;
+            }
             .back-container{
                 height: 100%;
                 padding: 10px;
@@ -113,16 +117,16 @@
             flex:1 1 50%;
             height: 100%;
             background-color: var(--primary-color);
-            border-right: 1px solid var(--background-color);
+            border-right: 1px solid var(--border-color);
             overflow-y: auto;                
             @media (max-width:650px) {
                 flex-basis: 100%;
                 height: auto;
-                border-left:none;
-                border-bottom: 1px solid var(--background-color);
+                border-right:none;
+                border-bottom: 1px solid var(--border-color);
             }
             @include flex(column,nowrap,flex-start,center,flex-start,5px);
-            @include topPadding();
+            @include topPadding2();
             @include scrollbar();
             .article{
                 flex:0 0 auto;
@@ -141,7 +145,6 @@
             height: 100%;
             overflow-y: auto;                
             @include scrollbar();
-            border-left: 1px solid var(--background-color);
             background-color: var(--primary-color);
             padding-top: 48px;
             @media (max-width:1000px) {
@@ -149,36 +152,43 @@
             }
             @media (max-width:650px) {
                 flex-basis: 100%;
+                // max-width: 100%;
                 border-left:none;
                 height:auto;
-                border-top: 1px solid var(--background-color);
+                overflow-y: visible;
                 padding-top: 5px;
             }
-            @include flex(column,nowrap,flex-start,center,null,5px);
+            @include flex(column,nowrap,flex-start,center,null,null);
             .comments-top{
                 width: 100%;
                 flex: 0 0 36px;
                 backdrop-filter: blur(15px);
-                box-shadow: 0 0 10px var(--shadow-color);
+                border-bottom: 1px solid var(--border-color);
                 background-color: var(--primary-color--opa);
                 position: sticky;
                 top:0;
+                line-height: 36px;
+                padding: 5px;
+                font-size: 1.05rem;
+                @media (max-width:650px) {
+                    top:36px;
+                }
             }
             .comment-container{
                 width: 100%;
                 flex:0 0 auto;
-                padding: 5px;
-                @include flex(column,nowrap,flex-start,center,null,null);
+                padding: 10px;
+                @include flex(column,nowrap,flex-start,center,flex-start,null);
+                border-bottom: 1px solid var(--border-color--opa);
                 .comment-header{
                     width: 100%;
                     flex:0 0 36px;
-                    max-height: 36px;
                     @include flex(row,nowrap,flex-start,center,null,5px);
                     .avatar-container{
                         height: 100%;
                         aspect-ratio: 1;
                         .avatar{
-                            height: 100%;
+                            height: 36px;
                             aspect-ratio: 1;
                             border-radius: 50%;
                             object-fit: cover;
@@ -187,33 +197,33 @@
                     .info-container{
                         flex:1;
                         height: 100%;
+                        @include flex(column,nowrap,center,flex-start,flex-start,null);
                         .name-container{
                             width: fit-content;
-                            @include flex(row,nowrap,flex-start,center,null,3px);
-                            height: 60%;
+                            @include flex(row,nowrap,flex-start,center,flex-start,5px);
                             .name{
                                 flex:1 1 fit-content;
-                                height: 100%;
-                                font-size: 1.1rem;
-                                background-color: aquamarine;
+                                font-weight: bold;
                             }
                             .level{
                                 flex:1 1 fit-content;
-                                height: 100%;
-                                background-color:rgb(211, 167, 113);
+                                font-size: 0.8rem;
+                                background-color:var(--active-color);
                             }
                             .author{
                                 flex:1 1 fit-content;
-                                height: 100%;
-                                background-color: bisque;
+                                font-size: 0.8rem;
+                                color: white;
+                                background-color:var(--active-color);
                             }
                         }
                         .time{
                             width: fit-content;
-                            height: 40%;
-                            @include flex(row,nowrap,flex-start,center,null,3px);
+                            @include flex(row,nowrap,flex-start,center,flex-start,null);
                             .publish-time{
                                 flex:1 1 fit-content;
+                                font-size: 0.8rem;
+                                color: var(--text-color--light);
                             }
                         }
                     }
@@ -223,28 +233,30 @@
                     flex:0 0 auto;
                     @include lineHeight();
                     padding-left: 41px;
+                    font-size: 1.05rem;
                 }
                 .tools{
                     width: 100%;
-                    flex:0 0 24px;
+                    flex:0 0 30px;
                     padding-left: 41px;
-                    @include flex(row,nowrap,flex-start,center,null,5px);
+                    @include flex(row,nowrap,flex-start,center,flex-start,5px);
                     .tool{
-                        flex:0 0 24px;
-                        height: 100%;
-                        background-color: aquamarine;
+                        flex:0 0 fit-content;
+                        cursor: pointer;
                     }
                     .more{
                         height: 100%;
-                        width: 24px;
+                        aspect-ratio: 1;
                         margin-left: auto;
+                        cursor: pointer;
                     }
                 }
                 .reply{
                     width: calc(100% - 36px);
                     margin-left: 41px;
-                    background-color: azure;
-                    @include flex(column,nowrap,flex-start,center,null,null);
+                    background-color: var(--background-color--opa);
+                    padding: 5px;
+                    @include flex(column,nowrap,flex-start,null,null,null);
                     .pre-reply-container{
                         width: 100%;
                         flex:0 0 auto;
@@ -256,8 +268,10 @@
                         }
                     }
                     .reply-count{
-                        width: 100%;
-                        flex:0 0 auto;
+                        width: fit-content;
+                        cursor: pointer;
+                        margin-top: 5px;
+                        color: var(--active-color);
                     }
                 }
             }

@@ -6,7 +6,7 @@
     top:0;
     left: 0;
     backdrop-filter: blur(15px);
-    box-shadow: 0 0 10px var(--shadow-color);
+    border-bottom: 1px solid var(--border-color);
     background-color: var(--primary-color--opa);
     @media (max-width:1000px){
         flex-direction: column;
