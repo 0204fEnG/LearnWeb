@@ -1,0 +1,6 @@
+@mixin lineHeight(){
+    line-height: 22px;
+    @media (max-width:1000px) {
+        line-height: 20px;
+    }
+}

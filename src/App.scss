@@ -1,5 +1,5 @@
 @use './styles/display/flex.scss' as *;
-
+@use './styles/scrollbar/scrollbar.scss'as *;
 .app{
   @include flex(row,wrap,null,null,flex-start,null);
   position: relative;
@@ -15,6 +15,7 @@
   }
     .app__left__container{
     @include flex(row,wrap,null,null,flex-start,5px);
+    @include scrollbar();
     position: fixed;
     left:0;
     z-index: 3;

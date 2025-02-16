@@ -1,0 +1,7 @@
+@mixin topPadding(){
+    padding: 5px;
+    padding-top: calc(5px + 48px);
+    @media (max-width:1000px){
+        padding-top: calc(5px + 36px);
+    }
+}

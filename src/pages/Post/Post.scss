@@ -1,6 +1,9 @@
 @use '/src/styles/main/pageMain.scss'as *;
 @use '/src/styles/top/pageTop.scss'as *;
 @use '/src/styles/display/flex.scss'as *;
+@use '/src/styles/padding/topPadding.scss'as *;
+@use '/src/styles/scrollbar/scrollbar.scss'as*;
+@use '/src/styles/lineheight/lineheight.scss'as *;
 .post-mask{
     width: 100vw;
     height: 100vh;
@@ -9,14 +12,10 @@
     left: 0;
     z-index: 999;
     background-color: rgb(0, 0, 0,0.5);
-    @media (min-width:1000px) {
-        animation: mask-enter1 0.3s ease-in-out;
-    }
+    animation: mask-enter1 0.3s ease-in-out;
     &.leave{
-    @media (min-width:1000px) {
         animation-name: mask-leave1;
         animation-fill-mode: forwards;
-    }
     }
     .post-container{
         width: 1000px;
@@ -26,7 +25,8 @@
         background-color: var(--background-color);
         animation: container-enter1 0.3s ease-in-out;
         border-radius: 24px;
-        overflow: hidden;            
+        overflow-y: auto;
+        @include scrollbar();          
         @media (min-width:650px) and (max-width:1000px) {
             border-radius: 0;
             width: 100%;
@@ -48,7 +48,7 @@
             animation-fill-mode: forwards;
         }
         }
-        @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
+        @include flex(row,wrap,flex-start,flex-start,flex-start,null);
         .header{
             @include pageTop();
             @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
@@ -82,7 +82,7 @@
                 .name-container{
                     height: 100%;
                     width: fit-content;
-                    @include flex(column,nowrap,center,null,null,null);
+                    @include flex(row,nowrap,center,center,null,null);
                 .name{
                     width: fit-content;
                 }
@@ -114,12 +114,153 @@
             height: 100%;
             background-color: var(--primary-color);
             border-right: 1px solid var(--background-color);
+            overflow-y: auto;                
+            @media (max-width:650px) {
+                flex-basis: 100%;
+                height: auto;
+                border-left:none;
+                border-bottom: 1px solid var(--background-color);
+            }
+            @include flex(column,nowrap,flex-start,center,flex-start,5px);
+            @include topPadding();
+            @include scrollbar();
+            .article{
+                flex:0 0 auto;
+                width: 100%;
+                @include lineHeight();
+            }
+            .img-container{
+                flex:0 0 auto;
+                width: 100%;
+                border-radius: 5px;
+                overflow: hidden;
+            }
         }
         .comments-container{
             flex:1 1 50%;
             height: 100%;
+            overflow-y: auto;                
+            @include scrollbar();
             border-left: 1px solid var(--background-color);
             background-color: var(--primary-color);
+            padding-top: 48px;
+            @media (max-width:1000px) {
+                padding-top: 36px;
+            }
+            @media (max-width:650px) {
+                flex-basis: 100%;
+                border-left:none;
+                height:auto;
+                border-top: 1px solid var(--background-color);
+                padding-top: 5px;
+            }
+            @include flex(column,nowrap,flex-start,center,null,5px);
+            .comments-top{
+                width: 100%;
+                flex: 0 0 36px;
+                backdrop-filter: blur(15px);
+                box-shadow: 0 0 10px var(--shadow-color);
+                background-color: var(--primary-color--opa);
+                position: sticky;
+                top:0;
+            }
+            .comment-container{
+                width: 100%;
+                flex:0 0 auto;
+                padding: 5px;
+                @include flex(column,nowrap,flex-start,center,null,null);
+                .comment-header{
+                    width: 100%;
+                    flex:0 0 36px;
+                    max-height: 36px;
+                    @include flex(row,nowrap,flex-start,center,null,5px);
+                    .avatar-container{
+                        height: 100%;
+                        aspect-ratio: 1;
+                        .avatar{
+                            height: 100%;
+                            aspect-ratio: 1;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+                    .info-container{
+                        flex:1;
+                        height: 100%;
+                        .name-container{
+                            width: fit-content;
+                            @include flex(row,nowrap,flex-start,center,null,3px);
+                            height: 60%;
+                            .name{
+                                flex:1 1 fit-content;
+                                height: 100%;
+                                font-size: 1.1rem;
+                                background-color: aquamarine;
+                            }
+                            .level{
+                                flex:1 1 fit-content;
+                                height: 100%;
+                                background-color:rgb(211, 167, 113);
+                            }
+                            .author{
+                                flex:1 1 fit-content;
+                                height: 100%;
+                                background-color: bisque;
+                            }
+                        }
+                        .time{
+                            width: fit-content;
+                            height: 40%;
+                            @include flex(row,nowrap,flex-start,center,null,3px);
+                            .publish-time{
+                                flex:1 1 fit-content;
+                            }
+                        }
+                    }
+                }
+                .comment{
+                    width: 100%;
+                    flex:0 0 auto;
+                    @include lineHeight();
+                    padding-left: 41px;
+                }
+                .tools{
+                    width: 100%;
+                    flex:0 0 24px;
+                    padding-left: 41px;
+                    @include flex(row,nowrap,flex-start,center,null,5px);
+                    .tool{
+                        flex:0 0 24px;
+                        height: 100%;
+                        background-color: aquamarine;
+                    }
+                    .more{
+                        height: 100%;
+                        width: 24px;
+                        margin-left: auto;
+                    }
+                }
+                .reply{
+                    width: calc(100% - 36px);
+                    margin-left: 41px;
+                    background-color: azure;
+                    @include flex(column,nowrap,flex-start,center,null,null);
+                    .pre-reply-container{
+                        width: 100%;
+                        flex:0 0 auto;
+                        .pre-reply{
+                            @include lineHeight();
+                            .user-name{
+                                color: var(--active-color);
+                            }
+                        }
+                    }
+                    .reply-count{
+                        width: 100%;
+                        flex:0 0 auto;
+                    }
+                }
+            }
         }
     }
 }
