@@ -57,10 +57,10 @@
             &:hover{
                 animation: icon-jump 0.35s ease-in-out forwards;
             }
-            .svg{
+            .tool-svg{
                 width: 23px;
                 aspect-ratio: 1;
-                color: var(--text-color);
+                fill:var(--text-color);
                 @media (max-width:1000px) {
                     width: 20px;
                 }

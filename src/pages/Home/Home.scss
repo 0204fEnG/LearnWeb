@@ -6,7 +6,7 @@
     height: 100%;
     position: relative;
     .app-home__header{
-        @include flex(row,wrap,null,null,null,null);
+        @include flex(row,nowrap,null,null,null,null);
         @include indexTop();
         .app-home__header__navs{
             width: 30%;
@@ -31,7 +31,7 @@
             height: 100%;
             aspect-ratio: 1;
             font-size: 24px;
-            display: block;
+            display: none;
             text-align: center;
             line-height: 36px;
             cursor: pointer;

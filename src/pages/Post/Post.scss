@@ -52,6 +52,9 @@
         @include flex(row,wrap,flex-start,flex-start,flex-start,null);
         .header{
             @include pageTop();
+            @media (max-width:1000px) {
+                height: 48px;
+            }
             @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
             @media (max-width:650px) {
                 position: fixed;
@@ -64,7 +67,7 @@
             .back{
                 width: 100%;
                 height: 100%;
-                color: var(--text-color);
+                fill: var(--text-color);
             }
         }
             .author-info{
@@ -86,9 +89,15 @@
                 .name-container{
                     height: 100%;
                     width: fit-content;
-                    @include flex(row,nowrap,center,center,null,null);
+                    @include flex(column,nowrap,center,flex-start,null,null);
                 .name{
                     width: fit-content;
+                    font-size: 1.1rem;
+                }
+                .publish-time{
+                    width: fit-content;
+                    font-size: 0.9rem;
+                    color: var(--text-color--light);
                 }
             }
             }
@@ -107,9 +116,6 @@
                     border-radius: 19px;
                     background-color: var(--active-color);
                     color: white;
-                    @media (max-width:1000px) {
-                        border-radius: 13px;
-                    }
                 }
             }
         }
@@ -147,16 +153,13 @@
             @include scrollbar();
             background-color: var(--primary-color);
             padding-top: 48px;
-            @media (max-width:1000px) {
-                padding-top: 36px;
-            }
             @media (max-width:650px) {
                 flex-basis: 100%;
                 // max-width: 100%;
                 border-left:none;
                 height:auto;
                 overflow-y: visible;
-                padding-top: 5px;
+                padding-top: 0;
             }
             @include flex(column,nowrap,flex-start,center,null,null);
             .comments-top{
@@ -167,11 +170,15 @@
                 background-color: var(--primary-color--opa);
                 position: sticky;
                 top:0;
-                line-height: 36px;
-                padding: 5px;
-                font-size: 1.05rem;
                 @media (max-width:650px) {
-                    top:36px;
+                    top:48px;
+                }
+                @include flex(row,nowrap,flex-start,center,flex-start,null);
+                .title{
+                   width: fit-content;
+                   height: 100%;
+                   margin: 0 5px;
+                   @include flex(column,nowrap,center,null,null,null);
                 }
             }
             .comment-container{
@@ -208,6 +215,7 @@
                             .level{
                                 flex:1 1 fit-content;
                                 font-size: 0.8rem;
+                                color: white;
                                 background-color:var(--active-color);
                             }
                             .author{

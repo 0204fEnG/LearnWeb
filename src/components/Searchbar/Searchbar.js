@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import './Searchbar.scss'
+import Search from "../icons/Search";
 const Searchbar = ({setBottomIsShow}) => {
   const inputRef=useRef(null)
  // 判断设备类型
@@ -103,13 +104,9 @@ function listenKeybord() {
 
   return (
     <div className='searchbar-container'>
-      <div className="searchbar-box">
         <input className="search-input"ref={inputRef}/>
-        </div>
-      <div className="searchbar-button">
-        <button className="search-button">
-          🔍︎
-        </button>
+      <div className="search-button">
+          <Search className='search'/>
         </div>
       </div>
   );

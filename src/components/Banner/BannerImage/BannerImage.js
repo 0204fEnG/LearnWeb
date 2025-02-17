@@ -1,3 +1,5 @@
+import ArrowLeftCircle from '../../icons/ArrowLeftCircle'
+import ArrowRightCircle from '../../icons/ArrowRightCircle'
 import './BannerImage.scss'
 import { useEffect, useRef, useState } from 'react'
 const BannerImage = ({ images }) => {
@@ -79,8 +81,8 @@ const BannerImage = ({ images }) => {
       <div className="blur" ref={imgDiv}>
         {allImages.map((image, index) => <img src={image} key={index} className='banner-image' alt='轮播图'></img>)}
       </div>
-      <div className="changeIndex prev" onClick={()=>handleClickScroll(imageIndex-1)}>&lt;</div>
-      <div className="changeIndex next" onClick={() =>handleClickScroll(imageIndex+1)}>&gt;</div>
+      <div className="changeIndex prev" onClick={()=>handleClickScroll(imageIndex-1)}><ArrowLeftCircle className='change'/></div>
+      <div className="changeIndex next" onClick={() =>handleClickScroll(imageIndex+1)}><ArrowRightCircle className='change'/></div>
       <div className="imageIndexs">
         {images.map((_,index) => <div className={['imageIndex', index + 1 === imageIndex? 'current' : ''].join(' ')} key={index} onClick={()=>handleClickScroll(index+1)}></div>)}
       </div>
@@ -88,3 +90,5 @@ const BannerImage = ({ images }) => {
   )
 }
 export default BannerImage
+
+

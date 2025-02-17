@@ -44,6 +44,7 @@ const Post = () => {
                         </Link>
                         <Link to='/home'className='name-container'>
                             <span className="name">宇智波鼬</span>
+                            <span className="publish-time">2月17日</span>
                         </Link>
                     </div>
                        <div className="follow-container">
@@ -64,7 +65,9 @@ const Post = () => {
                     </div>
                 </div>
                 <div className="comments-container">
-                    <div className="comments-top">共3条评论</div>
+                    <div className="comments-top">
+                        <div className="title">共1条评论</div>
+                    </div>
                     <div className="comment-container">
                         <div className="comment-header">
                             <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
