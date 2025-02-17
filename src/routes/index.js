@@ -48,6 +48,10 @@ const routes=[
             path: 'dynamics',
             component:lazy(()=>import('../pages/Mine/MineDynamics/MineDynamics.js'))
         }]
+      },
+      {
+        path: 'message',
+        component:lazy(()=>import('../pages/Message/Message.js'))
       }
     ],
     errorElement:lazy(()=>import("../pages/ErrorPage/ErrorPage.js"))

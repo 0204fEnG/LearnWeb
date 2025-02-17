@@ -118,7 +118,7 @@ const App = () => {
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to={lastRoutes['/mine']}>我的</NavLink>
           </nav>
           <ul className='app__left__tools'>
-            <li className='app__left__tool' onClick={()=>nav('/post')}>消息</li>
+            <li className='app__left__tool' onClick={()=>nav('/message')}>消息</li>
             <li className='app__left__tool' onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{`切换${theme === 'light' ? '深色' : '浅色'}模式`}</li>
             <li className='app__left__tool'>设置</li>
             <li className='app__left__tool'>帮助与反馈</li>

@@ -131,7 +131,14 @@ const SingleLineDisplayBar = ({ displayItems }) => {
         ))}
       </div>
 
-      {/* 新增的导航按钮 */}
+      <div className="indicator-container">
+        {Array.from({ length: column }, (_, index) => (
+          <div
+            className={`indicator ${currentIndex === index ? 'indicator--active' : ''}`}
+            key={index}
+          />
+        ))}
+            {/* 新增的导航按钮 */}
       <button
         className="nav-button prev-button"
         onClick={handlePrev}
@@ -146,14 +153,6 @@ const SingleLineDisplayBar = ({ displayItems }) => {
       >
         <ChevronRightIcon className='icon'/>
       </button>
-
-      <div className="indicator-container">
-        {Array.from({ length: column }, (_, index) => (
-          <div
-            className={`indicator ${currentIndex === index ? 'indicator--active' : ''}`}
-            key={index}
-          />
-        ))}
       </div>
     </div>
   )
