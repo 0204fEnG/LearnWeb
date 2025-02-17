@@ -1,61 +1,22 @@
 @use '/src/styles/display/flex.scss'as *;
+@use '../../styles/main/pageMain.scss'as *;
+@use '../../styles/top/pageTop.scss'as *;
 .app-circles{
     width: 100%;
     height: 100%;
     position: relative;
-    .app-circles__header{ 
-        @include flex(row,wrap,null,null,null,null);
-       width: 100%;
-       position:absolute;
-       z-index: 1;
-       top:0;
-       height:48px;
-       backdrop-filter: blur(15px);
-       box-shadow: 0 0 10px var(--shadow-color);
-       background-color: var(--primary-color--opa);
-        .app-left-show{
-        color:var(--text-color);
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-        display: none;
-            font-size: 24px;
-            text-align: center;
-            line-height: 50px;
+    .app-circles__header{
+        @include flex(row,nowrap,center,center,null,null);
+        @include pageTop();
+        .search-container{
+            flex:0 1 45%;
+            height: 100%;
+            @media (max-width:1000px) {
+                flex-basis: 100%;
+            }
         }
     }
     .app-circles__main{
-        width: 100%;
-        font-size: 170px;
-        height: 100%;
-        margin: 0 auto;
-        transition: all 0.5s linear;
-    }
-}
-@media (min-width:1500px){
-    .app .app-circles__main{
-        width: calc((100% - 800px)*2/3 + 800px);
-    }
-}
-@media (min-width:650px) and (max-width:1000px){
-    .app-circles{
-        width: 100%;
-        margin: 0;
-    .app-circles__header{ 
-        .app-left-show{
-        display: block;
-        }
-    }
-}
-}
-@media (max-width:650px){
-    .app-circles{
-        width: 100%;
-        margin: 0;
-    .app-circles__header{ 
-        .app-left-show{
-        display: block;
-        }
-    }
+        @include pageMain();
     }
 }

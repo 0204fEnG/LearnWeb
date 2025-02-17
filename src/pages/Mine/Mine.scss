@@ -89,7 +89,8 @@
     }
     .app-mine__main{
         @include pageMain();
-        @include scrollbar();
+        @include scrollbar($show:true);
+        // overscroll-behavior: contain;
         background-color: var(--background-color);
         .header{
             width: 100%;

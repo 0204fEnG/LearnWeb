@@ -55,7 +55,7 @@
             @media (max-width:1000px) {
                 height: 48px;
             }
-            @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
+            @include flex(row,nowrap,flex-start,center,flex-start,null);
             @media (max-width:650px) {
                 position: fixed;
             }
@@ -102,12 +102,11 @@
             }
             }
             .follow-container{
-                height: 100%;
-                width: 96px;
-                padding: 5px;
+                height: 80%;
+                width: 86px;
                 margin-left: auto;
                 @media (max-width:1000px) {
-                    width: 80px;
+                    width: 70px;
                 }
                 .follow{
                     cursor: pointer;
@@ -116,6 +115,16 @@
                     border-radius: 19px;
                     background-color: var(--active-color);
                     color: white;
+                }
+            }
+            .three{
+                height: 50%;
+                aspect-ratio: 1;
+                margin: 0 5px;
+                .three-svg{
+                    width: 100%;
+                    height: 100%;
+                    fill:var(--text-color);
                 }
             }
         }
@@ -247,16 +256,31 @@
                     width: 100%;
                     flex:0 0 30px;
                     padding-left: 41px;
-                    @include flex(row,nowrap,flex-start,center,flex-start,5px);
+                    @include flex(row,nowrap,flex-start,center,flex-start,10px);
                     .tool{
+                        @include flex(row,nowrap,flex-start,center,null,5px);
                         flex:0 0 fit-content;
+                        height: 100%;
                         cursor: pointer;
+                        .svg-icon{
+                            height: 20px;
+                            aspect-ratio: 1;
+                            fill:var(--text-color);
+                        }
+                        .count{
+                            width: fit-content;
+                        }
                     }
-                    .more{
+                    .more-container{
                         height: 100%;
                         aspect-ratio: 1;
                         margin-left: auto;
-                        cursor: pointer;
+                        padding: 5px;
+                        .more-svg{
+                            height: 100%;
+                            aspect-ratio: 1;
+                            fill:var(--text-color);
+                        }
                     }
                 }
                 .reply{

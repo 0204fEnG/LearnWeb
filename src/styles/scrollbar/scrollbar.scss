@@ -1,19 +1,31 @@
-@mixin scrollbar(){
-    &::-webkit-scrollbar{
-        width: 10px;
-        height: 10px;
-    }
-    &::-webkit-scrollbar-thumb{
-        background-color: var(--single-color);
-        border-radius: 5px;
-        border: 1px solid var(--background-color--deep2);
-    } 
-    &::-webkit-scrollbar-track{
-        background-color: var(--background-color--deep2);
-    }
-    @media (max-width:1500px) {
-    &::-webkit-scrollbar{
+@mixin scrollbar($show: false) {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  // 当$show为true时，仅在屏幕宽度小于1500px时隐藏滚动条
+  @if $show {
+    @media (max-width: 1500px) {
+      &::-webkit-scrollbar {
         display: none;
+      }
     }
-} 
+  }
+  // 当$show不为true时，总是隐藏滚动条
+  @else {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--single-color);
+    border-radius: 5px;
+    border: 1px solid var(--background-color--deep2);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--background-color--deep2);
+  }
 }

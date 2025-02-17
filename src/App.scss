@@ -27,18 +27,20 @@
     background-color: var(--background-color);
     .app__left-close{
       cursor: pointer;
-      width: 40px;
-      height: 40px;
-      font-size: 20px;
-      text-align: center;
-      line-height: 40px;
-      border-radius: 20px;
-      color:var(--text-color);
-      background-color: var(--primary-color--opa);
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      padding: 5px;
+      background-color: var(--primary-color);
       position: absolute;
-      top:0;
-      right: 0;
+      top:5px;
+      right: 5px;
       display: none;
+      .list-close{
+        width: 100%;
+        height: 100%;
+        fill:var(--text-color);
+      }
     }
     .app__left__img{
       width: 130px;
@@ -133,7 +135,6 @@
     flex:1 1 100%;
     position: relative;
     height: 100%;
-    background-color: var(--background-color--deep1);
     // padding-left: 200px;
     margin-left: 200px;
     // transition: all 0.5s linear;
@@ -144,7 +145,7 @@
     transform: translateY(100%);
     transition: transform 0.2s linear,background-color 0.5s ease;
     bottom: 0;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(10px);
     border-top: 1px solid var(--border-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;

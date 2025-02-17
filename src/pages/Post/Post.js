@@ -3,6 +3,10 @@ import './Post.scss'
 import { useEffect, useState } from 'react'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon'
 import NineGrid from '../../components/NineGrid/NineGrid'
+import Reply from '../../components/icons/Reply'
+import ThreeDots from '../../components/icons/ThreeDots'
+import ThreeDotsVer from '../../components/icons/ThreeDotsVer'
+import Good from '../../components/icons/Good'
 const Post = () => {
     const nav = useNavigate()
     const [isLeave,setIsLeave]=useState(false)
@@ -51,7 +55,8 @@ const Post = () => {
                             <button className='follow'>
                                 关注
                             </button>
-                        </div>
+                    </div>
+                    <button className="three"><ThreeDotsVer className='three-svg'/></button>
                 </div>
                 <div className="content-container">
                     <div className="article">
@@ -82,16 +87,15 @@ const Post = () => {
                         </div>
                         <div className="comment">自</div>
                         <ul className="tools">
-                            <button className="tool">点赞</button>
-                            <button className="tool">反对</button>
-                            <button className="tool">转发</button>
-                            <button className="more">:</button>
+                            <button className="tool"><Good className='svg-icon'/><div className="count">9923</div></button>
+                            <button className="tool"><Reply className='svg-icon'/><div className="count">23</div></button>
+                            <button className="more-container"><ThreeDots className='more-svg'/></button>
                         </ul>
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
                                 <Link className='user-name'>24feng: </Link>
-                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓的，纯狗运
+                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
                                 <Link className='user-name'>24yd21ng: </Link>

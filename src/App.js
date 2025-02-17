@@ -10,6 +10,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import { autoLoginSuccess, logout } from './actions/userActions.js';
 import Tip from './components/Tip/Tip.js';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog.js';
+import ListClose from './components/icons/ListClose.js';
 // import useAnimationClassName from './hooks/useAnimationClassName.js';
 // import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
@@ -86,7 +87,7 @@ const App = () => {
     <div className={['app', leftIsShow ? 'left-open' : ''].join(' ')}>
         <div className='app__left-mask' onClick={handleLeftIsShowClick}></div>
           <aside className="app__left__container">
-            <div className='app__left-close' onClick={handleLeftIsShowClick}>x</div>
+            <div className='app__left-close' onClick={handleLeftIsShowClick}><ListClose className='list-close'/></div>
         <img className='app__left__img' src={avatar} alt='请设置头像'/>
             <nav className='app__left__navs'>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to="home">首页</NavLink>

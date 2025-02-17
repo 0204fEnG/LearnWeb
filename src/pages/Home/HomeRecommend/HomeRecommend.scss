@@ -4,15 +4,11 @@
     width: 100%;
     height: auto;
     padding: 5px;
-    padding-top: calc(5px + 50px);
-@media(min-width:650px) and (max-width:1000px){
-        padding-top: calc(5px + 72px);
-        padding-bottom: calc(5px + 48px);
-}
-@media (max-width:650px) {
-    padding-top: calc(5px + 72px);
-        padding-bottom: calc(5px + 48px);
-}
+    padding-top: calc(5px + 48px);
+    @media (max-width:1000px) {
+            padding-top: calc(5px + 72px);
+            padding-bottom: calc(5px + 48px);
+    }
     background-color: var(--background-color);
     .home-recommend__header{
         width: 100%;

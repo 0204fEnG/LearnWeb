@@ -3,7 +3,7 @@
     width: 100%;
     height: 100%;
     padding: 5px;
-    @include flex(row,nowrap,null,center,null,5px);
+    @include flex(row,nowrap,null,center,null,10px);
     .search-input{
         flex:1;
         height: 100%;

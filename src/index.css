@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--background-color--deep1);
+  background-color: var(--background-color);
 }
 .ka-wrapper{
   width: 100%;

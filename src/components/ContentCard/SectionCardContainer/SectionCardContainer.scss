@@ -20,6 +20,6 @@
     // scrollbar-gutter: stable;
     scroll-snap-align: center;
     scroll-snap-stop: always; 
-    @include scrollbar();
+    @include scrollbar($show: true);
     }
 }
