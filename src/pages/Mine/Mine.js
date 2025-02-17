@@ -1,93 +1,26 @@
 // import { useEffect} from 'react'
-import { useEffect, useRef, useState ,lazy} from 'react'
+import { useEffect, useRef, useState} from 'react'
 import './Mine.scss'
-import SingleRowDisplayBar from '../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar';
-import SectionCardContainer from '../../components/ContentCard/SectionCardContainer/SectionCardContainer';
-import SectionNavbar from '../../components/Navbar/SectionNavbar/SectionNavbar';
 import Message from '../../components/icons/Message';
-const LazyMineHome = lazy(()=>import('./MineHome/MineHome'))
-const LazyMineDynamics = lazy(() => import('./MineDynamics/MineDynamics'))
+import { Outlet } from 'react-router-dom';
+import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar';
 const Mine = () => {
     const divTop = useRef(null)
-    const [topOpacity, setTopOpacity] = useState(0);
-  const topOpacityRef = useRef(topOpacity);
-  const [circles, setCircles] = useState([])
-      const [homeSections,sethomeSections] =useState( [
-          {
-              name: '主页',
-              component:<LazyMineHome/>
-          },
-          {
-              name: '动态',
-              component:<LazyMineDynamics/>
-          }
-      ])
-      const [sectionsName, setSectionsName] = useState([])
-      const [sectionsFuc,setSectionsFuc] =useState([]) 
-      useEffect(() => {
-          setSectionsName(homeSections.map((section) => section.name))
-          setSectionsFuc(homeSections.map((section) => section.component))
-      },[homeSections])
-      const [homeNavTargetIndex, setHomeNavTargetIndex] = useState({index:0,isScroll:false})
-      const [homeSectionsScrollInstance, setHomeSectionsScrollInstance] = useState(0)
-      const [sectionsIsActive, setSectionsIsActive] = useState(new Array(homeSections.length).fill(false).map((_, index) => index === 0))
-      const handleSectionsIsActiveChange = (activeIndex) => {
-          const newSectionIsActive = [...sectionsIsActive]
-          newSectionIsActive[activeIndex]=true
-          setSectionsIsActive(newSectionIsActive)
-      }
-      const handleHomeNavTargetIndexChange = (targetIndex) => {
-          setHomeNavTargetIndex(targetIndex)
-          handleSectionsIsActiveChange(targetIndex.index)
-      }
-      const handleHomeSectionsScrollInstanceChange = (scrollInstanceIndex) => {
-          setHomeSectionsScrollInstance(scrollInstanceIndex)
-      }
-useEffect(() => {
-  topOpacityRef.current = topOpacity; // 每次 topOpacity 更新时，同步到 ref
-}, [topOpacity]);
-
-  useEffect(() => {
-    const axiosData = [
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第1个圈子212121212',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第2个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第3个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第4个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第5个圈子',
-        page:'/circles/circle/'
-      },
-      {
-        avatar: '/images/header/banner/小小陈.png',
-        name: '第6个圈子',
-        page:'/circles/circle/'
-      }
+  const [topOpacity, setTopOpacity] = useState(0);
+      const routes = [{
+        name: '主页',
+        path:'minehome'
+    },
+        {
+            name: '动态',
+            path:'dynamics'
+        }
     ]
-    setCircles(axiosData)
-  },[])
 useEffect(() => {
   const topScrollToShow = () => {
     const topScroll = divTop.current.scrollTop;
     const newOpacity = Math.min(topScroll / 200, 1); // 确保 opacity 不超过 1
     setTopOpacity(newOpacity);
-    console.log(newOpacity); // 输出最新的 opacity
   };
 
   if (divTop.current) {
@@ -141,9 +74,9 @@ useEffect(() => {
         </div>
         <div className="mine-main">
           <div className="mine-nav">
-            <SectionNavbar sectionsName={sectionsName} scrollInstance={homeSectionsScrollInstance } targetIndex={homeNavTargetIndex} onNavClick={ handleHomeNavTargetIndexChange} />
+            <RouteNavbar routes={routes}/>
           </div>
-          <SectionCardContainer sectionsIsActive={sectionsIsActive} sectionsFunc={sectionsFuc} onSectionScroll={ handleHomeSectionsScrollInstanceChange} onSectionActive={handleHomeNavTargetIndexChange} targetIndex={homeNavTargetIndex} />
+          <Outlet/>
           </div>
         </main>
     </div>

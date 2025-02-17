@@ -1,10 +1,15 @@
 @use '/src/styles/display/flex.scss' as *;
+@use '/src/styles/padding/mainPadding.scss'as *;
+@use '/src/styles/scrollbar/scrollbar.scss'as *;
 .home-concern{
     @include flex(row ,wrap,null,null,flex-start,5px);
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 5px;
     padding-top: calc(5px + 48px);
+    overflow-y: auto;
+    @include scrollbar($show:true);
+    @include mainPadding();
     @media (max-width:1000px){
         padding-top: calc(5px + 72px);
         padding-bottom: calc(5px + 48px);

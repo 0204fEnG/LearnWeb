@@ -1,0 +1,6 @@
+@mixin mainPadding(){
+    @media (min-width:1500px) {
+        padding-left:  calc((100% - 800px) / 10);
+        padding-right:  calc((100% - 800px) / 10);
+    }
+}

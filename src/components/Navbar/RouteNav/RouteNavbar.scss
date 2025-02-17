@@ -1,0 +1,34 @@
+@use '/src/styles/display/flex.scss'as *;
+.section-navbar{
+    @include flex(row,nowrap,null,null,null,null);
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    position: relative;
+    .scrollbar{
+      width: 60px;
+      height: 2px;
+      position: absolute;
+      left:0;
+      bottom: 0;
+      background-color: var(--active-color);
+      transition: all 0.2s linear;
+    }
+    .section-navbar__nav{
+        @include flex(row,nowrap,center,center,null,null);
+        font-size: 14px;
+        width: 60px;
+        height: 100%;
+        color: var(--text-color);
+        transition: all 0.025s linear;
+        &:hover{
+          color: var(--active-color);
+          background-color: var(--background-color--opa);
+        }
+    }
+    .section-navbar__nav--active{
+    color: var(--active-color);
+    font-size: 16px;
+    font-weight: bold;
+    }
+}

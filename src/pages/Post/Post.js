@@ -1,6 +1,6 @@
-import {  Link, useNavigate, useParams } from 'react-router-dom'
+import {  Link, useNavigate} from 'react-router-dom'
 import './Post.scss'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon'
 import NineGrid from '../../components/NineGrid/NineGrid'
 import Reply from '../../components/icons/Reply'
@@ -10,7 +10,6 @@ import Good from '../../components/icons/Good'
 const Post = () => {
     const nav = useNavigate()
     const [isLeave,setIsLeave]=useState(false)
-    const { postId } = useParams()
     const handleMaskClick = (event) => {
         // if (event.target !== event.currentTarget) {
         //     return

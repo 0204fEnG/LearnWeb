@@ -49,7 +49,7 @@ const renderContentWithTags = (postItem) => {
     return;
     }
     else {
-      handleTagClick(`/home/post/${postItem.postId}`)
+      handleTagClick(`post/${postItem.postId}`)
     }
   }
     return <article className="post-card">

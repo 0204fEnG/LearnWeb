@@ -2,8 +2,4 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  @media (min-width: 1500px) {
-    // width: calc((100% - 800px) * 3/4 + 800px);
-    padding: 0 calc((100% - 800px) / 10);
-  }
 }

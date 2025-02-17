@@ -6,7 +6,6 @@ const HomeConcern = () => {
                 2
             </header>
             <main className="home-concern__main">
-                2
             </main>
         </div>
     )

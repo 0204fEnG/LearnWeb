@@ -1,6 +1,6 @@
 import {useRoutes} from "react-router-dom";
 import KeepAlive from "react-activation";
-import { lazy, Suspense,createRef } from "react";
+import { lazy, Suspense} from "react";
 import Loading from "../components/Loading/Loading.js";
 const routes=[
   {
@@ -10,11 +10,19 @@ const routes=[
       {
         path:'home',
         component: lazy(() => import("../pages/Home/Home.js")),
-        children: [
-          {
-          path: "post/:postId",
-          component: lazy(() => import("../pages/Post/Post.js"))
-          }
+        children: [{
+          path: 'recommend',
+          component: lazy(() => import("../pages/Home/HomeRecommend/HomeRecommend.js")),
+          children: [
+            {
+              path: "post/:postId",
+              component: lazy(() => import("../pages/Post/Post.js"))
+            }
+          ]
+        }, {
+          path: 'concern',
+          component:lazy(()=>import('../pages/Home/HomeConcern/HomeConcern.js'))
+        }
         ]
       },
       {
@@ -31,7 +39,15 @@ const routes=[
       },
       {
         path: "mine",
-        component:lazy(()=>import("../pages/Mine/Mine.js"))
+        component: lazy(() => import("../pages/Mine/Mine.js")),
+        children: [{
+          path: 'minehome',
+          component:lazy(()=>import('../pages/Mine/MineHome/MineHome.js'))
+        },
+          {
+            path: 'dynamics',
+            component:lazy(()=>import('../pages/Mine/MineDynamics/MineDynamics.js'))
+        }]
       }
     ],
     errorElement:lazy(()=>import("../pages/ErrorPage/ErrorPage.js"))
@@ -58,39 +74,39 @@ const generateRouter = (routes) => {
   })
 }
 
-export const transitionRoutes = [
-  {
-    path: "/",
-    element: lazy(() => import("../App.js")),
-    children: [
-      {
-        path:'home',
-        element: lazy(()=>import("../pages/Home/Home.js")),
-        nodeRef: createRef(),
-      },
-      {
-        path: "circles",
-        element: lazy(()=>import("../pages/Circles/Circles.js")),
-        nodeRef: createRef()
-      },
-      {
-        path: "circle/:circleName",
-        element: lazy(()=>import("../pages/Circle/Circle.js")),
-        nodeRef: createRef()
-      },
-      {
-        path: "shorts",
-        element: lazy(()=>import("../pages/Shorts/Shorts.js")),
-        nodeRef: createRef()
-      },
-      {
-        path: "mine",
-        element: lazy(()=>import("../pages/Mine/Mine.js")),
-        nodeRef: createRef()
-      }
-    ],
-  }
-]
+// export const transitionRoutes = [
+//   {
+//     path: "/",
+//     element: lazy(() => import("../App.js")),
+//     children: [
+//       {
+//         path:'home',
+//         element: lazy(()=>import("../pages/Home/Home.js")),
+//         nodeRef: createRef(),
+//       },
+//       {
+//         path: "circles",
+//         element: lazy(()=>import("../pages/Circles/Circles.js")),
+//         nodeRef: createRef()
+//       },
+//       {
+//         path: "circle/:circleName",
+//         element: lazy(()=>import("../pages/Circle/Circle.js")),
+//         nodeRef: createRef()
+//       },
+//       {
+//         path: "shorts",
+//         element: lazy(()=>import("../pages/Shorts/Shorts.js")),
+//         nodeRef: createRef()
+//       },
+//       {
+//         path: "mine",
+//         element: lazy(()=>import("../pages/Mine/Mine.js")),
+//         nodeRef: createRef()
+//       }
+//     ],
+//   }
+// ]
 const Router = () => useRoutes(generateRouter(routes))
 export default Router
 
