@@ -2,6 +2,7 @@ import { useContext} from 'react'
 import Searchbar from '../../components/Searchbar/Searchbar'
 import './Circles.scss'
 import { AppContext } from '../../contexts/AppContext'
+// import SingleRowDisplayBar from '../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar'
 const Circles = () => {
     const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
     return <div className="app-circles">

@@ -1,27 +1,11 @@
-/* body.light-theme{
-    --primary-color:white;
-    --background-color:rgb(214, 220, 228);
-    --background-color--opa:rgba(214, 220, 228, 0.75);
-    --shadow-color:rgb(241, 243, 245,0.5);
-    --text-color:black;
-    --active-color:rgb(111, 111, 111);
-}
-body.dark-theme{
-    --primary-color:#262626;
-    --background-color:black;
-    --background-color--opa:rgba(0, 0, 0, 0.5);
-    --shadow-color:rgb(0, 0, 0,0.5);
-    --text-color:white;
-    --active-color:rgb(111, 111, 111);
-} */
- body {
+body {
   &.light-theme {
     --single-color:white;
     --single-color--opa:rgb(255, 255, 255,0.7);
     --primary-color: white;
     --primary-color--opa:rgb(255, 255, 255,0.5);
-    --background-color: rgb(227, 227, 227);
-    --background-color--opa: rgba(227, 227, 227, 0.5);
+    --background-color: rgb(233, 233, 233);
+    --background-color--opa: rgba(233, 233, 233, 0.5);
     --background-color--deep1:rgb(208, 208, 208);
     --background-color--deep1--opa:rgb(208, 208, 208,0.5);
     --background-color--deep2:rgb(169, 169, 169);
@@ -40,7 +24,6 @@ body.dark-theme{
     --dialog-green:rgb(114, 237, 86);
     --dialog-green--opa:rgb(114, 237, 86,0.7);
   }
-
   &.dark-theme {
     --single-color:rgb(0, 0, 0);
     --single-color--opa:rgb(0, 0, 0,0.7);

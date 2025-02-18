@@ -31,6 +31,9 @@ const SingleLineDisplayBar = ({ displayItems }) => {
   // 窗口大小变化处理
   useEffect(() => {
     const handleContainerChange = () => {
+      if (!containerRef.current) {
+        return
+      }
       const displayContainerWidth = containerRef.current.offsetWidth
       containerRef.current.style.transform = 'translateX(0)'
       setCurrentIndex(0)
@@ -47,6 +50,9 @@ const SingleLineDisplayBar = ({ displayItems }) => {
 
   // 触摸事件处理
   useEffect(() => {
+          if (!containerRef.current) {
+        return
+      }
     pageWidth.current = containerRef.current.offsetWidth;
     
         const handleContainerTouchStart = (e) => {

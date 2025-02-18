@@ -72,13 +72,19 @@ useEffect(() => {
         targetIndexChange()
     }, [targetIndex])
     useEffect(() => {       
-        const sectionScrollSnapChange = () => {
+      const sectionScrollSnapChange = () => {
+               if (!divRef.current) {
+            return
+          }
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
             const currentIndex = Math.round(SectionCardContainerScrollLeft / SectionCardContainerWidth)
             onSectionActive({ index: currentIndex, isScroll: false })
         }
-        const sectionScrollEnd = () => {
+      const sectionScrollEnd = () => {
+        if (!divRef.current) {
+            return
+          }
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
             const currentIndex = Math.round(SectionCardContainerScrollLeft / SectionCardContainerWidth)
@@ -88,7 +94,10 @@ useEffect(() => {
             let timer = null
             return () => {
                 clearTimeout(timer)
-                timer = setTimeout(() => {
+              timer = setTimeout(() => {
+                       if (!divRef.current) {
+                       return
+                     }
                     const SectionCardContainerWidth = divRef.current.offsetWidth
                     const SectionCardContainerScrollLeft = divRef.current.scrollLeft
                     const currentIndex = Math.floor(SectionCardContainerScrollLeft / SectionCardContainerWidth)
@@ -96,7 +105,10 @@ useEffect(() => {
                 },200)
             }
         }()
-        const sectionScrolling = () => {
+      const sectionScrolling = () => {
+               if (!divRef.current) {
+            return
+          }
             const SectionCardContainerWidth = divRef.current.offsetWidth
             const SectionCardContainerScrollLeft = divRef.current.scrollLeft
             const currentSrollPercent = SectionCardContainerScrollLeft / SectionCardContainerWidth

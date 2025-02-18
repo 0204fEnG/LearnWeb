@@ -154,7 +154,7 @@ const App = () => {
           {
         tips.map((tip, index) => <Tip key={ index} message={tip.message} status={tip.status} />)
       }
-      { confirmDialogIsOpen&&<ConfirmDialog message={confirmDialogMessage} onCancel={handleConfirmDialogCancel} onConfirm={handleConfirmDialogConfirm} />}
+      {confirmDialogIsOpen && <ConfirmDialog message={confirmDialogMessage} onCancel={handleConfirmDialogCancel} onConfirm={handleConfirmDialogConfirm} />}
       </div>
   );
 }

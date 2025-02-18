@@ -7,7 +7,7 @@
     // cursor: pointer;
     background-color: var(--primary-color);
     .post-header{
-        width: fit-content;
+        width: 100%;
         height: 40px;
         margin-bottom: 5px;
         @include flex(row ,nowrap,null,null,null,5px);
@@ -33,6 +33,17 @@
             height: 20px;
             line-height: 20px;
         }
+        }
+        .three-container{
+            height: 100%;
+            aspect-ratio: 1;
+            margin-left: auto;
+            padding: 10px;
+            .three-icon{
+                width: 100%;
+                height: 100%;
+                fill:var(--text-color);
+            }
         }
     }
     .post-title{
@@ -70,8 +81,12 @@
                 top:0;
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
-            }           
+                object-fit: contain;
+                background-color: var(--background-color--opa);
+                &.img-cover{
+                    object-fit: cover;
+                }
+            }         
         }
         &.first{
             width: 50%;

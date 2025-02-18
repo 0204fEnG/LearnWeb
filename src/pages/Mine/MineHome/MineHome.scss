@@ -1,14 +1,8 @@
 @use '/src/styles/scrollbar/scrollbar.scss'as *;
+@use '/src/styles/display/flex.scss'as *;
 .mine-home-container{
     width: 100%;
-    height: 100%;
+    height: auto;
     padding: 5px;
-    padding-top: calc(5px + 48px);
-    overflow-y: auto;
-    @include scrollbar($show:true);
-    @media (max-width:1000px){
-        padding-top: calc(5px + 36px);
-        padding-bottom: calc(5px + 48px);
-    }
     background-color: var(--background-color);
 }

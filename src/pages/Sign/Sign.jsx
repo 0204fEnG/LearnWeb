@@ -115,7 +115,7 @@ const Sign = () => {
           const response = await loginUser({ username: formData.username, password: formData.password });
           setTips((prev) => [...prev, { message: response.message, status:'green' }])
           dispatch(loginSuccess({...response.user }));
-            setTimeout(() => { navigate("/home") }, 1000); // 跳转到用户主页
+            setTimeout(() => { navigate("/home/recommend") }, 1000); // 跳转到用户主页
           break;
         }
         default:

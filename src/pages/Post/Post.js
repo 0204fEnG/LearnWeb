@@ -79,7 +79,7 @@ const Post = () => {
                                 <div className="name-container">
                                 <Link className="name">SLZ</Link>
                                 <span className="level">Lv4</span>
-                                <span className="author">作者</span>                                    
+                                <span className="author">楼主</span>                                    
                                 </div>
                                 <div className="time"><span className="publish-time">1月29日</span></div>
                             </div>

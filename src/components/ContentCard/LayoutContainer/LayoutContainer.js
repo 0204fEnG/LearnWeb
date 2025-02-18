@@ -38,11 +38,11 @@ const LayoutContainer = ({ items }) => {
     }, [columns, items]);
     return (<div className="layout-container" ref={containerRef}>
         {
-            columns > 0 && columnItems&& columnItems.map((columnItem, index) => (
-                    <div className="column-item" key={index}>
+            columns > 0 && columnItems&& columnItems.map((columnItem, columnIndex) => (
+                    <div className="column-item" key={columnIndex}>
                     {
                         
-                        columnItem.map((rowItem,index) => <div key={ index} className="row-item"><PostCard postItem={rowItem}/></div>)
+                        columnItem.map((rowItem,rowIndex) => <div className="row-item"><PostCard postItem={rowItem}/></div>)
                         }
                     </div>
             ))

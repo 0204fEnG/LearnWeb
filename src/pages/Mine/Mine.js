@@ -15,7 +15,7 @@ const Mine = () => {
             name: '动态',
             path:'dynamics'
         }
-    ]
+  ]
 useEffect(() => {
   const topScrollToShow = () => {
     const topScroll = divTop.current.scrollTop;
@@ -56,28 +56,20 @@ useEffect(() => {
             <img src="/images/header/banner/小小陈.png" alt="头像" className="avatar" />
             <div className="person">
               <span className="name">feng
-                <span className="level">Lv6</span>
               </span>
               <p className="bio">ColorThief因其简便性和高效性被广泛应用于前端开发和图像处理相关的项目中。尽管直接指定与之集成的“典型生态项目”较为困难，因为它的适用范围非常广，ColorThief常与其他前端框架或者图像服务结合使用，如在构建响应式网页设计、React或Vue.js应用程序中的个性化功能模块。开发者通常会在自己的项目中嵌入ColorThief以实现特定的色彩分析需求，从而增强用户体验或进行数据分析的辅助。</p>
-              <div className="experience">
-                <div className="bar"></div>
-              </div>
-              <div className="progress">经验值:300/1000</div>
             </div>
             <ul className='three'>
               <li className='item'><div className="count">120</div><div className="name">关注</div></li>
               <li className='item'><div className="count">30</div><div className="name">粉丝</div></li>
               <li className='item'><div className="count">12131</div><div className="name">获赞</div></li>
             </ul>
-           
           </div>
-        </div>
-        <div className="mine-main">
+         </div>
           <div className="mine-nav">
             <RouteNavbar routes={routes}/>
           </div>
           <Outlet/>
-          </div>
         </main>
     </div>
 }
