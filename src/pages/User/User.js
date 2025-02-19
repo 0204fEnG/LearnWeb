@@ -1,9 +1,9 @@
 // import { useEffect} from 'react'
 import { useEffect, useRef, useState} from 'react'
 import './User.scss'
-import Message from '../../components/icons/Message';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar';
+import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon';
 const User = () => {
   const nav=useNavigate()
     const divTop = useRef(null)
@@ -11,16 +11,16 @@ const User = () => {
   const [topOpacity, setTopOpacity] = useState(0);
       const routes = [{
         name: '主页',
-        path:'minehome'
+        path:'userhome'
     },
         {
             name: '动态',
-            path:'dynamics'
+            path:'userdynamics'
         }
   ]
   useEffect(() => {
-    nav('userhome')
-  })
+    console.log(`user:${userId}`)
+  },[userId])
 useEffect(() => {
   const topScrollToShow = () => {
     const topScroll = divTop.current.scrollTop;
@@ -39,18 +39,14 @@ useEffect(() => {
   };
 }, []);
     return <div className="app-user">
-        <header className='app-user__top' style={{opacity:`${topOpacity}`}}>
+      <header className='app-user__top' style={{ opacity: `${topOpacity}` }}>
+        
             <div className="info">
                 <img src="/images/header/banner/小小陈.png" alt="用户头像" className="avatar"/>
                 <span className="name">{userId}</span>
             </div>
       </header>
-          <ul className="tools">
-        <li className='tool'>
-          <Message className='tool-svg'/>
-              <span className='name'>消息</span>
-            </li>
-          </ul> 
+      <button className='backto' onClick={()=>nav(-1)}><ChevronLeftIcon className='back-icon'/></button>
       <main className='app-user__main' ref={divTop}>
         <div className="header">
           <div className="back">
@@ -60,7 +56,7 @@ useEffect(() => {
           <div className="info">
             <img src="/images/header/banner/小小陈.png" alt="头像" className="avatar" />
             <div className="person">
-              <span className="name">feng
+              <span className="name">{userId}
               </span>
               <p className="bio">ColorThief因其简便性和高效性被广泛应用于前端开发和图像处理相关的项目中。尽管直接指定与之集成的“典型生态项目”较为困难，因为它的适用范围非常广，ColorThief常与其他前端框架或者图像服务结合使用，如在构建响应式网页设计、React或Vue.js应用程序中的个性化功能模块。开发者通常会在自己的项目中嵌入ColorThief以实现特定的色彩分析需求，从而增强用户体验或进行数据分析的辅助。</p>
             </div>

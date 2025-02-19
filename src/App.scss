@@ -191,13 +191,9 @@
   top:0;
   left: 0;
 }
-.ka-wrapper{
-  width: 100%;
-  height: 100%;
-}
+.ka-wrapper,
 .ka-content{
-  width: 100%;
-  height: 100%;
+  position: relative;
 }
 .page-left-enter {
   opacity: 0;

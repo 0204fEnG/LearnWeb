@@ -1,4 +1,4 @@
-import {useParams, useRoutes} from "react-router-dom";
+import {useParams, useRoutes,Navigate} from "react-router-dom";
 import KeepAlive from "react-activation";
 import { lazy, Suspense} from "react";
 import Loading from "../components/Loading/Loading.js";
@@ -56,7 +56,12 @@ const routes=[
           {
             path: 'minedynamics',
             component:lazy(()=>import('../pages/Mine/MineDynamics/MineDynamics.js'))
-        }]
+          },
+            {
+             path: 'minefollow',
+             component:lazy(()=>import("../pages/MineFollow/MineFollow.js"))
+           },
+        ]
       },
       {
         path: "user/:userId",
@@ -89,7 +94,8 @@ const generateRouter = (routes) => {
     }
     switch (item.path) {
       case 'minehome':
-      case 'minedynamics': {
+      case 'minedynamics':
+      case 'minefollow':{
         item.element = <Suspense fallback={
           <Loading />
         }>
@@ -113,6 +119,8 @@ const generateRouter = (routes) => {
         break
       }
       case 'home':
+      case 'recommend':
+      case 'concern':
       case 'circles':
       case 'shorts':
       case 'mine': {

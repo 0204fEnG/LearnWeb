@@ -44,10 +44,10 @@ const Post = () => {
                         <ChevronLeftIcon className='back' /> 
                     </div>
                     <div className="author-info">
-                        <Link  className="img-container" onClick={()=>setCount((prev)=>prev+1)}>
+                        <Link to={`/user/${postId}/userhome`}className="img-container" onClick={()=>setCount((prev)=>prev+1)}>
                         <img src="/images/header/banner/4.png" alt="用户头像" className="avatar" />
                         </Link>
-                        <Link className='name-container'>
+                        <Link to={`/user/${postId}/userhome`} className='name-container'>
                             <span className="name">{postId}</span>
                             <span className="publish-time">count:{ count}</span>
                         </Link>
@@ -76,10 +76,10 @@ const Post = () => {
                     </div>
                     <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -95,23 +95,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -127,23 +127,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -159,23 +159,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -191,23 +191,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -223,23 +223,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -255,23 +255,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -287,23 +287,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -319,23 +319,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -351,23 +351,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -383,23 +383,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -415,23 +415,23 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>
                             <button className="reply-count">共 133 条回复&gt;</button>
                         </div>
                     </div>
-                    <div className="comment-container">
+                                        <div className="comment-container">
                         <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
+                            <Link to={`/user/${postId}/userhome`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
                             <div className="info-container">
                                 <div className="name-container">
-                                <Link className="name">SLZ</Link>
+                                    <Link to={`/user/${postId}/userhome`} className="name">{postId }</Link>
                                 <span className="level">Lv4</span>
                                 <span className="author">楼主</span>                                    
                                 </div>
@@ -447,75 +447,11 @@ const Post = () => {
                         <div className="reply">
                             <div className="pre-reply-container">
                             <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
+                                <Link to='/user/24feng/userhome' className='user-name'>24feng: </Link>
                             对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
                             </div>
                             <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
-                                不是下一个无限火力，他
-                                </div>
-                            </div>
-                            <button className="reply-count">共 133 条回复&gt;</button>
-                        </div>
-                    </div>
-                    <div className="comment-container">
-                        <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
-                            <div className="info-container">
-                                <div className="name-container">
-                                <Link className="name">SLZ</Link>
-                                <span className="level">Lv4</span>
-                                <span className="author">楼主</span>                                    
-                                </div>
-                                <div className="time"><span className="publish-time">1月29日</span></div>
-                            </div>
-                        </div>
-                        <div className="comment">自</div>
-                        <ul className="tools">
-                            <button className="tool"><Good className='svg-icon'/><div className="count">9923</div></button>
-                            <button className="tool"><Reply className='svg-icon'/><div className="count">23</div></button>
-                            <button className="more-container"><ThreeDots className='more-svg'/></button>
-                        </ul>
-                        <div className="reply">
-                            <div className="pre-reply-container">
-                            <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
-                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
-                            </div>
-                            <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
-                                不是下一个无限火力，他
-                                </div>
-                            </div>
-                            <button className="reply-count">共 133 条回复&gt;</button>
-                        </div>
-                    </div>
-                    <div className="comment-container">
-                        <div className="comment-header">
-                            <Link className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
-                            <div className="info-container">
-                                <div className="name-container">
-                                <Link className="name">SLZ</Link>
-                                <span className="level">Lv4</span>
-                                <span className="author">楼主</span>                                    
-                                </div>
-                                <div className="time"><span className="publish-time">1月29日</span></div>
-                            </div>
-                        </div>
-                        <div className="comment">自</div>
-                        <ul className="tools">
-                            <button className="tool"><Good className='svg-icon'/><div className="count">9923</div></button>
-                            <button className="tool"><Reply className='svg-icon'/><div className="count">23</div></button>
-                            <button className="more-container"><ThreeDots className='more-svg'/></button>
-                        </ul>
-                        <div className="reply">
-                            <div className="pre-reply-container">
-                            <div className="pre-reply">
-                                <Link className='user-name'>24feng: </Link>
-                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
-                            </div>
-                            <div className="pre-reply">
-                                <Link className='user-name'>24yd21ng: </Link>
+                                <Link to='/user/24yd21ng/userhome' className='user-name'>24yd21ng: </Link>
                                 不是下一个无限火力，他
                                 </div>
                             </div>

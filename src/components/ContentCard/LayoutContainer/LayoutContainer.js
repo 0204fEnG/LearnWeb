@@ -42,7 +42,7 @@ const LayoutContainer = ({ items }) => {
                     <div className="column-item" key={columnIndex}>
                     {
                         
-                        columnItem.map((rowItem,rowIndex) => <div className="row-item"><PostCard postItem={rowItem}/></div>)
+                        columnItem.map((rowItem,rowIndex) => <div className="row-item" key={rowIndex}><PostCard postItem={rowItem}/></div>)
                         }
                     </div>
             ))

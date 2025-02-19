@@ -1,6 +1,11 @@
+import { useEffect } from 'react'
 import './UserDynamics.scss'
 const UserDynamics = () => {
+        useEffect(() => {
+        console.log('usedynamics!')
+    },[])
     return <div className="user-dynamics-container">
+
         <p>这里是动态</p>
         <p>这里是动态</p>
         <p>这里是动态</p>

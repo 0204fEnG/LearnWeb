@@ -188,16 +188,20 @@
                     border-image: linear-gradient(to bottom, transparent 10%, var(--text-color) 10%, var(--text-color) 90%, transparent 90%) 1;
                     }
                     .count{
-                        color:var(--text-color);
                         width: 100%;
                         height: 50%;
                         @include flex(row,nowrap,center,center,null,null);
                     }
                     .name{
-                        color:var(--text-color);
                         width: 100%;
                         height: 50%;
                         @include flex(row,nowrap,center,center,null,null);
+                    }
+                    &.item--active .count{
+                        color: var(--active-color);
+                    }
+                    &.item--active .name{
+                        color: var(--active-color);
                     }
                 }
             }

@@ -1,0 +1,6 @@
+@use '/src/styles/padding/mainPadding.scss'as*;
+.mine-follow-container{
+    width: 100%;
+    height: auto;
+    @include mainPadding();
+}

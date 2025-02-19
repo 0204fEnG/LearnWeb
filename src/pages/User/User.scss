@@ -36,58 +36,29 @@
         }
        }
     }
-    .tools{
-        width: fit-content;
-        height: auto;
+    .backto{
+        height: 48px;
+        aspect-ratio: 1;
         position: absolute;
-        right: 0;
-        top:0;
         z-index: 2;
-        @include flex(row,nowrap,null,null,null,null);
-        .tool{
-            width: 48px;
-            height: 48px;
-            margin: 0 5px;
+        padding: 5px;
+        top:0;
+        left: 0;
+        @media (max-width:1000px) {
+            height: 36px;
+        }
+        .back-icon{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             padding: 5px;
-            @media (max-width:1000px) {
-                width: 36px;
-                height: 36px;
-            }
-            @include flex(row,wrap,center,center,center,null);
-            cursor: pointer;
-            &:hover{
-                animation: icon-jump 0.35s ease-in-out forwards;
-            }
-            .tool-svg{
-                width: 23px;
-                aspect-ratio: 1;
-                fill:var(--text-color);
-                @media (max-width:1000px) {
-                    width: 20px;
-                }
-            }
-            .name{
-                color: var(--text-color);
-                @media (max-width:1000px) {
-                    font-size: 0.8rem;
-                }
-                width: fit-content;
-                white-space: nowrap;
-                height: auto;
-            }
+            background-color: var(--background-color--opa);
+            fill:var(--text-color);
         }
-        @keyframes icon-jump {
-        0%{
-            transform: translateY(0);
+        &:active{
+            transform: scale(0.95);
         }
-        50%{
-            transform: translateY(-10%);
-        }
-        100%{
-            transform: translateY(0);
-        }
-    }
-    }
+       }
     .app-user__main{
         @include pageMain();
         @include scrollbar($show:true);
