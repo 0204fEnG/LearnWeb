@@ -1,8 +1,8 @@
-import './MineHome.scss'
+import './UserHome.scss'
 import SingleRowDisplayBar from '../../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar'
 import ChatDots from '../../../components/icons/ChatDots'
 import PeopleHeart from '../../../components/icons/PeopleHeart'
-const MineHome = () => {
+const UserHome = () => {
     const circles = [
         {
             avatar:'/images/header/banner/1.png',
@@ -56,7 +56,7 @@ const MineHome = () => {
         },
     ]
     const peoples = [
-        {
+{
             avatar:'/images/header/banner/1.png',
             name: '苏轼',
             path:'/user/'
@@ -127,9 +127,9 @@ const MineHome = () => {
             path:'/user/'
         }
     ]
-    return <div className="mine-home-container">
-        <SingleRowDisplayBar title='我关注的人' cards={peoples} Icon={PeopleHeart}/>
-        <SingleRowDisplayBar title='我关注的圈子' cards={circles} Icon={ChatDots}/>
+    return <div className="user-home-container">
+        <SingleRowDisplayBar title='他关注的人' cards={peoples} Icon={PeopleHeart}/>
+        <SingleRowDisplayBar title='他关注的圈子' cards={circles} Icon={ChatDots}/>
     </div>
 }
-export default MineHome
+export default UserHome

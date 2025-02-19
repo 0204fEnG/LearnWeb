@@ -3,11 +3,11 @@
 @use '/src/styles/scrollbar/scrollbar.scss'as *;
 @use '/src/styles/main/pageMain.scss'as *;
 @use '/src/styles/padding/mainPadding.scss'as *;
-.app-mine{
+.app-user{
     width: 100%;
     height: 100%;
     position: relative;
-    .app-mine__top{
+    .app-user__top{
        @include pageTop();
        transition: 0.3s all linear;
        z-index:2;
@@ -88,7 +88,7 @@
         }
     }
     }
-    .app-mine__main{
+    .app-user__main{
         @include pageMain();
         @include scrollbar($show:true);
         // overscroll-behavior: contain;
@@ -203,7 +203,7 @@
             }
             }
         }
-        .mine-nav{
+        .user-nav{
             @include pageTop();
             position: sticky;
             top:48px;

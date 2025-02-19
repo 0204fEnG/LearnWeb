@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './SingleRowDisplayBar.scss'
 import ChevronRightIcon from '../../icons/ChevronRightIcon'
-const SingleRowDisplayBar = ({ title, cards,Icon }) => {
+const SingleRowDisplayBar = ({ title, cards,Icon}) => {
     const nav = useNavigate()
     return <div className='single-container' >
         <div className="single-top">

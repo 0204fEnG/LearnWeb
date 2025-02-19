@@ -1,0 +1,7 @@
+@use '/src/styles/scrollbar/scrollbar.scss'as *;
+.user-dynamics-container{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    background-color: var(--background-color);
+}

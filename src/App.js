@@ -94,7 +94,7 @@ const App = () => {
     nav('/home/recommend')
   },[])
   useEffect(() => {
-    if (['/home', '/circles', '/shorts', '/mine','/home/recommend','/home/concern','/mine/minehome','/mine/dynamics'].includes(location.pathname)) {
+    if (['/home', '/circles', '/shorts', '/mine','/home/recommend','/home/concern','/mine/minehome','/mine/minedynamics'].includes(location.pathname)) {
       setBottomIsShow(true)
     }
     else {

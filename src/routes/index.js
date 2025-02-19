@@ -54,8 +54,20 @@ const routes=[
           component:lazy(()=>import('../pages/Mine/MineHome/MineHome.js'))
         },
           {
-            path: 'dynamics',
+            path: 'minedynamics',
             component:lazy(()=>import('../pages/Mine/MineDynamics/MineDynamics.js'))
+        }]
+      },
+      {
+        path: "user/:userId",
+        component: lazy(() => import('../pages/User/User.js')),
+        children: [{
+          path: 'userhome',
+          component:lazy(()=>import('../pages/User/UserHome/UserHome.js'))
+        },
+          {
+            path: 'userdynamics',
+            component:lazy(()=>import('../pages/User/UserDynamics/UserDynamics.js'))
         }]
       },
       {
@@ -77,7 +89,7 @@ const generateRouter = (routes) => {
     }
     switch (item.path) {
       case 'minehome':
-      case 'dynamics': {
+      case 'minedynamics': {
         item.element = <Suspense fallback={
           <Loading />
         }>
@@ -100,13 +112,24 @@ const generateRouter = (routes) => {
         </Suspense>
         break
       }
-      default: {
+      case 'home':
+      case 'circles':
+      case 'shorts':
+      case 'mine': {
         item.element = <Suspense fallback={
           <Loading />
         }>
           <KeepAlive cacheKey={item.path} saveScrollPosition={true}>
             <item.component />
           </KeepAlive>
+        </Suspense>
+        break
+      }
+      default: {
+        item.element = <Suspense fallback={
+          <Loading />
+        }>
+            <item.component />
         </Suspense>
         break
       }
