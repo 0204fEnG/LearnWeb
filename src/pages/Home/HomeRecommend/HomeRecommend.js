@@ -16,7 +16,7 @@ const HomeRecommend = () => {
     ]
     const postItems = [    
         {
-        postId:1789323,
+        postId:1,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',
@@ -51,7 +51,7 @@ const HomeRecommend = () => {
         }
         },     
         {
-        postId:1789323,
+        postId:2,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',
@@ -88,7 +88,7 @@ const HomeRecommend = () => {
         }
         },     
         {
-        postId:1789323,
+        postId:3,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',
@@ -127,7 +127,7 @@ const HomeRecommend = () => {
         }
         },     
         {
-        postId:1789323,
+        postId:4,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',
@@ -163,7 +163,7 @@ const HomeRecommend = () => {
         }
         },     
         {
-        postId:1789323,
+        postId:5,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',
@@ -201,7 +201,7 @@ const HomeRecommend = () => {
         }
         },     
         {
-        postId:1789323,
+        postId:6,
         userAvator: '/images/header/banner/小小陈.png',
         userName: 'feng',
         publishTime: '1小时前',

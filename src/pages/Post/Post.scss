@@ -132,13 +132,13 @@
             flex:1 1 50%;
             height: 100%;
             background-color: var(--primary-color);
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color--opa);
             overflow-y: auto;                
             @media (max-width:650px) {
                 flex-basis: 100%;
                 height: auto;
                 border-right:none;
-                border-bottom: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color--opa);
             }
             @include flex(column,nowrap,flex-start,center,flex-start,5px);
             @include topPadding2();
@@ -196,6 +196,9 @@
                 padding: 10px;
                 @include flex(column,nowrap,flex-start,center,flex-start,null);
                 border-bottom: 1px solid var(--border-color--opa);
+                &:last-child{
+                    border-bottom: none;
+                }
                 .comment-header{
                     width: 100%;
                     flex:0 0 36px;

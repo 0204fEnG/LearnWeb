@@ -1,7 +1,16 @@
-import {useRoutes} from "react-router-dom";
+import {useParams, useRoutes} from "react-router-dom";
 import KeepAlive from "react-activation";
 import { lazy, Suspense} from "react";
 import Loading from "../components/Loading/Loading.js";
+// 动态包裹 KeepAlive 的组件
+const KeepAliveWrapper = ({ Component,saveScrollType,paramName}) => {
+  const KeepAliveId=useParams()[`${paramName}`]; // 获取路由参数
+  return (
+    <KeepAlive id={KeepAliveId} saveScrollPosition={saveScrollType}>
+      <Component />
+    </KeepAlive>
+  );
+};
 const routes=[
   {
     path: "/",
@@ -66,14 +75,42 @@ const generateRouter = (routes) => {
     if (item.children) {
       item.children = generateRouter(item.children)
     }
-    item.element = <Suspense fallback={
-      <Loading/>
-    }>
-      {/* 把懒加载的异步路由变成组件装载进去 */}
-      <KeepAlive cacheKey={item.path} saveScrollPosition={true}>
-        <item.component />
-      </KeepAlive>
-    </Suspense>
+    switch (item.path) {
+      case 'minehome':
+      case 'dynamics': {
+        item.element = <Suspense fallback={
+          <Loading />
+        }>
+          <KeepAlive cacheKey={item.path} saveScrollPosition={'screen'}>
+            <item.component />
+          </KeepAlive>
+        </Suspense>
+        break
+      }
+      case 'post/:postId':
+      case 'circles/circle/:circleName': {
+        const Component = item.component
+        const path = item.path;
+        const parts = path.split(':');
+        const paramName = parts[1];
+          item.element = <Suspense fallback={
+          <Loading />
+        }>
+            <KeepAliveWrapper Component={Component} saveScrollType={true} paramName={paramName} />
+        </Suspense>
+        break
+      }
+      default: {
+        item.element = <Suspense fallback={
+          <Loading />
+        }>
+          <KeepAlive cacheKey={item.path} saveScrollPosition={true}>
+            <item.component />
+          </KeepAlive>
+        </Suspense>
+        break
+      }
+    }
     return item
   })
 }

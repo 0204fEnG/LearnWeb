@@ -2,9 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import './Circle.scss'
 import { useState } from 'react'
 const Circle = () => {
+    const {circleName }=useParams()
     const [count, setCount] = useState(0)
     const nav=useNavigate()
-    const { circleName } = useParams()
     return (
         <div className="circle">
             圈子名字为:{circleName}
