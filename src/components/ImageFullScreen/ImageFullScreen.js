@@ -7,12 +7,12 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
   const thumbnailContainerRef = useRef(null); // 缩略图容器引用
 
   // 禁用背景滚动
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.body.style.overflow = 'hidden';
+  //   return () => {
+  //     document.body.style.overflow = 'auto';
+  //   };
+  // }, []);
 
   // 切换图片
     const handleImageChange = (index) => {
@@ -26,7 +26,7 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
       const imageWidth = imageContainerRef.current.clientWidth;
       imageContainerRef.current.scrollTo({
         left: index * imageWidth,
-        behavior: 'smooth',
+        behavior: 'instant',
       });
     }
   };
@@ -71,11 +71,10 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
 
   return (
     <div className="full-modal-overlay">
-      <div className="full-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="full-close-button" onClick={onClose}>×</button>
-        <div className="full-image-container" ref={imageContainerRef}>
+      <div className="full-modal-content">
+        <div className="full-image-container"  onClick={onClose} ref={imageContainerRef}>
           {images.map((src, index) => (
-            <div key={index} className="full-image-wrapper" onClick={onClose}>
+            <div key={index} className="full-image-wrapper">
               <img
                 src={src}
                 alt={`Fullscreen ${index}`}
@@ -84,6 +83,7 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
             </div>
           ))}
         </div>
+        <button className="full-close-button" onClick={onClose}>×</button>
         <div className="full-pagination-dots">
           {images.map((_, index) => (
             <span
@@ -103,7 +103,7 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
               onClick={() => handleImageChange(index)}
             />
           ))}
-        </div>
+          </div>
       </div>
     </div>
   );

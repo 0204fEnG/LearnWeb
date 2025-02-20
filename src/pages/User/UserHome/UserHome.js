@@ -48,7 +48,7 @@ const UserHome = () => {
         {
             avatar:'/images/header/banner/6.png',
             name: '司马光',
-            path:'/user/:/userhome'
+            path:'/user/:/user-home'
         }
     ]
     return <div className="user-home-container">

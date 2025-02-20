@@ -1,17 +1,29 @@
-import { useContext} from 'react'
-import Searchbar from '../../components/Searchbar/Searchbar'
+import {useContext} from 'react'
+import Searchbar from '../../components/Searchbar/Searchbar.js'
+import { AppContext } from '../../contexts/AppContext.js'
+import { Outlet } from 'react-router-dom'
+import ListOpen from '../../components/icons/ListOpen.js'
+import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 import './Circles.scss'
-import { AppContext } from '../../contexts/AppContext'
-// import SingleRowDisplayBar from '../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar'
 const Circles = () => {
-    const { handleLeftIsShowClick,setBottomIsShow}=useContext(AppContext)
+    const { handleLeftIsShowClick, setBottomIsShow } = useContext(AppContext)
+    const routes = [{
+        name: '推荐',
+        path:'circles-recommend'
+    }
+    ]
     return <div className="app-circles">
         <header className='app-circles__header'>
-            <div className="search-container">
+            <div className="app-circles__header__navs">
+                <RouteNavbar routes={routes}/>
+            </div>
+            <div className="app-circles__header__tools">
+                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open'/></div>
                 <Searchbar setBottomIsShow={setBottomIsShow}/>
             </div>
         </header>
         <main className='app-circles__main'>
+            <Outlet/>
         </main>
     </div>
 }

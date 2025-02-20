@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './NineGrid.scss'; // 用于样式控制
 import ImageFullScreen from '../ImageFullScreen/ImageFullScreen';
 const NineGrid = ({ images }) => {
@@ -31,7 +31,34 @@ const NineGrid = ({ images }) => {
 
     return style;
   };
-
+  const imagesRef = useRef([]);  // 用于存储图片的引用
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.getAttribute('data-src');
+          if (src) {  // 确保只在 src 未设置时加载图片
+            img.src = src;
+            observer.unobserve(img);
+          }
+        }
+      });
+    }, {
+      rootMargin: '0px',
+      threshold: 0,
+    });
+  
+    imagesRef.current.forEach((img) => {
+      if (img) {
+        observer.observe(img);
+      }
+    });
+  
+    return () => {
+      observer.disconnect();
+    };
+  }, [images]);
   return (
     <div className="nine-grid-container">
       {images.map((src, index) => (
@@ -41,7 +68,13 @@ const NineGrid = ({ images }) => {
           style={getImageStyle(index)}
         >
           <div className="image-wrapper">
-            <img src={src} alt={`grid-${index}`} onClick={()=>handleThumbnailClick(index)} />
+            <img
+              ref={(el) => (imagesRef.current[index] = el)}  // 绑定图片引用
+              data-src={src}  // 使用 data-src 存储图片 URL
+              alt={`grid-${index}`}
+              onClick={() => handleThumbnailClick(index)}
+              src='/icons/alt.svg'
+            />
           </div>
         </div>
       ))}

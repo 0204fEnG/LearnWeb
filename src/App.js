@@ -29,9 +29,9 @@ const App = () => {
   const location = useLocation();
   const [lastRoutes, setLastRoutes] = useState({
     '/home': '/home/recommend',
-    '/circles': '/circles',
-    '/shorts': '/shorts',
-    '/mine': '/mine/minehome'
+    '/circles': '/circles/circles-recommend',
+    '/shorts': '/shorts/shorts-recommend',
+    '/mine': '/mine/mine-home'
   });
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const App = () => {
     nav('/home/recommend')
   },[])
   useEffect(() => {
-    if (['/home', '/circles', '/shorts', '/mine','/home/recommend','/home/concern','/mine/minehome','/mine/minedynamics','/mine/minefollow'].includes(location.pathname)) {
+    if (['/home', '/circles','/circles/circles-recommend', '/shorts','/shorts/shorts-recommend', '/mine','/home/recommend','/home/concern','/mine/mine-home','/mine/mine-dynamics','/mine/mine-follow'].includes(location.pathname)) {
       setBottomIsShow(true)
     }
     else {

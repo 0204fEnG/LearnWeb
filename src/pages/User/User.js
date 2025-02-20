@@ -11,11 +11,11 @@ const User = () => {
   const [topOpacity, setTopOpacity] = useState(0);
       const routes = [{
         name: '主页',
-        path:'userhome'
+        path:'user-home'
     },
         {
             name: '动态',
-            path:'userdynamics'
+            path:'user-dynamics'
         }
   ]
   useEffect(() => {

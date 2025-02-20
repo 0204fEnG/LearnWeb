@@ -1,40 +1,62 @@
 @use '/src/styles/display/flex.scss'as *;
-
+@use '../../styles/main/pageMain.scss'as *;
+@use '../../styles/top/indexTop.scss'as *;
 .app-shorts{
     width: 100%;
     height: 100%;
     position: relative;
     .app-shorts__header{
-        width: 100%;
-        height: 50px;
-        position: fixed;
-        top:0;
-        backdrop-filter: blur(20px);
-        border-bottom: 0.5px solid var(--border-color);
-        background-color: var(--primary-color--opa);
-        @include flex(row,wrap,null,null,flex-start,null);
+        @include flex(row,nowrap,null,null,null,null);
+        @include indexTop();
+        .app-shorts__header__navs{
+            width: 20%;
+            height: 100%;
+            @media (max-width:1000px){
+                height: 36px;
+                order:2;
+                width: 100%;
+             }
+        }
+        .app-shorts__header__tools{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45%;
+            height: 100%;
+            @media (max-width:1000px){
+                position: relative;
+                order:1;
+                width: 100%;
+                height: 36px;
+            }
+            @include flex(row,nowrap,null,null,null,null);
+            .app-left-show{
+            color:var(--text-color);
+            height: 100%;
+            aspect-ratio: 1;
+            display: none;
+            cursor: pointer;
+            padding: 5px;
+            @media (max-width:1000px){
+                display: block;
+            }
+            .list-open{
+                width: 100%;
+                height: 100%;
+                padding: 5px;
+                border:1px solid var(--border-color);
+                border-radius: 50%;
+                background-color: var(--primary-color--opa);
+                fill:var(--text-color);
+            }
+        }
+        .searchbar{
+            flex:1 1 100%;
+            height: 100%;
+        }
+        }
     }
     .app-shorts__main{
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        transition: all 0.5s linear;
-    }
-}
-@media (min-width:1500px){
-    .app .app-shorts__main{
-        width: calc((100% - 800px)*2/3 + 800px);
-    }
-}
-@media (min-width:650px) and (max-width:1000px){
-    .app-shorts{
-        width: 100%;
-        margin: 0;
-    }
-}
-@media (max-width:650px){
-    .app-shorts{
-        width: 100%;
-        margin: 0;
+        @include pageMain();
     }
 }

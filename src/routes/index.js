@@ -36,7 +36,11 @@ const routes=[
       },
       {
         path: "circles",
-        component:lazy(()=>import("../pages/Circles/Circles.js"))
+        component: lazy(() => import("../pages/Circles/Circles.js")),
+        children: [{
+          path: 'circles-recommend',
+          component:lazy(()=>import('../pages/Circles/CirclesRecommend/CirclesRecommend.js'))
+        }]
       },
       {
         path: "circles/circle/:circleName",
@@ -44,21 +48,25 @@ const routes=[
       },
       {
         path: "shorts",
-        component:lazy(()=>import("../pages/Shorts/Shorts.js"))
+        component: lazy(() => import("../pages/Shorts/Shorts.js")),
+        children: [{
+          path: 'shorts-recommend',
+          component: lazy(() => import("../pages/Shorts/ShortsRecommend/ShortsRecommend.js"))
+        }]
       },
       {
         path: "mine",
         component: lazy(() => import("../pages/Mine/Mine.js")),
         children: [{
-          path: 'minehome',
+          path: 'mine-home',
           component:lazy(()=>import('../pages/Mine/MineHome/MineHome.js'))
         },
           {
-            path: 'minedynamics',
+            path: 'mine-dynamics',
             component:lazy(()=>import('../pages/Mine/MineDynamics/MineDynamics.js'))
           },
             {
-             path: 'minefollow',
+             path: 'mine-follow',
              component:lazy(()=>import("../pages/MineFollow/MineFollow.js"))
            },
         ]
@@ -67,11 +75,11 @@ const routes=[
         path: "user/:userId",
         component: lazy(() => import('../pages/User/User.js')),
         children: [{
-          path: 'userhome',
+          path: 'user-home',
           component:lazy(()=>import('../pages/User/UserHome/UserHome.js'))
         },
           {
-            path: 'userdynamics',
+            path: 'user-dynamics',
             component:lazy(()=>import('../pages/User/UserDynamics/UserDynamics.js'))
         }]
       },
@@ -93,9 +101,9 @@ const generateRouter = (routes) => {
       item.children = generateRouter(item.children)
     }
     switch (item.path) {
-      case 'minehome':
-      case 'minedynamics':
-      case 'minefollow':{
+      case 'mine-home':
+      case 'mine-dynamics':
+      case 'mine-follow':{
         item.element = <Suspense fallback={
           <Loading />
         }>
@@ -118,11 +126,14 @@ const generateRouter = (routes) => {
         </Suspense>
         break
       }
+      case '/':
       case 'home':
       case 'recommend':
       case 'concern':
       case 'circles':
+      case 'circles-recommend':
       case 'shorts':
+      case 'shorts-recommend':
       case 'mine': {
         item.element = <Suspense fallback={
           <Loading />

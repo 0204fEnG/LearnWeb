@@ -84,7 +84,7 @@ const MineHome = () => {
         {
             avatar:'/images/header/banner/1.png',
             name: '苏轼',
-            path:'/user/:/userhome'
+            path:'/user/:/user-home'
         },
     ]
     return <div className="mine-home-container">
