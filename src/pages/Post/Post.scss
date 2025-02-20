@@ -290,6 +290,7 @@
                     width: calc(100% - 36px);
                     margin-left: 41px;
                     background-color: var(--background-color--opa);
+                    border-radius: 5px;
                     padding: 5px;
                     @include flex(column,nowrap,flex-start,null,null,null);
                     .pre-reply-container{

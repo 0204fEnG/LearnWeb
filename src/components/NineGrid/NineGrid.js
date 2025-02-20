@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NineGrid.scss'; // 用于样式控制
-
+import ImageFullScreen from '../ImageFullScreen/ImageFullScreen';
 const NineGrid = ({ images }) => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [initialIndex, setInitialIndex] = useState(0);
+  const handleThumbnailClick = (index) => {
+    setInitialIndex(index);
+    setIsFullScreen(true);
+  };
   const imageCount = images.length;
 
   const getImageStyle = (index) => {
@@ -35,10 +41,17 @@ const NineGrid = ({ images }) => {
           style={getImageStyle(index)}
         >
           <div className="image-wrapper">
-            <img src={src} alt={`grid-${index}`} />
+            <img src={src} alt={`grid-${index}`} onClick={()=>handleThumbnailClick(index)} />
           </div>
         </div>
       ))}
+      {isFullScreen && (
+        <ImageFullScreen
+          images={images}
+          initialIndex={initialIndex}
+          onClose={() => setIsFullScreen(false)}
+        />
+      )}
     </div>
   );
 };

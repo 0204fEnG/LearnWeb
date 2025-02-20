@@ -1,4 +1,4 @@
-import {useEffect, useState,useContext, lazy ,useMemo} from 'react'
+import {useContext} from 'react'
 import './Home.scss'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 import { AppContext } from '../../contexts/AppContext.js'

@@ -7,11 +7,12 @@ import Reply from '../../components/icons/Reply'
 import ThreeDots from '../../components/icons/ThreeDots'
 import ThreeDotsVer from '../../components/icons/ThreeDotsVer'
 import Good from '../../components/icons/Good'
+
 const Post = () => {
     const nav = useNavigate()
     const { postId } = useParams()
     const [count,setCount]=useState(0)
-    const [isLeave,setIsLeave]=useState(false)
+    const [isLeave, setIsLeave] = useState(false)
     const handleMaskClick = (event) => {
         // if (event.target !== event.currentTarget) {
         //     return
@@ -30,9 +31,9 @@ const Post = () => {
         '/images/header/banner/4.png',
         '/images/header/banner/5.png',
         '/images/header/banner/6.png',
-        '/images/header/banner/5.png',
-        '/images/header/banner/4.png',
-        '/images/header/banner/3.png',
+        '/images/header/banner/1(1).jpeg',
+        '/images/header/banner/1(4).jpeg',
+        '/images/header/banner/1(3).jpeg',
     ]
     return (
         <div className={`post-mask ${isLeave ? 'leave' : ''}`} onClick={handleMaskClick}>        
@@ -459,7 +460,7 @@ const Post = () => {
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     )
 }
