@@ -72,7 +72,11 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
   return (
     <div className="full-modal-overlay">
       <div className="full-modal-content">
-        <div className="full-image-container"  onClick={onClose} ref={imageContainerRef}>
+        <div className="full-image-container" onClick={(e) => {
+          e.stopPropagation()
+          onClose()
+        }
+        } ref={imageContainerRef}>
           {images.map((src, index) => (
             <div key={index} className="full-image-wrapper">
               <img
@@ -83,13 +87,19 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
             </div>
           ))}
         </div>
-        <button className="full-close-button" onClick={onClose}>×</button>
+        <button className="full-close-button" onClick={(e) => {
+          e.stopPropagation()
+          onClose()
+        }}>×</button>
         <div className="full-pagination-dots">
           {images.map((_, index) => (
             <span
               key={index}
               className={`full-dot ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => handleImageChange(index)}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleImageChange(index)
+              }}
             />
           ))}
         </div>
@@ -100,7 +110,11 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
               src={src}
               alt={`Thumbnail ${index}`}
               className={`full-thumbnail ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => handleImageChange(index)}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleImageChange(index)
+              }
+              }
             />
           ))}
           </div>

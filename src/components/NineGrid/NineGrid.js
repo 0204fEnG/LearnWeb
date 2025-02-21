@@ -72,7 +72,11 @@ const NineGrid = ({ images }) => {
               ref={(el) => (imagesRef.current[index] = el)}  // 绑定图片引用
               data-src={src}  // 使用 data-src 存储图片 URL
               alt={`grid-${index}`}
-              onClick={() => handleThumbnailClick(index)}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleThumbnailClick(index)
+              }
+              }
               src='/icons/alt.svg'
             />
           </div>

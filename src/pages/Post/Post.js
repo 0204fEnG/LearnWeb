@@ -1,28 +1,36 @@
-import {  Link, useNavigate, useParams} from 'react-router-dom'
+import {  Link, useLocation, useNavigate, useParams} from 'react-router-dom'
 import './Post.scss'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon'
 import NineGrid from '../../components/NineGrid/NineGrid'
 import Reply from '../../components/icons/Reply'
 import ThreeDots from '../../components/icons/ThreeDots'
 import ThreeDotsVer from '../../components/icons/ThreeDotsVer'
 import Good from '../../components/icons/Good'
+import { useActivate, useUnactivate} from 'react-activation'
 
 const Post = () => {
+    const [initialStyle, setInitialStyle] = useState(true)
     const nav = useNavigate()
+    // const divInfo = useOutletContext()
     const { postId } = useParams()
-    const [count,setCount]=useState(0)
-    const [isLeave, setIsLeave] = useState(false)
+    const [count, setCount] = useState(0)
+    const timer=useRef(null)
     const handleMaskClick = (event) => {
         // if (event.target !== event.currentTarget) {
         //     return
         // }
         // event.stopPropagation();
-        setIsLeave(true)
-        setTimeout(() => {
-            setIsLeave(false)
-            nav(-1)
-        }, 300)
+        if (initialStyle === true) {
+            clearTimeout(timer.current)
+            setInitialStyle(false)
+        }
+        else {
+            setInitialStyle(true)
+            timer.current=setTimeout(() => {
+                nav(-1)
+            }, 300)
+        }
     }
     const imgs = [
         '/images/header/banner/1.png',
@@ -35,11 +43,22 @@ const Post = () => {
         '/images/header/banner/1(4).jpeg',
         '/images/header/banner/1(3).jpeg',
     ]
+    useActivate(() => {
+      setTimeout(() => {
+        setInitialStyle(false)            
+        },0)
+    })
+    useEffect(() => {
+        setTimeout(() => {
+        setInitialStyle(false)            
+        },0)
+    },[])
     return (
-        <div className={`post-mask ${isLeave ? 'leave' : ''}`} onClick={handleMaskClick}>        
-            <div onClick={ (event) => {
-               event.stopPropagation(); // 阻止事件冒泡
-           }} className={`post-container ${isLeave ? 'leave' : ''}`}>                
+        <div className={`post-mask ${initialStyle ? 'start' : 'final'}`} onClick={handleMaskClick} >
+            <div className={`post-css-container ${initialStyle ? 'start' : 'final'}`}>
+            <div onClick={(event) => {
+                event.stopPropagation(); // 阻止事件冒泡
+            }} className='post-container' >                
                 <div className="header">
                     <div onClick={handleMaskClick} className='back-container'>
                         <ChevronLeftIcon className='back' /> 
@@ -108,7 +127,8 @@ const Post = () => {
                         </div>
                     </div>                  
                 </div>
-            </div>
+                </div>
+                </div>
         </div>
     )
 }

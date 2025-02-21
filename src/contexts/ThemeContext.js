@@ -8,9 +8,6 @@ export const ThemeProvider = ({ children }) => {
     return localStorage.getItem('theme') || 'light';
   });
     useEffect(() => {
-        document.body.className = `${theme}-theme`
-    })
-    useEffect(() => {
     document.body.className = `${theme}-theme`
       localStorage.setItem('theme', theme);
   }, [theme]);

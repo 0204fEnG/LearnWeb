@@ -4,7 +4,8 @@ import { lazy, Suspense} from "react";
 import Loading from "../components/Loading/Loading.js";
 // 动态包裹 KeepAlive 的组件
 const KeepAliveWrapper = ({ Component,saveScrollType,paramName}) => {
-  const KeepAliveId=useParams()[`${paramName}`]; // 获取路由参数
+  const KeepAliveId = useParams()[`${paramName}`]; // 获取路由参数
+  console.log(KeepAliveId)
   return (
     <KeepAlive id={KeepAliveId} saveScrollPosition={saveScrollType}>
       <Component />
