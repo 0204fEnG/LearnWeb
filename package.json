@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@mui/icons-material": "^6.4.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@reduxjs/toolkit": "^2.5.1",
     "@svgr/webpack": "^5.5.0",
@@ -19,6 +20,7 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "chroma-js": "^3.1.2",
     "colorthief": "^2.6.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
@@ -45,6 +47,7 @@
     "react": "^18.3.1",
     "react-activation": "^0.13.0",
     "react-app-polyfill": "^3.0.0",
+    "react-color": "^2.19.3",
     "react-dev-utils": "^12.0.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",

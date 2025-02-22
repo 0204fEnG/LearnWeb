@@ -10,7 +10,7 @@ import Good from '../../components/icons/Good'
 import { useActivate, useUnactivate} from 'react-activation'
 
 const Post = () => {
-    const [initialStyle, setInitialStyle] = useState(true)
+    const [isFinal, setIsFinal] = useState(false)
     const nav = useNavigate()
     // const divInfo = useOutletContext()
     const { postId } = useParams()
@@ -21,12 +21,12 @@ const Post = () => {
         //     return
         // }
         // event.stopPropagation();
-        if (initialStyle === true) {
+        if (!isFinal) {
             clearTimeout(timer.current)
-            setInitialStyle(false)
+            setIsFinal(true)
         }
         else {
-            setInitialStyle(true)
+            setIsFinal(false)
             timer.current=setTimeout(() => {
                 nav(-1)
             }, 300)
@@ -44,18 +44,19 @@ const Post = () => {
         '/images/header/banner/1(3).jpeg',
     ]
     useActivate(() => {
-      setTimeout(() => {
-        setInitialStyle(false)            
-        },0)
+        setIsFinal(true)
     })
     useEffect(() => {
-        setTimeout(() => {
-        setInitialStyle(false)            
-        },0)
+        timer.current = setTimeout(() => {
+        setIsFinal(true)            
+        }, 10)
+        return () => {
+            clearTimeout(timer.current)
+        }
     },[])
     return (
-        <div className={`post-mask ${initialStyle ? 'start' : 'final'}`} onClick={handleMaskClick} >
-            <div className={`post-css-container ${initialStyle ? 'start' : 'final'}`}>
+        <div className={`post-mask ${isFinal&&'final'}`} onClick={handleMaskClick} >
+            <div className={`post-css-container ${isFinal&&'final'}`}>
             <div onClick={(event) => {
                 event.stopPropagation(); // 阻止事件冒泡
             }} className='post-container' >                

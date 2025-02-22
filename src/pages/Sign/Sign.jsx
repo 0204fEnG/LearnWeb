@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../actions/userActions';
 import Tip from "../../components/Tip/Tip";
 import Title from "../../components/Title/Title";
+import UserName from "../../components/icons/UserName";
 const Sign = () => {
   const [tips, setTips] = useState([])
   const [tipClear,setTipClear]=useState(null)
@@ -142,7 +143,7 @@ const Sign = () => {
         </header>
         <form onSubmit={handleSubmit} className="form-container" noValidate>
           <div className="form-element">
-            <label htmlFor="username" className="label">😊</label>
+            <label htmlFor="username" className="label">👨‍💻</label>
             <input placeholder='请输入用户名'id='username' className={`element ${errors.username&&'element-error'}`} type="text" name="username" value={formData.username} onChange={handleChangeForm} required />
             {errors.username && <p className="error">{errors.username}</p >}
           </div>
