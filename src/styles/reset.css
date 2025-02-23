@@ -1,4 +1,7 @@
 /* 清除所有元素的默认样式 */
+body.no-select{
+  user-select: none;
+}
 * {
   margin: 0;
   padding: 0;
@@ -26,3 +29,10 @@ button{
 a{
   text-decoration: none;
 }
+    [type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+      outline: 0;
+      background-color: transparent;
+    }

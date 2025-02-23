@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken,setToken,setRefreshToken,clearToken } from "./token";
 import { refreshToken,isRefreshTokenRequest } from "../api/auth";
-const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.178.8:3200/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.252.8:3200/api";
 
 // 创建 Axios 实例
 const instance = axios.create({
@@ -54,18 +54,16 @@ instance.interceptors.response.use(
           break;
         }
         case 404:
-          console.warn("请求资源不存在:", error.response.data);
-          break;
+          return Promise.reject(error.response.data);
         case 500:
-          console.error("服务器错误:", error.response.data);
-          break;
+          return Promise.reject(error.response.data);
         default:
-          console.error("请求错误:", error.response.data);
+          return Promise.reject(error.response.data);
       }
     } else if (error.request) {
-      console.error("请求超时或网络错误，请检查网络");
+      return Promise.reject("请求超时或网络错误，请检查网络");
     } else {
-      console.error("请求配置错误:", error.message);
+      return Promise.reject(`请求配置错误: ${error.message}`);
     }
 
     return Promise.reject(error.response?.data || error.message);

@@ -6,13 +6,6 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
   const imageContainerRef = useRef(null); // 图片容器引用
   const thumbnailContainerRef = useRef(null); // 缩略图容器引用
 
-  // 禁用背景滚动
-  // useEffect(() => {
-  //   document.body.style.overflow = 'hidden';
-  //   return () => {
-  //     document.body.style.overflow = 'auto';
-  //   };
-  // }, []);
 
   // 切换图片
     const handleImageChange = (index) => {
@@ -52,6 +45,12 @@ const ImageFullScreen = ({ images, initialIndex, onClose }) => {
         behavior: 'instant',
       });
     }
+        if (thumbnailContainerRef.current) {
+      thumbnailContainerRef.current.scrollTo({
+        left: initialIndex * 90,
+        behavior: 'instant',
+      });
+      }
     return () => {
       if (imageContainerRef.current) {
         imageContainerRef.current.removeEventListener('scroll', handleScroll);

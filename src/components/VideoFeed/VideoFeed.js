@@ -25,19 +25,36 @@ const VideoItem = ({ video, isActive }) => {
     playbackMode: 'loop',
     isViewportFullscreen: false,
     isFullscreen: false,
-    isDraggingProgress: false,
-    dragPosition: 0
+    isDrag:false
   })
 
+  useEffect(() => {
+  const handleMouseUp = () => {
+    document.removeEventListener('mousemove', handleProgressDrag)
+    document.removeEventListener('mouseup', handleProgressDragEnd)
+  }
+
+  // 清理事件监听器
+  return () => {
+    document.removeEventListener('mousemove', handleProgressDrag)
+    document.removeEventListener('mouseup', handleProgressDragEnd)
+    handleMouseUp()
+  }
+}, [])
   // 视频初始化
   useEffect(() => {
     const videoElement = videoRef.current
     if (!videoElement) return
 
-    const handleReady = () => {
-      setIsLoading(false)
-      isActive && videoElement.play().catch(console.error)
-    }
+ const handleReady = () => {
+  setIsLoading(false)
+  if (isActive) {
+    videoElement.play().catch(error => {
+      console.error('视频播放错误:', error)
+      setIsLoading(false) // 视频加载失败时停止加载状态
+    })
+  }
+}
 
     videoElement.addEventListener('loadeddata', handleReady)
     videoElement.muted = state.isMuted
@@ -83,17 +100,18 @@ const handlePlayback = async () => {
   }
 
   // 播放模式切换
-  const handlePlaybackModeChange = (mode) => {
-    const video = videoRef.current
-    video.loop = mode === 'loop'
-    
-    setState(prev => ({ ...prev, playbackMode: mode }))
-    
-    video.removeEventListener('ended', handleAutoPlayNext)
-    if (mode === 'auto') {
-      video.addEventListener('ended', handleAutoPlayNext)
-    }
+const handlePlaybackModeChange = (mode) => {
+  const video = videoRef.current
+  video.loop = mode === 'loop'
+
+  setState(prev => ({ ...prev, playbackMode: mode }))
+
+  // 在移除事件之前先移除已存在的监听器，避免重复绑定
+  video.removeEventListener('ended', handleAutoPlayNext)
+  if (mode === 'auto') {
+    video.addEventListener('ended', handleAutoPlayNext)
   }
+}
 
   // 自动播放下一集
   const handleAutoPlayNext = () => {
@@ -122,45 +140,51 @@ const handlePlayback = async () => {
 const handleProgressClick = (e) => {
   if (!progressRef.current || !videoRef.current) return
   const rect = progressRef.current.getBoundingClientRect()
-  const percent = (e.clientX - rect.left) / rect.width
-  const currentTime = Math.min(Math.max(percent, 0), 1) * state.duration
-  videoRef.current.currentTime = currentTime
+  const percent = (e.clientX - rect.left) / rect.width // 点击位置的进度百分比
+  const currentTime = Math.min(Math.max(percent, 0), 1) * state.duration // 计算出当前时间
+  videoRef.current.currentTime = currentTime // 更新视频的播放时间
   setState(prev => ({
     ...prev,
     currentTime,
-    progress: (currentTime / prev.duration) * 100
+    progress: (currentTime / prev.duration) * 100 // 更新进度条
   }))
 }
   // 进度条拖拽处理
   const handleProgressDragStart = (e) => {
     if (!progressRef.current) return
-    
-    setState(prev => ({ ...prev, isDraggingProgress: true }))
+    setState((prev) => ({
+      ...prev,
+      isDrag:true
+    }))
     handleProgressDrag(e)
+    document.body.classList.add('no-select')
     document.addEventListener('mousemove', handleProgressDrag)
     document.addEventListener('mouseup', handleProgressDragEnd)
   }
 
 const handleProgressDrag = (e) => {
   if (!progressRef.current) return
-  
-  // 使用 requestAnimationFrame 优化
-  requestAnimationFrame(() => {
-    const rect = progressRef.current.getBoundingClientRect()
-    const percent = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1)
-    setState(prev => ({
-      ...prev,
-      dragPosition: percent * 100,
-      currentTime: percent * prev.duration
-    }))
-  })
+
+  // 获取进度条容器相对于页面的位置
+  const rect = progressRef.current.getBoundingClientRect()
+
+  // 计算鼠标相对进度条的偏移量
+  const percent = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1)
+
+  // 更新进度条和当前时间
+  setState(prev => ({
+    ...prev,
+    currentTime: percent * prev.duration,// 更新视频的当前时间
+    progress:percent*100
+  }))
 }
 
   const handleProgressDragEnd = () => {
     if (videoRef.current) {
       videoRef.current.currentTime = state.currentTime
     }
-    setState(prev => ({ ...prev, isDraggingProgress: false }))
+    setState(prev => ({ ...prev, isDrag: false }))
+    document.body.classList.remove('no-select')
     document.removeEventListener('mousemove', handleProgressDrag)
     document.removeEventListener('mouseup', handleProgressDragEnd)
   }
@@ -169,23 +193,24 @@ const handleProgressDrag = (e) => {
     <div className={`video-item ${state.isViewportFullscreen ? 'viewport-fullscreen' : ''}`}>
       {isLoading && <div className="loading-indicator">加载中...</div>}
       
-      <video
-        ref={videoRef}
-        src={video.url}
-        loop={state.playbackMode === 'loop'}
-        muted={state.isMuted}
-        playsInline
-        onClick={handlePlayback}
-        onTimeUpdate={() => setState(prev => ({
-          ...prev,
-          currentTime: videoRef.current?.currentTime || 0,
-          progress: ((videoRef.current?.currentTime || 0) / prev.duration) * 100 || 0
-        }))}
-        onLoadedMetadata={() => setState(prev => ({
-          ...prev,
-          duration: videoRef.current?.duration || 0
-        }))}
-      />
+    <video
+      ref={videoRef}
+      loop={state.playbackMode === 'loop'}
+      muted={state.isMuted}
+      playsInline
+      onClick={handlePlayback}
+      onTimeUpdate={() => setState(prev => ({
+        ...prev,
+        currentTime: !prev.isDrag?videoRef.current?.currentTime || 0:prev.currentTime,
+        progress:!prev.isDrag?(((videoRef.current?.currentTime || 0) / prev.duration) * 100 || 0):prev.progress
+      }))}
+      onLoadedMetadata={() => setState(prev => ({
+        ...prev,
+        duration: videoRef.current?.duration || 0
+      }))}
+    >
+      <source src={video.url} type="video/mp4" />
+    </video>
 
       <div className="video-controls">
       <button onClick={handlePlayback}>
@@ -243,13 +268,10 @@ const handleProgressDrag = (e) => {
           onClick={handleProgressClick}
           onMouseDown={handleProgressDragStart}
         >
-          <div className="progress-bar" style={{ width: `${state.progress}%` }}>
-            {state.isDraggingProgress && (
+          <div className="progress-bar" style={{width: `${state.progress}%` }}>
               <div 
                 className="drag-thumb"
-                style={{ left: `${state.dragPosition}%` }}
               />
-            )}
           </div>
         </div>
       </div>

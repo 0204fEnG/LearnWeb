@@ -6,14 +6,14 @@ import ListOpen from '../../components/icons/ListOpen.js'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 import './Shorts.scss'
 const Shorts = () => {
-    const { handleLeftIsShowClick, setBottomIsShow } = useContext(AppContext)
+    const { handleLeftIsShowClick, setBottomIsShow ,tabIsTransparent} = useContext(AppContext)
     const routes = [{
         name: '推荐',
         path:'shorts-recommend'
     }
     ]
-    return <div className="app-shorts">
-        <header className='app-shorts__header'>
+    return <div className='app-shorts'>
+        <header className={['app-shorts__header',tabIsTransparent?'transparent':''].join(' ')}>
             <div className="app-shorts__header__navs">
                 <RouteNavbar routes={routes}/>
             </div>

@@ -18,7 +18,7 @@ import chroma from 'chroma-js';
 // import useAnimationClassName from './hooks/useAnimationClassName.js';
 // import useRouteChangeTracker from './hooks/useRouteChangeTracker.js';
 const App = () => {
-    const { themeType, setThemeType,customColor, updateCustomColor,recoveryColor } = useTheme();
+  const { themeType, setThemeType, customColor, updateCustomColor, recoveryColor } = useTheme();
   const [showColorPicker, setShowColorPicker] = useState(false);
   const handleColorChange = (color) => {
     updateCustomColor(color.rgb);
@@ -29,7 +29,7 @@ const App = () => {
   const [confirmDialogMessage,setConfirmDialogMessage]=useState('')
   const [handleConfirmDialogCancel,setHandleConfirmDialogCancel]=useState(null)
   const [handleConfirmDialogConfirm,setHandleConfirmDialogConfirm]=useState(null)
-  const {handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow} = useContext(AppContext)
+  const {handleLeftIsShowClick, setBottomIsShow, leftIsShow, bottomIsShow,tabIsTransparent,handleTabIsTransparent} = useContext(AppContext)
   // const animationClass = useAnimationClassName()
   const { avatar,isLogin}=useSelector(state => state.user);
   const dispatch=useDispatch()
@@ -132,6 +132,12 @@ useEffect(() => {
     nav('/home/recommend')
   },[])
   useEffect(() => {
+    if (location.pathname.startsWith('/shorts')) {
+      handleTabIsTransparent(true)
+    }
+    else {
+      handleTabIsTransparent(false)
+    }
     if (['/home', '/circles','/circles/circles-recommend', '/shorts','/shorts/shorts-recommend', '/mine','/home/recommend','/home/concern','/mine/mine-home','/mine/mine-dynamics','/mine/mine-follow'].includes(location.pathname)) {
       setBottomIsShow(true)
     }
@@ -201,10 +207,10 @@ useEffect(() => {
           </CSSTransition>
         </TransitionGroup> */}
       </main>
-          <nav className={['app__bottom__navs',!bottomIsShow?'bottom-close':''].join(' ')}>
+      <nav className={['app__bottom__navs', !bottomIsShow ? 'bottom-close' : '',tabIsTransparent?'transparent':''].join(' ')}>
              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'}  to={lastRoutes['/home']}>首页</NavLink>
         <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to={lastRoutes['/circles']}>圈子</NavLink>
-      <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to={lastRoutes['/shorts']}>短视频</NavLink>
+        <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to={lastRoutes['/shorts']}>短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to={lastRoutes['/mine']}>我的</NavLink>
       </nav>
           {tips.map((tip, index) => <Tip key={ index} message={tip.message} status={tip.status} />)}

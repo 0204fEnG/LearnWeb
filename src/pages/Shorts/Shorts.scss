@@ -8,6 +8,14 @@
     .app-shorts__header{
         @include flex(row,nowrap,null,null,null,null);
         @include indexTop();
+        &.transparent{
+        backdrop-filter: blur(0px);
+        background-color: transparent;
+        color: white;
+        .app-shorts__header__navs{
+            color: white;
+        }
+    }
         .app-shorts__header__navs{
             width: 20%;
             height: 100%;

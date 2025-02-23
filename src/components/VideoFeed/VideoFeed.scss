@@ -36,7 +36,7 @@ scroll-behavior: smooth;
       transform: translate(-50%, -50%);
       color: white;
       font-size: 1.2rem;
-      z-index: 10;
+      z-index: 5;
     }
 
     video {
@@ -66,7 +66,7 @@ scroll-behavior: smooth;
       flex-wrap: wrap;
       align-items: center;
       gap: 0.8rem;
-      z-index: 10;
+      z-index: 5;
 
       button, select {
         background: rgba(255,255,255,0.1);
@@ -84,46 +84,52 @@ scroll-behavior: smooth;
 
       .time-display {
         color: white;
-        font-family: monospace;
-        font-size: 0.9rem;
-        min-width: 120px;
+        
       }
 
       .volume-control {
-        input[type="range"] {
+        input[type=range] {
           width: 80px;
           height: 4px;
-          background: rgba(255,255,255,0.3);
           border-radius: 2px;
+          background-color: rgb(255, 255, 255,0.5);
+          &::-webkit-slider-thumb {
+           -webkit-appearance: none;     //以下样式随个人喜好
+           height: 15px; //让滑轨在滑块中间
+           aspect-ratio: 1;
+           cursor: pointer;
+           border-radius: 50%;
+           background-color: var(--active-color);
+        }
         }
       }
 
       .progress-container {
         flex: 1;
         height: 6px;
-        background: rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.5);
         border-radius: 3px;
-        margin: 0 1rem;
+        margin: 0 100px;
         position: relative;
         cursor: pointer;
         touch-action: none;
 
         .progress-bar {
           height: 100%;
-          background: #ff4757;
+          width: 0%;
+          background: var(--active-color);
           border-radius: 3px;
           transition: width 0.1s linear;
           position: relative;
 
           .drag-thumb {
             position: absolute;
-            top: -6px;
+            top: -5px;
             right: -8px;
             width: 16px;
             height: 16px;
-            background: #fff;
+            background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
           }
         }
       }
