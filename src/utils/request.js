@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken,setToken,setRefreshToken,clearToken } from "./token";
 import { refreshToken,isRefreshTokenRequest } from "../api/auth";
-const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.252.8:3200/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://192.168.188.8:3200/api";
 
 // 创建 Axios 实例
 const instance = axios.create({

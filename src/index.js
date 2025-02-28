@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import './index.css';
 import 'normalize.css';
 import './styles/reset.css'
-import './styles/global.css'
+import './styles/global.scss'
 import './styles/theme.scss'
 import {ThemeProvider} from'./contexts/ThemeContext.js'
 import Router from './routes/index.js'

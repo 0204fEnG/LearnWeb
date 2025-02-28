@@ -1,0 +1,94 @@
+@use '/src/styles/display/flex.scss'as *;
+.shorts-base-container{
+    width: 100%;
+    height: 100%;
+    @include flex(row,nowrap,center,center,flex-start,5px);
+    .shorts-main{
+        flex:1;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        @include flex(row,nowrap,space-between,center,null);
+        @media (min-width:1000px) {
+            border-radius: 5px;
+        }
+        .shorts-video-container{
+            flex:1;
+            height: 100%;
+            background-color: aqua;
+        }
+        .shorts-comments-container{
+            transition: all 0.25s ease-in-out;
+            @media (min-width:0px) and (max-width:650px) {
+                width: 100vw;
+                height: 100vh;
+                position: fixed;
+                z-index: 5;
+                bottom: 0;
+                background-color: rgb(0, 0, 0,0);
+                &.comments--push{
+                    background-color: rgb(0, 0, 0,0.5);
+                }
+            }
+            @media (min-width:650px) {
+                width: 0px;
+                height: 100%;
+                &.comments--push{
+                    width: 250px;
+                }
+            }
+            @media (min-width:1500px) {
+                width: 0px;
+                height: 100%;
+                &.comments--push{
+                    width: 350px;
+                }
+            }
+            .shorts-comments-wrapper{
+            background-color: rgb(95, 52, 26);
+            transition: all 0.25s ease-in-out;
+            @media (min-width:0px) and (max-width:650px) {
+                position: relative;
+                width: 100vw;
+                height: 50vh;
+                transform: translateY(200%);
+                &.comments--push{
+                    transform: translateY(100%);
+                }
+            }
+            @media (min-width:650px) {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        }
+    }
+    .shorts-aside{
+        width: 48px;
+        height: 100%;
+        @include flex(column,nowrap,center,center,flex-start,null);
+        @media (max-width:1500px) {
+            display: none;
+        }
+        .video-change-buttons{
+            width: 48px;
+            height: auto;
+            padding: 5px;
+            border-radius: 24px;
+            background-color: var(--primary-color);
+            @include flex(column,nowrap,space-between,center,flex-start,5px);
+            .change{
+                flex:0 0 36px;
+                width: 36px;
+                border-radius: 50%;
+                background-color: var(--background-color);
+                .change-icon{
+                    padding: 5px;
+                    width: 100%;
+                    height: 100%;
+                    fill:var(--text-color);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+@use '/src/styles/display/flex.scss'as *;
+.video-item-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: rgb(198, 138, 60);
+    .video-container{
+        width: 100%;
+        height: 100%;
+        transition: all 0.25s ease-in-out;
+        position: absolute;
+        top:0;
+        left:0;
+        @media (max-width:650px) {
+            &.comments--push{
+                height: calc(50vh - 72px);
+            }            
+        }
+        video{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .video-item-tools{
+        position: absolute;
+        width: 52px;
+        padding: 5px;
+        height: auto;
+        right: 0px;
+        bottom: 96px;
+        @include flex(column,nowrap,space-between,center,center,10px);
+        .video-item-tool{
+            width: 42px;
+            height: 42px;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: var(--background-color--opa);
+            .video-item-icon{
+                padding: 5px;
+                width: 100%;
+                height: 100%;
+                fill:var(--text-color);
+            }
+        }
+    }
+}

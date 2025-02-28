@@ -8,14 +8,6 @@
     .app-shorts__header{
         @include flex(row,nowrap,null,null,null,null);
         @include indexTop();
-        &.transparent{
-        backdrop-filter: blur(0px);
-        @media (max-width:1000px) {
-           border-bottom: 0;         
-        }
-
-        background-color: transparent;
-        color: white;
         .app-shorts__header__navs{
             color: white;
         }
@@ -42,33 +34,12 @@
                 height: 36px;
             }
             @include flex(row,nowrap,null,null,null,null);
-            .app-left-show{
-            color:var(--text-color);
-            height: 100%;
-            aspect-ratio: 1;
-            display: none;
-            cursor: pointer;
-            padding: 5px;
-            @media (max-width:1000px){
-                display: block;
-            }
-            .list-open{
-                width: 100%;
+            .searchbar{
+                flex:1 1 100%;
                 height: 100%;
-                padding: 5px;
-                border:1px solid var(--border-color);
-                border-radius: 50%;
-                background-color: var(--primary-color--opa);
-                fill:var(--text-color);
             }
-        }
-        .searchbar{
-            flex:1 1 100%;
-            height: 100%;
-        }
         }
     }
     .app-shorts__main{
         @include pageMain();
     }
-}
