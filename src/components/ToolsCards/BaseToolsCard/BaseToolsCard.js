@@ -5,7 +5,7 @@ const BaseToolsCard = ({ toolItems }) => {
         <div className="base-setting-container">
             {
                 toolItems.map((tool, index) =>
-                    <button className='setting' key={index} onClick={tool.handleFuc ? tool.handleFuc : ''}>
+                    <button className='setting' key={index} onClick={tool.handleFunc ? tool.handleFunc : ()=>{}}>
                         {tool.name}
                         {tool.component&&tool.component}
                     </button>

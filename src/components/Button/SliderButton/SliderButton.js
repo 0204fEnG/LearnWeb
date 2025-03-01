@@ -5,8 +5,10 @@ const SliderButton = ({ buttonItems, currentIndex }) => {
         <div className="slider-button-container">
             {
                 buttonItems.map((item, index) =>
-                    <button className='button-item' key={index} onClick={item.handleFuc}>
-                    {item.name}
+                    <button className='button-item' key={index} onClick={item.handleFunc}>
+                        <div className={`button-name${index===currentIndex?' button--active':''}`}>
+                            {item.name}
+                    </div>
                     </button>)
             }
             <div className="slider-bar" style={{transform:`translateX(${currentIndex*100}%)`}}></div>
