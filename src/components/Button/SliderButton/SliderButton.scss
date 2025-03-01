@@ -1,0 +1,25 @@
+@use '/src/styles/display/flex.scss'as *;
+.slider-button-container{
+    @include flex(row,nowrap,flex-start,center,flex-start,null);
+    width: fit-content;
+    height: 40px;
+    background-color: var(--background-color);
+    position: relative;
+    .button-item{
+        flex:50px;
+        height: 30px;
+        margin:5px;
+        @include flex(row,nowrap,center,center,center,null);
+    }
+    .slider-bar{
+        position: absolute;
+        top:0;
+        width: 50px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 15px;
+        background-color: var(--primary-color);
+        transition: all 0.25s ease-in-out;
+        transform: translateX(0);
+    }
+}

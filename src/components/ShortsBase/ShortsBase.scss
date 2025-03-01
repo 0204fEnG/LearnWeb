@@ -8,17 +8,27 @@
         height: 100%;
         overflow: hidden;
         position: relative;
-        @include flex(row,nowrap,space-between,center,null);
+        @include flex(row,nowrap,flex-start,flex-start,flex-start,null);
         @media (min-width:1000px) {
             border-radius: 5px;
         }
         .shorts-video-container{
-            flex:1;
+            flex:0 0 100%;
             height: 100%;
-            background-color: aqua;
+            transition: flex-basis 0.3s ease-in-out;
+            @media (min-width:650px) and (max-width:1500px) {
+                &.comments--push{
+                    flex-basis: calc(100% - 250px);
+                }
+            }
+            @media (min-width:1500px) {
+                &.comments--push{
+                    flex-basis: calc(100% - 350px);
+                }
+            }
         }
         .shorts-comments-container{
-            transition: all 0.25s ease-in-out;
+            transition: transform 0.3s ease-in-out,background-color 0.3s ease-in-out;
             @media (min-width:0px) and (max-width:650px) {
                 width: 100vw;
                 height: 100vh;
@@ -31,22 +41,31 @@
                 }
             }
             @media (min-width:650px) {
-                width: 0px;
+                position: absolute;
+                width: 250px;
                 height: 100%;
+                top:0;
+                right:0;
+                transform: translateX(100%);
                 &.comments--push{
-                    width: 250px;
+                    transform: translateX(0);
                 }
             }
             @media (min-width:1500px) {
-                width: 0px;
+                position: absolute;
+                width: 350px;
                 height: 100%;
+                top:0;
+                right:0;
+                transform: translateX(100%);
                 &.comments--push{
-                    width: 350px;
+                    transform: translateX(0);
                 }
             }
             .shorts-comments-wrapper{
-            background-color: rgb(95, 52, 26);
-            transition: all 0.25s ease-in-out;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
             @media (min-width:0px) and (max-width:650px) {
                 position: relative;
                 width: 100vw;
@@ -55,11 +74,7 @@
                 &.comments--push{
                     transform: translateY(100%);
                 }
-            }
-            @media (min-width:650px) {
-                width: 100%;
-                height: 100%;
-            }
+            }  
         }
         }
     }

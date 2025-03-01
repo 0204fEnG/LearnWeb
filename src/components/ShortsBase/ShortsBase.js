@@ -8,8 +8,8 @@ import useMyTransition from '../../hooks/useMyTransition.js'
 import { KeepAlive ,useAliveController} from 'react-activation'
 export const ShortsBaseContext=createContext()
 const ShortsBase = () => {
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController()
-    const { domIsEnter: commentsIsPush, domIsRender: commentsIsRender, handleDomShow: handleCommentsShow } = useMyTransition(250)
+    const { drop, refresh, clear, getCachingNodes } = useAliveController()
+    const { domIsEnter: commentsIsPush, domIsRender: commentsIsRender, handleDomShow: handleCommentsShow } = useMyTransition(300)
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
     const getRandomColor = () => {
       const letters = '0123456789ABCDEF';
@@ -52,7 +52,7 @@ const ShortsBase = () => {
         <ShortsBaseContext.Provider value={{ commentsIsPush,handleCommentsShow }}>
             <div className="shorts-base-container">
                 <div className="shorts-main">
-                    <div className="shorts-video-container">
+                    <div className={`shorts-video-container${commentsIsPush ? ' comments--push' : ''}`}>
                         <VideoLayout
                             currentVideoIndex={currentVideoIndex}
                             setCurrentVideoIndex={setCurrentVideoIndex}
@@ -78,9 +78,6 @@ const ShortsBase = () => {
                         <button className='change' onClick={(e)=>handleChangeClick(e,currentVideoIndex-1)}><ChevronTop className='change-icon'/></button>
                         <button className='change'onClick={(e)=>handleChangeClick(e,currentVideoIndex+1)}><ChevronBottom className='change-icon'/></button>
                     </div>
-                    <button>缓存</button>
-                    <button></button>
-                    <button></button>
                 </div>
                 </div>
         </ShortsBaseContext.Provider>

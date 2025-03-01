@@ -1,0 +1,19 @@
+@use '/src/styles/display/flex.scss'as *;
+.base-setting-container{
+    width: 300px;
+    height: 500px;
+    padding: 5px;
+    border-radius: 10px;
+    overflow-y: auto;
+    background-color: var(--background-color);
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    @include flex(column,nowrap,flex-start,center,center,5px);
+    .setting{
+        flex:0 0 30px;
+        width: 100%;
+        background-color: var(--primary-color);
+        @include flex(row,nowrap,space-between,center,center,null);
+    }
+}
