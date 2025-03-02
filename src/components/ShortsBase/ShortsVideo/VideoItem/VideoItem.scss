@@ -22,22 +22,97 @@
             object-fit: contain;
         }
     }
+    .video-info{
+        position: absolute;
+        width: 300px;
+        height: auto;
+        left: 5px;
+        bottom: 45px;
+        @media (min-width:1500px) {
+            left: 10px;
+            bottom: 70px;
+            width: 400px;
+        }
+        @include flex(column,nowrap,flex-start,center,center,null);
+        .user-info{
+            width: 100%;
+            height: 40px;
+            padding: 0 5px;
+            @include flex(row,nowrap,flex-start,center,flex-start,5px);
+            .user-avatar-container{
+                height: 100%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                overflow: hidden;
+                .avatar{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .user-name{
+                color: white;
+                font-size: 1.2rem;
+                font-weight: bold;
+                width: fit-content;
+                margin-right: 20px;
+                height: auto;
+            }
+            .follow{
+                height: 30px;
+                width: 60px;
+                border-radius: 15px;
+                color: white;
+                background-color: var(--active-color);
+            }
+        }
+        .content-info{
+            width: 100%;
+            flex:0 0 50px;
+            @include flex(column,nowrap,flex-start,center,center,null);
+            .title{
+                width: 100%;
+                font-size: 1.1rem;
+                font-weight: 500;
+                padding: 5px;
+                height: auto;
+                color: white;
+            }
+            .description{
+                width: 100%;
+                height: auto;
+            }
+    }
+    .publishTime{
+        width: 100%;
+        height: auto;
+        font-size: 0.9rem;
+        padding: 5px;
+        color: rgb(255, 255, 255,0.5);
+    }
+}
     .video-item-tools{
         position: absolute;
         width: 52px;
         padding: 5px;
         height: auto;
-        right: 0px;
-        bottom: 96px;
+        right: 5px;
+        bottom: 45px;
         @include flex(column,nowrap,space-between,center,center,10px);
+        @media (min-width:1500px) {
+            width: 60px;
+            gap:15px;
+            right: 10px;
+            bottom: 70px;
+        }
         .video-item-tool{
-            width: 42px;
-            height: 42px;
-            padding: 5px;
+            width: 100%;
+            aspect-ratio: 1;
             border-radius: 50%;
             background-color: var(--background-color--opa);
+            overflow: hidden;
             .video-item-icon{
-                padding: 5px;
+                padding: 10px;
                 width: 100%;
                 height: 100%;
                 fill:var(--text-color);

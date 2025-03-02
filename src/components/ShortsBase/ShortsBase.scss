@@ -18,12 +18,12 @@
             transition: flex-basis 0.2s ease-in-out;
             @media (min-width:650px) and (max-width:1500px) {
                 &.comments--push{
-                    flex-basis: calc(100% - 250px);
+                    flex-basis: calc(100% - 300px);
                 }
             }
             @media (min-width:1500px) {
                 &.comments--push{
-                    flex-basis: calc(100% - 350px);
+                    flex-basis: calc(100% - 450px);
                 }
             }
         }
@@ -42,7 +42,7 @@
             }
             @media (min-width:650px) {
                 position: absolute;
-                width: 250px;
+                width: 300px;
                 height: 100%;
                 top:0;
                 right:0;
@@ -53,7 +53,7 @@
             }
             @media (min-width:1500px) {
                 position: absolute;
-                width: 350px;
+                width: 450px;
                 height: 100%;
                 top:0;
                 right:0;

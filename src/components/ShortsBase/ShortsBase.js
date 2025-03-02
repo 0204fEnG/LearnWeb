@@ -1,7 +1,7 @@
 import './ShortsBase.scss'
 import VideoLayout from './ShortsVideo/VideoLayout.js'
 import ShortsComments from './ShortsComments/ShortsComments.js'
-import ChevronTop from '../icons/ChevronUp.js'
+import ChevronTop from '../icons/ChevronTop.js'
 import ChevronBottom from '../icons/ChevronBottom.js'
 import { useState, createContext,useEffect,useRef,useCallback } from 'react'
 import useMyTransition from '../../hooks/useMyTransition.js'
@@ -18,7 +18,7 @@ const ShortsBase = () => {
             userName:'user1',
             title: '视频1',
             videoUrl: '/videos/3.mp4',
-            description: '测试专用简介1',
+            description: '测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1',
             publishTime: '5天前 18:57',
             likes: 450,
             comments: 30210,
@@ -30,7 +30,7 @@ const ShortsBase = () => {
             userName:'user2',
             title: '视频2',
             videoUrl: '/videos/7.mp4',
-            description: '测试专用简介2',
+            description: '测试专用简介2测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1',
             publishTime: '2024年10月24日 09:05',
             likes: 415,
             comments: 3210,
@@ -78,8 +78,8 @@ const ShortsBase = () => {
             userName:'user6',
             title: '视频6',
             videoUrl: '/videos/3.mp4',
-            description: '2月3日 00:05',
-            publishTime: '',
+            description: '简介好啊好啊11111111111傻傻3231 11',
+            publishTime: '2月3日 00:05',
             likes: 4215,
             comments: 31200,
             favorites:2310
@@ -123,9 +123,11 @@ const ShortsBase = () => {
     }
     const handleCommentsContainerClick = (e) => {
         if (e.currentTarget !== e.target) {
+            console.log('oms')
             return
         }
         e.stopPropagation()
+        console.log('com!')
         handleCommentsShow()
     }
     const handleChangeClick = useCallback((e, newDirection) => {

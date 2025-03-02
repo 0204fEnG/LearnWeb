@@ -1,4 +1,4 @@
-import { useEffect, useState ,useRef, useCallback, Component, useContext} from 'react';
+import { useEffect, useState ,useRef, useCallback, useContext} from 'react';
 import VideoItem from './VideoItem/VideoItem'
 import './VideoLayout.scss'
 import useMyTransition from '../../../hooks/useMyTransition';
@@ -19,7 +19,11 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
       rate:1
     }
   })
-  console.log('mode:',playSetting.playMode)
+  const touchStartY = useRef(0);
+  const touchOffset = useRef(0);
+  const isSwiping = useRef(false);
+  const containerHeight = useRef(0);
+  const startIndex = useRef(currentVideoIndex);
    const playModeButtonItems= [
       {
         name: '自动循环',
@@ -136,11 +140,9 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
   }]
     const layOutRef = useRef(null)
     const handleLayOutWheelScroll = useCallback((e) => {
-      e.preventDefault();
-      
-        if (isTransforming.current) {
-            return;
-        }
+      if (isTransforming.current) {
+          return;
+      }
     
       isTransforming.current = true;
       
@@ -165,14 +167,82 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
                layOutRef.current.removeEventListener('wheel',handleLayOutWheelScroll)
            }
        } 
-    },[handleLayOutWheelScroll])
+    }, [handleLayOutWheelScroll])
+
+  const handleTouchStart = useCallback((e) => {
+    const touchY = e.touches[0].clientY;
+    touchStartY.current = touchY;
+    startIndex.current = currentVideoIndex;
+    isSwiping.current = true;
+    containerHeight.current = layOutRef.current?.clientHeight || 0;
+  }, [currentVideoIndex]);
+
+  const handleTouchMove = useCallback((e) => {
+    if (!isSwiping.current || !containerHeight.current) return;
+    e.preventDefault();
+    const touchY = e.touches[0].clientY;
+    const deltaY = touchY - touchStartY.current;
+    const maxDelta = containerHeight.current;
+    const clampedDelta = Math.max(-maxDelta, Math.min(deltaY, maxDelta));
+    touchOffset.current = (clampedDelta / containerHeight.current) * 100;
+    
+    // 立即更新样式
+    layOutRef.current.querySelector('.video-items-container').style.transform = 
+      `translateY(calc(-${startIndex.current * 100}% + ${touchOffset.current}%)`;
+    layOutRef.current.querySelector('.video-items-container').style.transition = 'none';
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    isSwiping.current = false;
+    const threshold = 20; // 切换阈值 25%
+    const absOffset = Math.abs(touchOffset.current);
+    const direction = touchOffset.current > 0 ? -1 : 1;
+    layOutRef.current.querySelector('.video-items-container').style.transition = 'transform 0.3s ease-in-out';
+    if (absOffset >= threshold&&((direction > 0 && currentVideoIndex < videosLength - 1)||(direction<0&&currentVideoIndex>0))) {
+      handleCurrentVideoIndex(direction);
+    }
+    else {
+      // 重置样式
+
+      layOutRef.current.querySelector('.video-items-container').style.transform =
+        `translateY(-${currentVideoIndex * 100}%)`;
+    }
+      touchOffset.current = 0;
+  }, [currentVideoIndex, handleCurrentVideoIndex]);
+   useEffect(() => {
+    const layout = layOutRef.current;
+    if (!layout) return;
+
+    layout.addEventListener('touchstart', handleTouchStart);
+    layout.addEventListener('touchmove', handleTouchMove);
+    layout.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      layout.removeEventListener('touchstart', handleTouchStart);
+      layout.removeEventListener('touchmove', handleTouchMove);
+      layout.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
     return (
       <div className="shorts-layout-container" ref={layOutRef} >
-            <div className="video-items-container" style={{transform:`translateY(-${currentVideoIndex*100}%)`}}>
+        <div className="video-items-container"
+         style={{ 
+          transform: `translateY(-${currentVideoIndex * 100}%)`,
+          transition: isSwiping.current ? 'none' : 'transform 0.3s ease-in-out'
+        }}>
                 {
-            videoItems.map((videoItem, index) => <VideoItem key={index}
+            videoItems.map((videoItem, index) => <VideoItem key={videoItem.videoId}
               videoUrl={videoItem.videoUrl}
-              videoId={index} onMenuClick={(e) => handleStopEvent(e, handlePlaySettingShow)}
+              order={index}
+              userAvatar={videoItem.userAvatar}
+              userName={videoItem.userName}
+              title={videoItem.title}
+              publishTime={videoItem.publishTime}
+              description={videoItem.description}
+              likes={videoItem.likes}
+              comments={videoItem.comments}
+              favorites={videoItem.favorites}
+              onMenuClick={(e) => handleStopEvent(e, handlePlaySettingShow)}
               playMode={playSetting.playMode.mode}
               playRate={playSetting.playRate.rate}
             />

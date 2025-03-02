@@ -1,14 +1,11 @@
-import {  Link, useLocation, useNavigate, useParams} from 'react-router-dom'
+import {  Link, useNavigate, useParams} from 'react-router-dom'
 import './Post.scss'
 import { useEffect, useRef, useState } from 'react'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon'
 import NineGrid from '../../components/NineGrid/NineGrid'
-import Reply from '../../components/icons/Reply'
-import ThreeDots from '../../components/icons/ThreeDots'
 import ThreeDotsVer from '../../components/icons/ThreeDotsVer'
-import Good from '../../components/icons/Good'
-import { useActivate, useUnactivate} from 'react-activation'
-
+import { useActivate} from 'react-activation'
+import Comment from '../../components/Comment/Comment'
 const Post = () => {
     const [isFinal, setIsFinal] = useState(false)
     const nav = useNavigate()
@@ -91,42 +88,8 @@ const Post = () => {
                         <NineGrid images={imgs}/>
                     </div>
                 </div>
-                <div className="comments-container">
-                    <div className="comments-top">
-                        <div className="title">共1条评论</div>
-                    </div>
-                    <div className="comment-container">
-                        <div className="comment-header">
-                            <Link to={`/user/${postId}/user-home`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>
-                            <div className="info-container">
-                                <div className="name-container">
-                                    <Link to={`/user/${postId}/user-home`} className="name">{postId }</Link>
-                                <span className="level">Lv4</span>
-                                <span className="author">楼主</span>                                    
-                                </div>
-                                <div className="time"><span className="publish-time">1月29日</span></div>
-                            </div>
-                        </div>
-                        <div className="comment">自</div>
-                        <ul className="tools">
-                            <button className="tool"><Good className='svg-icon'/><div className="count">9923</div></button>
-                            <button className="tool"><Reply className='svg-icon'/><div className="count">23</div></button>
-                            <button className="more-container"><ThreeDots className='more-svg'/></button>
-                        </ul>
-                        <div className="reply">
-                            <div className="pre-reply-container">
-                            <div className="pre-reply">
-                                <Link to='/user/24feng/user-home' className='user-name'>24feng: </Link>
-                            对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
-                            </div>
-                            <div className="pre-reply">
-                                <Link to='/user/24yd21ng/user-home' className='user-name'>24yd21ng: </Link>
-                                不是下一个无限火力，他
-                                </div>
-                            </div>
-                            <button className="reply-count">共 133 条回复&gt;</button>
-                        </div>
-                    </div>                  
+                    <div className="comments-container">
+                    <Comment/>
                 </div>
                 </div>
                 </div>

@@ -154,158 +154,16 @@
         .comments-container{
             flex:1 1 50%;
             height: 100%;
-            overflow-y: auto;                
-            @include scrollbar();
-            background-color: var(--primary-color);
+            overflow-y: auto;
             padding-top: 48px;
+            background-color: var(--primary-color);
+            @include scrollbar();
             @media (max-width:650px) {
                 flex-basis: 100%;
                 // max-width: 100%;
-                border-left:none;
-                height:auto;
                 overflow-y: visible;
-                padding-top: 0;
-            }
-            @include flex(column,nowrap,flex-start,center,null,null);
-            .comments-top{
-                width: 100%;
-                flex: 0 0 36px;
-                backdrop-filter: blur(15px);
-                border-bottom: 1px solid var(--border-color);
-                background-color: var(--primary-color--opa);
-                position: sticky;
-                top:0;
-                @media (max-width:650px) {
-                    top:48px;
-                }
-                @include flex(row,nowrap,flex-start,center,flex-start,null);
-                .title{
-                   width: fit-content;
-                   height: 100%;
-                   margin: 0 5px;
-                   @include flex(column,nowrap,center,null,null,null);
-                }
-            }
-            .comment-container{
-                width: 100%;
-                flex:0 0 auto;
-                padding: 10px;
-                @include flex(column,nowrap,flex-start,center,flex-start,null);
-                border-bottom: 1px solid var(--border-color--opa);
-                &:last-child{
-                    border-bottom: none;
-                }
-                .comment-header{
-                    width: 100%;
-                    flex:0 0 36px;
-                    @include flex(row,nowrap,flex-start,center,null,5px);
-                    .avatar-container{
-                        height: 100%;
-                        aspect-ratio: 1;
-                        .avatar{
-                            height: 36px;
-                            aspect-ratio: 1;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-                    }
-                    .info-container{
-                        flex:1;
-                        height: 100%;
-                        @include flex(column,nowrap,center,flex-start,flex-start,null);
-                        .name-container{
-                            width: fit-content;
-                            @include flex(row,nowrap,flex-start,center,flex-start,5px);
-                            .name{
-                                flex:1 1 fit-content;
-                                font-weight: bold;
-                            }
-                            .level{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: white;
-                                background-color:var(--active-color);
-                            }
-                            .author{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: white;
-                                background-color:var(--active-color);
-                            }
-                        }
-                        .time{
-                            width: fit-content;
-                            @include flex(row,nowrap,flex-start,center,flex-start,null);
-                            .publish-time{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: var(--text-color--light);
-                            }
-                        }
-                    }
-                }
-                .comment{
-                    width: 100%;
-                    flex:0 0 auto;
-                    @include lineHeight();
-                    padding-left: 41px;
-                    font-size: 1.05rem;
-                }
-                .tools{
-                    width: 100%;
-                    flex:0 0 30px;
-                    padding-left: 41px;
-                    @include flex(row,nowrap,flex-start,center,flex-start,10px);
-                    .tool{
-                        @include flex(row,nowrap,flex-start,center,null,5px);
-                        flex:0 0 fit-content;
-                        height: 100%;
-                        cursor: pointer;
-                        .svg-icon{
-                            height: 20px;
-                            aspect-ratio: 1;
-                            fill:var(--text-color);
-                        }
-                        .count{
-                            width: fit-content;
-                        }
-                    }
-                    .more-container{
-                        height: 100%;
-                        aspect-ratio: 1;
-                        margin-left: auto;
-                        padding: 5px;
-                        .more-svg{
-                            height: 100%;
-                            aspect-ratio: 1;
-                            fill:var(--text-color);
-                        }
-                    }
-                }
-                .reply{
-                    width: calc(100% - 36px);
-                    margin-left: 41px;
-                    background-color: var(--background-color--opa);
-                    border-radius: 5px;
-                    padding: 5px;
-                    @include flex(column,nowrap,flex-start,null,null,null);
-                    .pre-reply-container{
-                        width: 100%;
-                        flex:0 0 auto;
-                        .pre-reply{
-                            @include lineHeight();
-                            .user-name{
-                                color: var(--active-color);
-                            }
-                        }
-                    }
-                    .reply-count{
-                        width: fit-content;
-                        cursor: pointer;
-                        margin-top: 5px;
-                        color: var(--active-color);
-                    }
-                }
+                height:auto;
+                padding-top: 0px;
             }
         }
     }

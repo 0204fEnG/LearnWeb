@@ -7,7 +7,8 @@ import { ShortsBaseContext } from '../../ShortsBase'
 import UpFull from '../../../icons/UpFull'
 import StarFull from '../../../icons/StarFull'
 import { handleStopEvent } from '../../../../utils/functions/handleStopEvent'
-const VideoItem = ({videoId,videoUrl,onMenuClick,playMode,playRate}) => {
+import TextOver from '../../../TextOver/TextOver'
+const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvatar,userName,description,publishTime,likes,comments,favorites}) => {
     const { commentsIsPush, handleCommentsShow ,currentVideoIndex,handleCurrentVideoIndex} = useContext(ShortsBaseContext)
     const videoRef=useRef(null)
     const [videoItemState, setVideoItemState] = useState({
@@ -45,10 +46,10 @@ const VideoItem = ({videoId,videoUrl,onMenuClick,playMode,playRate}) => {
     useEffect(() => {
         setVideoItemState((prev) => ({
             ...prev,
-            isPlay: currentVideoIndex === videoId,
-            isMuted:!(currentVideoIndex === videoId)
+            isPlay: currentVideoIndex === order,
+            isMuted:!(currentVideoIndex === order)
         }))
-    }, [currentVideoIndex, videoId])
+    }, [currentVideoIndex, order])
     useEffect(() => {
       if (!videoRef.current) return;
       if (videoItemState.isPlay) {
@@ -95,6 +96,24 @@ const VideoItem = ({videoId,videoUrl,onMenuClick,playMode,playRate}) => {
                 >
                     <source src={videoUrl} type='video/mp4'/>
                 </video>
+            </div>
+            <div className="video-info">
+                <div className="user-info">
+                    <div className="user-avatar-container">
+                        <img src={userAvatar} alt="" className="avatar" />
+                    </div>
+                    <button className="user-name">{userName}</button>
+                    <button className="follow">关注</button>
+                </div>
+                <div className="content-info">
+                    <div className="title">{title}</div>
+                    <div className="description">
+                        <TextOver text={description}/>
+                    </div>
+                </div>
+                <div className="publishTime">
+                    {publishTime}
+                </div>
             </div>
             <ul className="video-item-tools">
                 <button className="video-item-tool" onClick={handleUpIconClick}>{
