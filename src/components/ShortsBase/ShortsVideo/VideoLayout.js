@@ -139,7 +139,7 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
       component: <SliderButton buttonItems={playRateButtonItems} currentIndex={playSetting.playRate.rateIndex} />
   }]
     const layOutRef = useRef(null)
-    const handleLayOutWheelScroll = useCallback((e) => {
+  const handleLayOutWheelScroll = useCallback((e) => {
       if (isTransforming.current) {
           return;
       }
@@ -151,13 +151,13 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
         clearTimeout(timerRef.current);
       }
     
-      const direction = e.deltaY > 0 ? 1 : -1;
-      handleCurrentVideoIndex(direction)
+    const direction = e.deltaY > 0 ? 1 : -1;
+      handleCurrentVideoIndex(currentVideoIndex+direction)
       // 设置新计时器
       timerRef.current = setTimeout(() => {
         isTransforming.current = false;
       }, 300);
-    }, [videosLength]);
+    }, [videosLength,currentVideoIndex]);
     useEffect(() => {
         if (layOutRef.current) {
            layOutRef.current.addEventListener('wheel',handleLayOutWheelScroll)
@@ -169,46 +169,117 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
        } 
     }, [handleLayOutWheelScroll])
 
-  const handleTouchStart = useCallback((e) => {
-    const touchY = e.touches[0].clientY;
-    touchStartY.current = touchY;
-    startIndex.current = currentVideoIndex;
-    isSwiping.current = true;
-    containerHeight.current = layOutRef.current?.clientHeight || 0;
-  }, [currentVideoIndex]);
+  // const handleTouchStart = useCallback((e) => {
+  //   const touchY = e.touches[0].clientY;
+  //   touchStartY.current = touchY;
+  //   startIndex.current = currentVideoIndex;
+  //   isSwiping.current = true;
+  //   containerHeight.current = layOutRef.current?.clientHeight || 0;
+  // }, [currentVideoIndex]);
 
-  const handleTouchMove = useCallback((e) => {
-    if (!isSwiping.current || !containerHeight.current) return;
-    e.preventDefault();
-    const touchY = e.touches[0].clientY;
-    const deltaY = touchY - touchStartY.current;
-    const maxDelta = containerHeight.current;
-    const clampedDelta = Math.max(-maxDelta, Math.min(deltaY, maxDelta));
-    touchOffset.current = (clampedDelta / containerHeight.current) * 100;
+  // const handleTouchMove = useCallback((e) => {
+  //   if (!isSwiping.current || !containerHeight.current) return;
+  //   e.preventDefault();
+  //   const touchY = e.touches[0].clientY;
+  //   const deltaY = touchY - touchStartY.current;
+  //   const maxDelta = containerHeight.current;
+  //   const clampedDelta = Math.max(-maxDelta, Math.min(deltaY, maxDelta));
+  //   touchOffset.current = (clampedDelta / containerHeight.current) * 100;
     
-    // 立即更新样式
-    layOutRef.current.querySelector('.video-items-container').style.transform = 
-      `translateY(calc(-${startIndex.current * 100}% + ${touchOffset.current}%)`;
-    layOutRef.current.querySelector('.video-items-container').style.transition = 'none';
-  }, []);
+  //   // 立即更新样式
+  //   layOutRef.current.querySelector('.video-items-container').style.transform = 
+  //     `translateY(calc(-${startIndex.current * 100}% + ${touchOffset.current}%)`;
+  //   layOutRef.current.querySelector('.video-items-container').style.transition = 'none';
+  // }, []);
 
-  const handleTouchEnd = useCallback(() => {
-    isSwiping.current = false;
-    const threshold = 20; // 切换阈值 25%
-    const absOffset = Math.abs(touchOffset.current);
-    const direction = touchOffset.current > 0 ? -1 : 1;
-    layOutRef.current.querySelector('.video-items-container').style.transition = 'transform 0.3s ease-in-out';
-    if (absOffset >= threshold&&((direction > 0 && currentVideoIndex < videosLength - 1)||(direction<0&&currentVideoIndex>0))) {
-      handleCurrentVideoIndex(direction);
-    }
-    else {
-      // 重置样式
+  // const handleTouchEnd = useCallback(() => {
+  //   isSwiping.current = false;
+  //   const threshold = 20; // 切换阈值 25%
+  //   const absOffset = Math.abs(touchOffset.current);
+  //   const direction = touchOffset.current > 0 ? -1 : 1;
+  //   layOutRef.current.querySelector('.video-items-container').style.transition = 'transform 0.3s ease-in-out';
+  //   if (absOffset >= threshold&&((direction > 0 && currentVideoIndex < videosLength - 1)||(direction<0&&currentVideoIndex>0))) {
+  //     handleCurrentVideoIndex(direction);
+  //   }
+  //   else {
+  //     // 重置样式
 
-      layOutRef.current.querySelector('.video-items-container').style.transform =
-        `translateY(-${currentVideoIndex * 100}%)`;
-    }
-      touchOffset.current = 0;
-  }, [currentVideoIndex, handleCurrentVideoIndex]);
+  //     layOutRef.current.querySelector('.video-items-container').style.transform =
+  //       `translateY(-${currentVideoIndex * 100}%)`;
+  //   }
+  //     touchOffset.current = 0;
+  // }, [currentVideoIndex, handleCurrentVideoIndex]);
+  // 修改后的handleTouchStart，停止动画并捕获当前位置
+const handleTouchStart = useCallback((e) => {
+  const touchY = e.touches[0].clientY;
+  touchStartY.current = touchY;
+  
+  const container = layOutRef.current;
+  const videoContainer = container.querySelector('.video-items-container');
+  
+  // 1. 立即停止正在进行的过渡
+  const computedStyle = window.getComputedStyle(videoContainer);
+  videoContainer.style.transform = computedStyle.transform; // 冻结当前状态
+  videoContainer.style.transition = 'none'; // 禁用过渡
+
+  // 2. 计算当前实际索引（考虑过渡中断时的中间位置）
+  const containerRect = container.getBoundingClientRect();
+  const videoRect = videoContainer.getBoundingClientRect();
+  const currentOffset = videoRect.top - containerRect.top;
+  startIndex.current = Math.abs(currentOffset / containerRect.height); // 浮点索引
+
+  isSwiping.current = true;
+  containerHeight.current = containerRect.height;
+}, [currentVideoIndex]);
+
+// 修改后的handleTouchMove，基于浮点索引计算位置
+const handleTouchMove = useCallback((e) => {
+  if (!isSwiping.current || !containerHeight.current) return;
+  e.preventDefault();
+  
+  const touchY = e.touches[0].clientY;
+  const deltaY = touchY - touchStartY.current;
+  const offsetPercentage = (deltaY / containerHeight.current) * 100;
+
+  // 计算新位置（保持浮点精度）
+  const newIndex = startIndex.current - (offsetPercentage / 100);
+  const clampedIndex = Math.max(0, Math.min(newIndex, videosLength - 1));
+
+  // 直接更新DOM样式保证流畅性
+  layOutRef.current.querySelector('.video-items-container').style.transform = 
+    `translateY(-${clampedIndex * 100}%)`;
+}, [videosLength]);
+
+// 修改后的handleTouchEnd，精准定位到目标索引
+const handleTouchEnd = useCallback(() => {
+  isSwiping.current = false;
+  const videoContainer = layOutRef.current.querySelector('.video-items-container');
+  
+  // 1. 获取最终位置
+  const finalTransform = window.getComputedStyle(videoContainer).transform;
+  const matrix = new DOMMatrix(finalTransform);
+  const finalOffset = matrix.m42; // 获取垂直位移像素值
+  const finalIndex = Math.abs(finalOffset / containerHeight.current)
+  // 2. 确定目标索引
+  const small = finalIndex - currentVideoIndex
+  console.log(small)
+
+    const targetIndex = small > 0.2 ? Math.ceil(finalIndex) :
+                     small < -0.2 ? Math.floor(finalIndex) :
+                     currentVideoIndex
+  const validIndex = Math.max(0, Math.min(targetIndex, videosLength - 1));
+
+  // 3. 应用过渡动画
+  videoContainer.style.transition = 'transform 0.3s ease-in-out';
+  videoContainer.style.transform = `translateY(-${validIndex * 100}%)`;
+
+  // 4. 更新全局索引（假设handleCurrentVideoIndex可接受目标索引）
+  if (validIndex !== currentVideoIndex) {
+    handleCurrentVideoIndex(validIndex); // 需要上下文支持直接设置索引
+  }
+
+  touchOffset.current = 0;
+}, [currentVideoIndex, handleCurrentVideoIndex, videosLength]);
    useEffect(() => {
     const layout = layOutRef.current;
     if (!layout) return;
@@ -225,11 +296,7 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
   }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
     return (
       <div className="shorts-layout-container" ref={layOutRef} >
-        <div className="video-items-container"
-         style={{ 
-          transform: `translateY(-${currentVideoIndex * 100}%)`,
-          transition: isSwiping.current ? 'none' : 'transform 0.3s ease-in-out'
-        }}>
+        <div className="video-items-container" style={{transform:`translateY(${-currentVideoIndex *100}%)`}}>
                 {
             videoItems.map((videoItem, index) => <VideoItem key={videoItem.videoId}
               videoUrl={videoItem.videoUrl}
@@ -242,6 +309,8 @@ const VideoLayout = ({ videoItems, videosLength, isTransforming, timerRef }) => 
               likes={videoItem.likes}
               comments={videoItem.comments}
               favorites={videoItem.favorites}
+              circleAvatar={videoItem.circleAvatar}
+              circleName={videoItem.circleName}
               onMenuClick={(e) => handleStopEvent(e, handlePlaySettingShow)}
               playMode={playSetting.playMode.mode}
               playRate={playSetting.playRate.rate}

@@ -8,7 +8,7 @@ import UpFull from '../../../icons/UpFull'
 import StarFull from '../../../icons/StarFull'
 import { handleStopEvent } from '../../../../utils/functions/handleStopEvent'
 import TextOver from '../../../TextOver/TextOver'
-const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvatar,userName,description,publishTime,likes,comments,favorites}) => {
+const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvatar,userName,description,publishTime,likes,comments,favorites,circleAvatar,circleName}) => {
     const { commentsIsPush, handleCommentsShow ,currentVideoIndex,handleCurrentVideoIndex} = useContext(ShortsBaseContext)
     const videoRef=useRef(null)
     const [videoItemState, setVideoItemState] = useState({
@@ -111,6 +111,10 @@ const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvata
                         <TextOver text={description}/>
                     </div>
                 </div>
+                <button className="circle-tag-container">
+                    <img src={circleAvatar} alt="" className="circle-avatar" />
+                    { circleName}
+                </button>
                 <div className="publishTime">
                     {publishTime}
                 </div>

@@ -4,8 +4,8 @@
   z-index: 1;
   top: 0;
   height: 48px;
+  background-color: var(--single-color--opa2);
   backdrop-filter: blur(10px);
-  background-color: var(--primary-color--opa);
   border-bottom: 1px solid var(--border-color);
   overflow: hidden;
   @media (max-width:1000px) {

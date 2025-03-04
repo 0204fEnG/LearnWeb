@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState} from 'react'
 import './Mine.scss'
 import Message from '../../components/icons/Message';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet ,useNavigate} from 'react-router-dom';
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar';
 const Mine = () => {
     const divTop = useRef(null)
@@ -16,6 +16,10 @@ const Mine = () => {
             path:'/mine/mine-dynamics'
         }
   ]
+    const nav = useNavigate()
+    useEffect(() => {
+        nav('mine-home',{replace:true})
+    },[])
 useEffect(() => {
   const topScrollToShow = () => {
     const topScroll = divTop.current.scrollTop;

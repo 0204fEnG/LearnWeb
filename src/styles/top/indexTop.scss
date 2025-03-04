@@ -5,9 +5,9 @@
     z-index: 3;
     top:0;
     left: 0;
-    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
-    background-color: var(--primary-color--opa);
+    background-color: var(--single-color--opa2);
+    backdrop-filter: blur(10px);
     @media (max-width:1000px){
         flex-direction: column;
         height: 72px;

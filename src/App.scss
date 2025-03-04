@@ -143,14 +143,14 @@
     transform: translateY(100%);
     transition: transform 0.2s linear,background-color 0.5s ease;
     bottom: 0;
-    backdrop-filter: blur(10px);
     border-top: 1px solid var(--border-color);
      @include flex(row,wrap,center,null,null,null);
       width: 100%;
       height: auto;
       overflow: hidden;
       border-radius: 0px;
-      background-color: var(--primary-color--opa);
+        background-color: var(--single-color--opa2);
+    backdrop-filter: blur(10px);
       .app__left__navs__nav{
         color: var(--text-color);
         font-size: 14px;

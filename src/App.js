@@ -58,10 +58,10 @@ const App = () => {
     }
   }
   const [lastRoutes, setLastRoutes] = useState({
-    '/home': '/home/recommend',
-    '/circles': '/circles/circles-recommend',
-    '/shorts': '/shorts/shorts-recommend',
-    '/mine': '/mine/mine-home'
+    '/home': '/home',
+    '/circles': '/circles',
+    '/shorts': '/shorts',
+    '/mine': '/mine'
   });
 
   useEffect(() => {
@@ -122,7 +122,7 @@ useEffect(() => {
     setTips((prev) => [...prev, { message: response.message, status:'green' }])
     dispatch(autoLoginSuccess(response.user));
   } catch (error) {
-    setTips((prev) => [...prev, { message: error.message || error, status:'red' }])
+    setTips((prev) => [...prev, { message: error, status:'red' }])
   }
 };
   useEffect(() => {

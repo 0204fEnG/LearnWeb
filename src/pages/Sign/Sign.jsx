@@ -124,7 +124,7 @@ const Sign = () => {
       }
     } catch (error) {
           // 这里捕获到的是 try 块中抛出的错误
-          setTips((prev) => [...prev, { message: error.message || error, status:'red'}])
+          setTips((prev) => [...prev, { message: error, status:'red'}])
     }
         setLoading(false);
   };

@@ -9,9 +9,9 @@
             .comments-top{
                 width: 100%;
                 flex: 0 0 36px;
-                backdrop-filter: blur(15px);
+                backdrop-filter: blur(10px);
                 border-bottom: 1px solid var(--border-color);
-                background-color: var(--primary-color--opa);
+                background-color: var(--single-color--opa2);
                 position: sticky;
                 top:0;
                 @media (max-width:650px) {

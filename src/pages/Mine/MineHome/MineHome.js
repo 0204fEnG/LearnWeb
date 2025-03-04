@@ -1,7 +1,7 @@
 import './MineHome.scss'
 import SingleRowDisplayBar from '../../../components/HorizontalDisplayBar/SingleRowDisplayBar/SingleRowDisplayBar'
-import ChatDots from '../../../components/icons/ChatDots'
 import PeopleHeart from '../../../components/icons/PeopleHeart'
+import Group from '../../../components/icons/Group'
 const MineHome = () => {
     const circles = [
         {
@@ -89,7 +89,7 @@ const MineHome = () => {
     ]
     return <div className="mine-home-container">
         <SingleRowDisplayBar title='我关注的人' cards={peoples} Icon={PeopleHeart}/>
-        <SingleRowDisplayBar title='我关注的圈子' cards={circles} Icon={ChatDots}/>
+        <SingleRowDisplayBar title='我关注的圈子' cards={circles} Icon={Group}/>
     </div>
 }
 export default MineHome

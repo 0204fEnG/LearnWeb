@@ -54,11 +54,11 @@ instance.interceptors.response.use(
           break;
         }
         case 404:
-          return Promise.reject(error.response.data);
+          return Promise.reject(error.response.data.message);
         case 500:
-          return Promise.reject(error.response.data);
+          return Promise.reject(error.response.data.message);
         default:
-          return Promise.reject(error.response.data);
+          return Promise.reject(error.response.data.message);
       }
     } else if (error.request) {
       return Promise.reject("请求超时或网络错误，请检查网络");
@@ -66,7 +66,7 @@ instance.interceptors.response.use(
       return Promise.reject(`请求配置错误: ${error.message}`);
     }
 
-    return Promise.reject(error.response?.data || error.message);
+    return Promise.reject(error.response?.data.message || error.message);
   }
 );
 

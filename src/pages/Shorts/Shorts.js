@@ -1,7 +1,7 @@
-import {useContext} from 'react'
+import {useContext,useEffect} from 'react'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 import { AppContext } from '../../contexts/AppContext.js'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 import './Shorts.scss'
 const Shorts = () => {
@@ -11,6 +11,10 @@ const Shorts = () => {
         path:'shorts-recommend'
     }
     ]
+    const nav=useNavigate()
+    useEffect(() => {
+        nav('shorts-recommend',{replace:true})
+    },[])
     return <div className='app-shorts'>
         <header className='app-shorts__header'>
             <div className="app-shorts__header__navs">

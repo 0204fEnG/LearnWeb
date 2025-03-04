@@ -22,7 +22,9 @@ const ShortsBase = () => {
             publishTime: '5天前 18:57',
             likes: 450,
             comments: 30210,
-            favorites:2230
+            favorites: 2230,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:2103,
@@ -34,7 +36,9 @@ const ShortsBase = () => {
             publishTime: '2024年10月24日 09:05',
             likes: 415,
             comments: 3210,
-            favorites:230
+            favorites: 230,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:29221,
@@ -46,7 +50,9 @@ const ShortsBase = () => {
             publishTime: '2024年12月24日 18:05',
             likes: 145,
             comments: 3002,
-            favorites:230
+            favorites: 230,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:2154,
@@ -58,7 +64,9 @@ const ShortsBase = () => {
             publishTime: '1月1日 23:05',
             likes: 235,
             comments: 3040,
-            favorites:2330
+            favorites: 2330,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:292,
@@ -70,7 +78,9 @@ const ShortsBase = () => {
             publishTime: '2024年5月1日 14:05',
             likes: 2145,
             comments: 3001,
-            favorites:2320
+            favorites: 2320,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:210093,
@@ -82,7 +92,9 @@ const ShortsBase = () => {
             publishTime: '2月3日 00:05',
             likes: 4215,
             comments: 31200,
-            favorites:2310
+            favorites: 2310,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:2113,
@@ -94,7 +106,9 @@ const ShortsBase = () => {
             publishTime: '3月1日 14:05',
             likes: 4785,
             comments: 3070,
-            favorites:23560
+            favorites: 23560,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
         {
             videoId:2131313,
@@ -106,7 +120,9 @@ const ShortsBase = () => {
             publishTime: '3天前 13:56',
             likes: 425,
             comments: 12300,
-            favorites:5230
+            favorites: 5230,
+            circleAvatar: '/images/header/banner/1.png',
+            circleName:'火影忍者'
         },
     ])
     const [videosLength, setVideosLength] = useState(videoItems.length)
@@ -115,12 +131,10 @@ const ShortsBase = () => {
     useEffect(() => {
         setVideosLength(videoItems.length)
     }, [videoItems])
-    const handleCurrentVideoIndex = (direction) => {
-        setCurrentVideoIndex((prev) => {
-            const newIndex=direction+prev
-            return Math.max(0, Math.min(newIndex, videosLength - 1))
-        })
-    }
+// 在ShortsBaseContext中修改
+const handleCurrentVideoIndex = (newIndex) => {
+  setCurrentVideoIndex(Math.max(0, Math.min(newIndex, videosLength - 1)));
+}
     const handleCommentsContainerClick = (e) => {
         if (e.currentTarget !== e.target) {
             console.log('oms')
@@ -130,7 +144,7 @@ const ShortsBase = () => {
         console.log('com!')
         handleCommentsShow()
     }
-    const handleChangeClick = useCallback((e, newDirection) => {
+    const handleChangeClick = useCallback((e, newIndex) => {
         e.preventDefault()
         if (isTransforming.current) { 
           return;
@@ -139,7 +153,7 @@ const ShortsBase = () => {
         if (timerRef.current) {
           clearTimeout(timerRef.current);
         }
-        handleCurrentVideoIndex(newDirection)
+        handleCurrentVideoIndex(newIndex)
         timerRef.current=setTimeout(() => {
           isTransforming.current = false;
         }, 300)
@@ -169,8 +183,8 @@ const ShortsBase = () => {
                 </div>
                 <div className="shorts-aside">
                     <div className="video-change-buttons">
-                        <button className='change' onClick={(e)=>handleChangeClick(e,-1)}><ChevronTop className='change-icon'/></button>
-                        <button className='change'onClick={(e)=>handleChangeClick(e,1)}><ChevronBottom className='change-icon'/></button>
+                        <button className='change' onClick={(e)=>handleChangeClick(e,currentVideoIndex-1)}><ChevronTop className='change-icon'/></button>
+                        <button className='change'onClick={(e)=>handleChangeClick(e,currentVideoIndex+1)}><ChevronBottom className='change-icon'/></button>
                     </div>
                 </div>
                 </div>

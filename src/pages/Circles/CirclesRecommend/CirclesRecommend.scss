@@ -2,7 +2,7 @@
 @use '/src/styles/padding/mainPadding.scss'as *;
 @use '/src/styles/scrollbar/scrollbar.scss'as *;
 .circles-recommend{
-    @include flex(row ,wrap,null,null,flex-start,5px);
+    @include flex(row,wrap,flex-start,flex-start,flex-start,5px);
     width: 100%;
     height: 100%;
     padding: 5px;
@@ -15,4 +15,211 @@
             padding-bottom: calc(5px + 48px);
     }
     background-color: var(--background-color);
-}
+    .hot-topics-wrapper{
+        flex:1 0 100%;
+        width: 100%;
+        height: 250px;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: var(--background-color--deep1);
+        @include flex(column,nowrap,flex-start,center,center,null);
+        @media (min-width:1500px) {
+            height: 350px;
+        }
+        .hot-title{
+            width: 100%;
+            padding: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            height: 35px;
+            background-color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            @include flex(row,nowrap,flex-start,center,flex-start,5px);
+            .hot-icon{
+                height: 100%;
+                padding: 2.5px;
+                aspect-ratio: 1;
+                fill:rgb(248, 93, 9);
+            }
+        }
+        .hot-topics{
+            flex:1 1 calc(100% - 35px);
+            width: 100%;
+            height: calc(100% - 35px);
+            overflow-y: auto;
+            padding: 5px;
+            @include scrollbar($show:true);
+            @include flex(row,wrap,flex-start,flex-start,flex-start,5px);
+            .hot-topic{
+                flex:1 1 100%;
+                width: 100%;
+                height: 30px;
+                padding: 0 5px;
+                border-radius: 5px;
+                background-color: var(--primary-color);
+                @media (min-width:800px) {
+                    flex-basis: 45%;
+                }
+                @include flex(row,nowrap,flex-start,center,flex-start,5px);
+                .rank{
+                    width: 32px;
+                    height: 18px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: left 0px  bottom 2px;
+                    position: relative;
+                    background-image: url('https://h5.sinaimg.cn/upload/1005/948/2021/08/31/hotRankDefault.png');
+                    @include flex(row,nowrap,center,center,center,null);
+                    span{
+                        color: white;
+                        -webkit-transform: skewX(-10deg);
+                        transform: skewX(-10deg);
+                    }
+                    &.rank-1{
+                        width: 45.46px;
+                        height: 22.79px;
+                        background-image: url('https://h5.sinaimg.cn/upload/1005/948/2021/08/31/hotRank1.png');
+                    }
+                    &.rank-2{
+                        width: 45.46px;
+                        height: 22.79px;
+                        background-image: url('https://h5.sinaimg.cn/upload/1005/948/2021/08/31/hotRank2.png');
+                    }
+                    &.rank-3{
+                        width: 45.46px;
+                        height: 22.79px;
+                        background-image: url('https://h5.sinaimg.cn/upload/1005/948/2021/08/31/hotRank3.png');
+                    }
+                }
+                .word{
+                    height: auto;
+                    cursor: pointer;
+                    width: fit-content;
+                }
+                .label{
+                    height: 100%;
+                    aspect-ratio: 1;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                }
+                .num{
+                    margin-left: auto;
+                    height: auto;
+                    width: fit-content;
+                }
+            }
+        }
+    }
+    .frequently-visited-circles{
+        flex:1 1 100%;
+        width: 100%;
+        height: auto;
+        @media (min-width:650px) {
+            flex-basis: 45%;
+            width: 40%;
+        }
+    }
+    .followed-circles{
+        flex:1 1 100%;
+        width: 100%;
+        height: auto;
+        @media (min-width:650px) {
+            flex-basis: 45%;
+            width: 40%;
+        }
+    }
+    .seek-circles{
+        flex:1 1 100%;
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: var(--background-color--deep1);
+        .seek-top{
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            background-color: var(--primary-color);
+            @include flex(row,nowrap,flex-start,center,flex-start,null);
+            .title{
+                width: fit-content;
+                font-size: 1.2rem;
+                color: var(--text-color);
+                font-weight: bold;
+            }
+            .icon{
+                height: 100%;
+                aspect-ratio: 1;
+                padding: 5px;
+                fill:rgb(79, 171, 247);
+            }
+            .to{
+                width: 30px;
+                height: 30px;
+                margin-left: auto;
+                .right-icon{
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px;
+                    border-radius: 50%;
+                    background-color: var(--background-color--deep1);
+                    fill:var(--text-color);
+                }
+            }
+        }
+        .seeks{
+            width: 100%;
+            height: auto;
+            padding: 5px;
+            overflow-y: auto;
+            @include flex(row,wrap,flex-start,flex-start,flex-start,5px);
+            .seek{
+                flex:1 1 100%;
+                width: 100%;
+                height: 80px;
+                padding: 5px;
+                border-radius: 5px;
+                background-color: var(--primary-color);
+                @include flex(row,nowrap,flex-start,flex-start,flex-start,5px);
+                @media (min-width:650px) {
+                    flex-basis: 45%;
+                    width: 45%;
+                }
+                .seek-avatar{
+                    height: 100%;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+                .seek-info{
+                    flex:1;
+                    height: 100%;
+                    @include flex(column,nowrap,flex-start,flex-start,center,null);
+                    .seek-name{
+                        height: 30px;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        width: fit-content;
+                    }
+                    .seek-description{
+                        flex:1;
+                        width: 100%;
+                    }
+                }
+                .to{
+                width: 30px;
+                height: 30px;
+                .right-icon{
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px;
+                    border-radius: 50%;
+                    background-color: var(--background-color--deep1);
+                    fill:var(--text-color);
+                }
+            }
+            }
+        }
+    }
+    }

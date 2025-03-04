@@ -1,12 +1,13 @@
-import {useContext} from 'react'
+import {useContext, useEffect} from 'react'
 import './Home.scss'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
 import { AppContext } from '../../contexts/AppContext.js'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import ListOpen from '../../components/icons/ListOpen.js'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 const Home = () => {
     const { handleLeftIsShowClick, setBottomIsShow } = useContext(AppContext)
+
     const routes = [{
         name: '推荐',
         path:'recommend'
@@ -16,6 +17,10 @@ const Home = () => {
             path:'concern'
         }
     ]
+    const nav = useNavigate()
+    useEffect(() => {
+        nav('recommend',{replace:true})
+    },[])
     return <div className="app-home">
         <header className='app-home__header'>
             <div className="app-home__header__navs">

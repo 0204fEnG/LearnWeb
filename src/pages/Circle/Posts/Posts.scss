@@ -1,0 +1,11 @@
+@use '/src/styles/scrollbar/scrollbar.scss'as *;
+@use '/src/styles/display/flex.scss'as *;
+@use '/src/styles/padding/mainPadding.scss'as *;
+.circle-posts-container{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    @include mainPadding();
+    background-color: var(--background-color);
+    @include flex(column,nowrap,flex-start,center,flex-start,5px);
+}

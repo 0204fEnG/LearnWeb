@@ -20,7 +20,10 @@ const User = () => {
   ]
   useEffect(() => {
     console.log(`user:${userId}`)
-  },[userId])
+  }, [userId])
+    useEffect(() => {
+        nav('user-home',{replace:true})
+    },[])
 useEffect(() => {
   const topScrollToShow = () => {
     const topScroll = divTop.current.scrollTop;

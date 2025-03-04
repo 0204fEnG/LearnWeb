@@ -45,7 +45,17 @@ const routes=[
       },
       {
         path: "circles/circle/:circleName",
-        component:lazy(()=>import("../pages/Circle/Circle.js"))
+        component: lazy(() => import("../pages/Circle/Circle.js")),
+        children: [{
+          path: 'posts',
+          component: lazy(() => import('../pages/Circle/Posts/Posts.js')),
+          children: [
+            {
+              path: "post/:postId",
+              component: lazy(() => import("../pages/Post/Post.js"))
+            }
+          ]
+        }]
       },
       {
         path: "shorts",
@@ -114,8 +124,7 @@ const generateRouter = (routes) => {
         </Suspense>
         break
       }
-      case 'post/:postId':
-      case 'circles/circle/:circleName': {
+      case 'post/:postId': {
         const Component = item.component
         const path = item.path;
         const parts = path.split(':');
