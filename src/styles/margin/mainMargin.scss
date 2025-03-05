@@ -1,0 +1,6 @@
+@mixin mainMargin(){
+    @media (min-width:1500px) {
+        margin-left:  calc((100% - 800px) / 10);
+        margin-right:  calc((100% - 800px) / 10);
+    }
+}

@@ -108,7 +108,7 @@ const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvata
                 <div className="content-info">
                     <div className="title">{title}</div>
                     <div className="description">
-                        <TextOver text={description}/>
+                        <TextOver text={description} textColor='white'/>
                     </div>
                 </div>
                 <button className="circle-tag-container">

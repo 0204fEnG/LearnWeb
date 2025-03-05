@@ -1,0 +1,4 @@
+@use '/src/styles/top/sortTop.scss'as *;
+.sort-top-wrapper{
+    @include sortTop();
+}

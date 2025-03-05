@@ -7,7 +7,7 @@
     left: 0;
     border-bottom: 1px solid var(--border-color);
     background-color: var(--single-color--opa2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     @media (max-width:1000px){
         flex-direction: column;
         height: 72px;

@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import styles from './TextOver.module.scss';
 
-const TextOver = ({ text }) => {
+const TextOver = ({ text ,textColor}) => {
   const id = useId();
 
   return (
@@ -11,7 +11,7 @@ const TextOver = ({ text }) => {
         className={styles.exp} 
         type="checkbox" 
       />
-      <div className={styles.text}>
+      <div className={styles.text} style={{color:`${textColor}`}}>
         <label 
           className={styles.btn} 
           htmlFor={`${id}-exp`} 

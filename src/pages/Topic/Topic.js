@@ -1,11 +1,11 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
-import './Circle.scss'
+import './Topic.scss'
 import { useDebugValue, useEffect, useRef, useState } from 'react'
 import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon'
 import { Description } from '@mui/icons-material'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar'
 import TextOver from '../../components/TextOver/TextOver'
-const Circle = () => {
+const Topic = () => {
     const {circleName }=useParams()
     const [count, setCount] = useState(0)
     const nav = useNavigate()
@@ -31,21 +31,21 @@ const Circle = () => {
         nav('posts',{replace:true})
     },[])
     return (
-        <div className="circle">
-            <div className="circle-top">
+        <div className="topic">
+            <div className="topic-top">
                 <div className="back-to-wrapper" onClick={()=>nav(-1)}><ChevronLeftIcon className='back-to'/></div>
-                <div className="circle-top-info">
+                <div className="topic-top-info">
                     <img src={circleInfo.avatar} alt="" className="avatar" />
                     {circleInfo.name}
                 </div>
             </div>
-            <div className="circle-header">
-                <div className="circle-banner"></div>
-                <div className="circle-content">
-                    <img src={circleInfo.avatar} alt="" className="circle-avatar" />
+            <div className="topic-header">
+                <div className="topic-banner"></div>
+                <div className="topic-content">
+                    <img src={circleInfo.avatar} alt="" className="topic-avatar" />
                     <div className="info">
                         <div className="name">{circleInfo.name}
-                            <button className='circle-sub'>
+                            <button className='topic-sub'>
                                 关注
                             </button>
                         </div>
@@ -61,13 +61,13 @@ const Circle = () => {
                     </div>
                 </div>
             </div>
-            <div className="circle-navs">
+            <div className="topic-navs">
                 <RouteNavbar routes={routes}/>
             </div>
-            <div className="circle-main">
+            <div className="topic-main">
                 <Outlet/>
             </div>
         </div>
     )
 }
-export default Circle
+export default Topic

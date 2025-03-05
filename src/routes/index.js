@@ -58,6 +58,20 @@ const routes=[
         }]
       },
       {
+        path: 'topic/:topicId',
+        component: lazy(() => import("../pages/Topic/Topic.js")),
+        children: [{
+          path: 'posts',
+          component: lazy(() => import('../pages/Topic/Posts/Posts.js')),
+          children: [
+            {
+              path: "post/:postId",
+              component: lazy(() => import("../pages/Post/Post.js"))
+            }
+          ]
+        }]
+      },
+      {
         path: "shorts",
         component: lazy(() => import("../pages/Shorts/Shorts.js")),
         children: [{

@@ -6,25 +6,6 @@
             height: auto;
             background-color: var(--primary-color);
             @include flex(column,nowrap,flex-start,center,null,null);
-            .comments-top{
-                width: 100%;
-                flex: 0 0 36px;
-                backdrop-filter: blur(10px);
-                border-bottom: 1px solid var(--border-color);
-                background-color: var(--single-color--opa2);
-                position: sticky;
-                top:0;
-                @media (max-width:650px) {
-                    top:48px;
-                }
-                @include flex(row,nowrap,flex-start,center,flex-start,null);
-                .title{
-                   width: fit-content;
-                   height: 100%;
-                   margin: 0 5px;
-                   @include flex(column,nowrap,center,null,null,null);
-                }
-            }
             .comment-container{
                 width: 100%;
                 flex:0 0 auto;

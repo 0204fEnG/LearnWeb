@@ -1,6 +1,5 @@
 import './SliderButton.scss'
 const SliderButton = ({ buttonItems, currentIndex }) => {
-    console.log('sliderbutton!')
     return (
         <div className="slider-button-container">
             {

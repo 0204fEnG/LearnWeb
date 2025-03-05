@@ -27,7 +27,7 @@ const PostCard = ({ postItem }) => {
           className="tag"
           onClick={(e) => {
             e.stopPropagation()
-            handleTagClick(`/circles/circle/${tag.name}`)
+            handleTagClick(`/topic/${tag.name}`)
           }
           }
         >

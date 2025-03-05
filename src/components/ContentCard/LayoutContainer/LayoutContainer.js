@@ -1,7 +1,7 @@
 import{useState,useEffect,useRef}from 'react'
 import './LayoutContainer.scss'
 import PostCard from '../PostCard/PostCard'
-const LayoutContainer = ({ items }) => {
+const LayoutContainer = ({ items}) => {
     const [columns, setColumns] = useState(0);
     const [columnItems, setColumnItems] = useState([]);
     const containerRef = useRef(null)

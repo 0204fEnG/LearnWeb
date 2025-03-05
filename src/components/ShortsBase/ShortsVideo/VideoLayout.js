@@ -262,7 +262,6 @@ const handleTouchEnd = useCallback(() => {
   const finalIndex = Math.abs(finalOffset / containerHeight.current)
   // 2. 确定目标索引
   const small = finalIndex - currentVideoIndex
-  console.log(small)
 
     const targetIndex = small > 0.2 ? Math.ceil(finalIndex) :
                      small < -0.2 ? Math.floor(finalIndex) :

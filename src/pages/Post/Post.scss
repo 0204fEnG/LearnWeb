@@ -5,6 +5,7 @@
 @use '/src/styles/padding/topPadding2.scss'as *;
 @use '/src/styles/scrollbar/scrollbar.scss'as*;
 @use '/src/styles/lineheight/lineheight.scss'as *;
+@use '/src/styles/top/sortTop.scss'as *;
 .post-mask{
     width: 100vw;
     height: 100vh;
@@ -35,7 +36,6 @@
         transform: translateX(calc(50vw - 50%)) translateY(calc(50vh - 50%));
         }
     .post-container{
-        background-color: var(--background-color);
         position: relative;
         overflow-y: auto;
         @include scrollbar();          
@@ -158,6 +158,11 @@
             padding-top: 48px;
             background-color: var(--primary-color);
             @include scrollbar();
+            .sort-sticky-top{
+                @media (max-width:650px) {
+                    top:48px;
+                }
+            }
             @media (max-width:650px) {
                 flex-basis: 100%;
                 // max-width: 100%;

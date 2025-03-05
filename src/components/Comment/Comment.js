@@ -6,9 +6,6 @@ import './Comment.scss'
 const Comment = () => {
     return (
     <div className="comments-wrapper">
-        <div className="comments-top">
-            <div className="title">共1条评论</div>
-        </div>
         <div className="comment-container">
             <div className="comment-header">
                 <Link to={`/user/${1}/user-home`} className="avatar-container"><img src='/images/header/banner/4.png' alt="touxiang" className="avatar" /></Link>

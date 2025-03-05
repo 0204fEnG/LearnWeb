@@ -11,22 +11,4 @@
     @media (min-width:650px) {
         border-radius: 0px;
     }
-    .temp-top{
-        width: 100%;
-        position: sticky;
-        top: 0;
-        height: 48px;
-        backdrop-filter: blur(10px);
-        @include flex(row,nowrap,center,center,center,null);
-        background-color: var(--single-color--opa2);
-        @media (min-width:650px) {
-            display: none;
-        }
-        .top-icon{
-            height: 100%;
-            padding: 5px;
-            aspect-ratio: 1;
-            fill:var(--text-color);
-        }
-    }
 }

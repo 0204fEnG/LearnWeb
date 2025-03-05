@@ -6,8 +6,24 @@ import NineGrid from '../../components/NineGrid/NineGrid'
 import ThreeDotsVer from '../../components/icons/ThreeDotsVer'
 import { useActivate} from 'react-activation'
 import Comment from '../../components/Comment/Comment'
+import SortTop from '../../components/SortTop/SortTop'
 const Post = () => {
     const [isFinal, setIsFinal] = useState(false)
+    const [sortIndex,setSortIndex]=useState(0)//0 热度 1 最新
+    const sortItems = [
+        {
+            name: '按热度',
+            handleFunc:() => {
+                setSortIndex(0)
+            }
+        },
+        {
+            name: '按时间',
+            handleFunc:() => {
+                setSortIndex(1)
+            }
+        }
+    ]
     const nav = useNavigate()
     // const divInfo = useOutletContext()
     const { postId } = useParams()
@@ -89,6 +105,7 @@ const Post = () => {
                     </div>
                 </div>
                     <div className="comments-container">
+                        <SortTop stickyTop='sort-sticky-top' sortIndex={sortIndex} sortItems={sortItems}/>
                     <Comment/>
                 </div>
                 </div>

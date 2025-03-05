@@ -1,36 +1,9 @@
-import Banner from '../../../components/Banner/Banner'
-import './HomeRecommend.scss'
-import SingleLineDisplayBar from'../../../components/HorizontalDisplayBar/SingleLineDisplayBar/SingleLineDisplayBar.js'
-import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer.js'
-import { Outlet } from 'react-router-dom'
 import { useState } from 'react'
-import SortTop from '../../../components/SortTop/SortTop.js'
-const HomeRecommend = () => {
-    // const videoUrl = '/videos/ban.mp4'
-    const [sortIndex,setSortIndex]=useState(0)//0 热度 1 最新
-    const sortItems = [
-        {
-            name: '按热度',
-            handleFunc:() => {
-                setSortIndex(0)
-            }
-        },
-        {
-            name: '按时间',
-            handleFunc:() => {
-                setSortIndex(1)
-            }
-        }
-    ]
-    const imgUrl = [
-        "/images/header/banner/1.png",
-        "/images/header/banner/2.png",
-        "/images/header/banner/3.png",
-        "/images/header/banner/4.png",
-        "/images/header/banner/5.png",
-        "/images/header/banner/6.png",
-    ]
-    const postItems = [    
+import './Posts.scss'
+import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer'
+import { Outlet } from 'react-router-dom'
+const TopicPosts = () => {
+       const [postItems,setPostItems] = useState([    
         {
         postId:1,
         userAvator: '/images/header/banner/小小陈.png',
@@ -256,67 +229,10 @@ const HomeRecommend = () => {
             retweet:20
         }
         },     
-    ]
-           const displayItems = [
-        {
-            name:'a'
-        },
-        {
-            name:'b'
-        },
-        {
-            name:'c'
-        },
-        {
-            name:'d'
-        },
-        {
-            name:'e'
-        },
-        {
-            name:'f'
-        },
-        {
-            name:'g'
-        },
-        {
-            name:'h'
-        }
-    ]
-//      // 使用useState存储div的信息
-//   const [divInfo, setDivInfo] = useState({
-//     left: 0,
-//     top: 0,
-//     width: 0,
-//     height: 0,
-//   });
-
-//   // 点击div时执行的方法
-//     const handleClick = (event) => {
-//     const rect = event.currentTarget.getBoundingClientRect(); // 获取点击的div的尺寸和位置信息
-//         setDivInfo({
-//             transform: `translateX(${rect.left}px) translateY(${rect.top}px)`,
-//             width: rect.width + 'px',
-//             height: rect.height + 'px',
-//             borderRadius: '5px'
-//     });
-//     console.log('rect:',rect)
-//     };
-    
-    return (
-        <div className="home-recommend">
-            <header className="home-recommend__header">
-                <Banner bannerType={2} bannerData={imgUrl} />
-                <SingleLineDisplayBar displayItems={displayItems} />
-            </header>
-            {/* <MyContext.Provider value={handleClick}> */}
-            <SortTop sortIndex={sortIndex} sortItems={sortItems}/>
-            <main className="home-recommend__main" >
-                <LayoutContainer items={postItems}/>
-            </main>
-            {/* </MyContext.Provider> */}
-            <Outlet/>
-        </div>
-    )
+    ])
+    return (<div className="topic-posts-container">
+        <LayoutContainer items={postItems} />
+        <Outlet/>
+    </div>)
 }
-export default HomeRecommend
+export default TopicPosts

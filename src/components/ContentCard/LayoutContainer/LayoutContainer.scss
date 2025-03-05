@@ -3,6 +3,7 @@
         @include flex(row,nowrap,null,flex-start,null,5px);
         width: 100%;
         height: auto;
+        position: relative;
         .column-item{
             @include flex(row,wrap,null,null,null,5px);
             flex:1 1 300px;

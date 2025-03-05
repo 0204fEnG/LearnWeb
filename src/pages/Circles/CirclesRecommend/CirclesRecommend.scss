@@ -48,7 +48,7 @@
             height: calc(100% - 35px);
             overflow-y: auto;
             padding: 5px;
-            @include scrollbar($show:true);
+            @include scrollbar();
             @include flex(row,wrap,flex-start,flex-start,flex-start,5px);
             .hot-topic{
                 flex:1 1 100%;
