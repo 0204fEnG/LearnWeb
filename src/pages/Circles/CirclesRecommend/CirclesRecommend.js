@@ -4,7 +4,7 @@ import ChatDots from '../../../components/icons/ChatDots'
 import Group from '../../../components/icons/Group'
 import Visted from '../../../components/icons/Visted'
 import './CirclesRecommend.scss'
-import { getHotSearch } from '../../../api/circles'
+import { getHotSearch } from '../../../api/circle'
 import ChevronRightIcon from '../../../components/icons/ChevronRightIcon'
 import Globel from '../../../components/icons/Globel'
 const CirclesRecommend = () => {

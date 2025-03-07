@@ -2,7 +2,23 @@ import { useState } from 'react'
 import './Posts.scss'
 import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer'
 import { Outlet } from 'react-router-dom'
+import SortTop from '../../../components/SortTop/SortTop'
 const CirclePosts = () => {
+        const [sortIndex,setSortIndex]=useState(0)//0 热度 1 最新
+    const sortItems = [
+        {
+            name: '按热度',
+            handleFunc:() => {
+                setSortIndex(0)
+            }
+        },
+        {
+            name: '按时间',
+            handleFunc:() => {
+                setSortIndex(1)
+            }
+        }
+    ]
        const [postItems,setPostItems] = useState([    
         {
         postId:1,
@@ -231,6 +247,7 @@ const CirclePosts = () => {
         },     
     ])
     return (<div className="circle-posts-container">
+        <SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='post-sticky-top'/>
         <LayoutContainer items={postItems} />
         <Outlet/>
     </div>)

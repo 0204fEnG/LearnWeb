@@ -2,6 +2,9 @@
 @use '/src/styles/display/flex.scss'as *;
 @use '/src/styles/padding/mainPadding.scss'as *;
 .circle-posts-container{
+    .post-sticky-top{
+        top:72px;
+    }
     width: 100%;
     height: auto;
     padding: 5px;

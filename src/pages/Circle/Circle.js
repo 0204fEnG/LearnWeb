@@ -62,7 +62,7 @@ const Circle = () => {
                 </div>
             </div>
             <div className="circle-navs">
-                <RouteNavbar routes={routes}/>
+                <RouteNavbar routes={routes} />
             </div>
             <div className="circle-main">
                 <Outlet/>

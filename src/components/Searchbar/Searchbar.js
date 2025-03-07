@@ -1,114 +1,123 @@
-import React, { useEffect, useRef } from "react";
-import './Searchbar.scss'
+import React, { useEffect, useRef, useState } from "react";
+import './Searchbar.scss';
 import Search from "../icons/Search";
-const Searchbar = ({setBottomIsShow}) => {
-  const inputRef=useRef(null)
- // 判断设备类型
+import { useNavigate } from "react-router-dom";
+
+const Searchbar = () => {
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
+  const [searchHistory, setSearchHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
+
+  // 加载搜索历史
   useEffect(() => {
-  const judgeDeviceType = function () {
-  let ua = window.navigator.userAgent.toLocaleLowerCase();
-  let isIOS = /iphone|ipad|ipod/.test(ua);
-  let isAndroid = /android/.test(ua);
+    const savedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    setSearchHistory(savedHistory);
+  }, []);
 
-  return {
-    isIOS: isIOS,
-    isAndroid: isAndroid
-  }
-}()
-const iosKeybordShow=function () {
-  setBottomIsShow(false)
-  if (inputRef) {
-    inputRef.current.value = 'IOS 键盘弹起啦！'
-  }
-      // IOS 键盘弹起后操作
-    }
-  const iosKeybordHidden = () => {
-  setBottomIsShow(true)
-  if (inputRef) {
-    inputRef.current.value = 'IOS 键盘收起啦！'
-  }
-      // IOS 键盘收起后操作
-}
-const androidKeybordShow=function () {
-  setBottomIsShow(false)
-  if (inputRef) {
-    inputRef.current.value = 'Android 键盘弹起啦！'
-  }
-      // IOS 键盘弹起后操作
-}
-const androidKeybordHidden=function () {
-  setBottomIsShow(true)
-  if (inputRef) {
-    inputRef.current.value = 'Android 键盘收起啦！'
-  }
-      // IOS 键盘弹起后操作
-}
+  // 保存去重的搜索历史
+  const saveSearchHistory = (term) => {
+    const cleanedTerm = term.trim();
+    if (!cleanedTerm) return;
 
-    // const handleAndroidKeybordResize = function () {
-    //   let timer = null
-    //   var originHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    //   return () => {
-    //     if (timer) {
-    //       clearTimeout(timer)
-    //     }
-    //     timer = setTimeout(() => {
-    //       var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    //       if (originHeight < resizeHeight) {
-    //         setBottomIsShow(true)
-    //         if (inputRef) {
-    //           inputRef.current.value = 'Android 键盘收起啦！'
-    //         }
-    //         // Android 键盘收起后操作
-    //       }
-    //       else {
-    //         setBottomIsShow(false)
-    //         if (inputRef) {
-    //           inputRef.current.value = 'Android 键盘弹起啦！'
-    //         }
-    //       }
-    //       originHeight = resizeHeight;
-    //     }
-    //       , 100)
-    //   }
-    // }()
-// 监听输入框的软键盘弹起和收起事件
-function listenKeybord() {
-  if (judgeDeviceType.isIOS) {
-    // IOS 键盘弹起：IOS 和 Android 输入框获取焦点键盘弹起
-    if (inputRef.current) {
-      inputRef.current.addEventListener('focus', iosKeybordShow, false)
-      // IOS 键盘收起：IOS 点击输入框以外区域或点击收起按钮，输入框都会失去焦点，键盘会收起，
-      inputRef.current.addEventListener('blur', iosKeybordHidden, false)
+    const updatedHistory = [
+      cleanedTerm,
+      ...searchHistory.filter(item => item !== cleanedTerm)
+    ].slice(0, 10); // 保留最近10条
+    
+    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    setSearchHistory(updatedHistory);
+  };
+
+  // 执行搜索
+  const handleSearch = () => {
+    const searchTerm = inputRef.current?.value?.trim();
+    if (!searchTerm) {
+      inputRef.current?.focus();
+      return;
     }
-  }
-  // Andriod 键盘收起：Andriod 键盘弹起或收起页面高度会发生变化，以此为依据获知键盘收起
-  if (judgeDeviceType.isAndroid) {
-    if (inputRef.current) {
-      inputRef.current.addEventListener('focus',androidKeybordShow,false)
-      inputRef.current.addEventListener('blur',androidKeybordHidden,false)
-      // window.addEventListener('resize', handleAndroidKeybordResize, false)
+
+    saveSearchHistory(searchTerm);
+    setShowHistory(false);
+    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+  };
+
+  // 处理键盘事件
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
-  }
-}
-    listenKeybord()
+  };
+
+  // 优化后的设备检测
+  useEffect(() => {
+    const handleFocus = () => {
+      setShowHistory(true);
+    };
+
+    const handleBlur = () => {
+      setTimeout(() => {
+        setShowHistory(false);
+      }, 200); // 延迟隐藏避免立即关闭
+    };
+
+    const input = inputRef.current;
+    if (input) {
+      input.addEventListener('focus', handleFocus);
+      input.addEventListener('blur', handleBlur);
+    }
+
     return () => {
-      if (inputRef.current) {
-        inputRef.current.removeEventListener('focus', iosKeybordShow, false)
-        inputRef.current.removeEventListener('blur', iosKeybordHidden, false)
-        // window.removeEventListener('resize', handleAndroidKeybordResize, false)
-        inputRef.current.removeEventListener('focus', androidKeybordShow, false)
-        inputRef.current.removeEventListener('blur',androidKeybordHidden,false)
+      if (input) {
+        input.removeEventListener('focus', handleFocus);
+        input.removeEventListener('blur', handleBlur);
       }
-    }
-},[])
+    };
+  },[]);
 
   return (
     <div className='searchbar-container'>
-        <input className="search-input"ref={inputRef}/>
-      <div className="search-button">
-          <Search className='search'/>
-        </div>
+      <input
+        ref={inputRef}
+        className="search-input"
+        placeholder="请输入搜索内容"
+        onKeyPress={handleKeyPress}
+      />
+      
+      <div className="search-button" onClick={handleSearch}>
+        <Search className='search' />
       </div>
+
+      {showHistory && searchHistory.length > 0 && (
+        <div className="search-history">
+          <div className="history-header">
+            <span>搜索历史</span>
+            <button 
+              onClick={() => {
+                localStorage.removeItem('searchHistory');
+                setSearchHistory([]);
+              }}
+            >
+              清空
+            </button>
+          </div>
+          <ul>
+            {searchHistory.map((term, index) => (
+              <li 
+                key={index}
+                onClick={() => {
+                  inputRef.current.value = term;
+                  handleSearch();
+                }}
+              >
+                {term}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
+
 export default Searchbar;

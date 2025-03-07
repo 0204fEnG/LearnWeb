@@ -72,6 +72,22 @@ const routes=[
         }]
       },
       {
+        path: 'creator',
+        component: lazy(() => import("../pages/Creator/Creator.js")),
+        children: [{
+          path: 'create-circle',
+          component: lazy(() => import('../pages/Creator/CreateCircle/CreateCircle.js')),
+        }]
+      },
+      {
+        path: 'search',
+        component: lazy(() => import("../pages/Search/Search.js")),
+        children: [{
+          path: 'search-circle',
+          component: lazy(() => import('../pages/Search/SearchCircle/SearchCircle.js')),
+        }]
+      },
+      {
         path: "shorts",
         component: lazy(() => import("../pages/Shorts/Shorts.js")),
         children: [{
