@@ -6,7 +6,7 @@ import ListOpen from '../../components/icons/ListOpen.js'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 import './Circles.scss'
 const Circles = () => {
-    const { handleLeftIsShowClick, setBottomIsShow } = useContext(AppContext)
+    const { handleLeftIsShowClick} = useContext(AppContext)
     const routes = [{
         name: '推荐',
         path:'circles-recommend'
@@ -22,8 +22,8 @@ const Circles = () => {
                 <RouteNavbar routes={routes}/>
             </div>
             <div className="app-circles__header__tools">
-                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open'/></div>
-                <Searchbar setBottomIsShow={setBottomIsShow}/>
+                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open' /></div>
+                <div className="search-tool"><Searchbar/></div>
             </div>
         </header>
         <main className='app-circles__main'>

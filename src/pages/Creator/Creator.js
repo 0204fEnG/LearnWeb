@@ -1,15 +1,23 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar'
 import './Creator.scss'
+import { useEffect } from 'react'
+import Title from'../../components/Title/Title'
 const Creator = () => {
+    const nav=useNavigate()
     const routes = [{
         name: '创建圈子',
-        path:'/creator/create-circle'
+        path:'create-circle'
     }
-  ]
+    ]
+    useEffect(() => {
+        nav('create-circle', { replace: true })
+    },[])
     return (
         <div className="creator-container" >
-            <RouteNavbar routes={routes} />
+            <Title title='发布中心' />
+            <div className="creator-navs"><RouteNavbar routes={routes} /></div>
+            
             <Outlet/>
         </div>
     )

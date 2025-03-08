@@ -1,9 +1,9 @@
 @use '/src/styles/display/flex.scss'as *;
-.section-navbar{
+.func-navbar{
     @include flex(row,nowrap,null,null,null,null);
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow-x: auto;
     &::-webkit-scrollbar{
       display: none;
     }
@@ -17,10 +17,10 @@
       background-color: var(--active-color);
       transition: all 0.2s linear;
     }
-    .section-navbar__nav{
+    .func-navbar__nav{
         @include flex(row,nowrap,center,center,null,null);
-        font-size: 14px;
         flex:0 0 fit-content;
+        font-size: 14px;
         padding: 10px;
         width: fit-content;
         height: 100%;
@@ -30,7 +30,7 @@
           background-color: var(--background-color--opa);
         }
     }
-    .section-navbar__nav--active{
+    .func-navbar__nav--active{
     color: var(--active-color);
     font-size: 16px;
     font-weight: bold;

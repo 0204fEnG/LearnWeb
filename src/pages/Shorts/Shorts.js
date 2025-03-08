@@ -1,11 +1,12 @@
-import {useContext,useEffect} from 'react'
+import {useContext, useEffect} from 'react'
 import Searchbar from '../../components/Searchbar/Searchbar.js'
-import { AppContext } from '../../contexts/AppContext.js'
 import { Outlet, useNavigate } from 'react-router-dom'
 import RouteNavbar from '../../components/Navbar/RouteNav/RouteNavbar.js'
 import './Shorts.scss'
+import { AppContext } from '../../contexts/AppContext.js'
+import ListOpen from '../../components/icons/ListOpen.js'
 const Shorts = () => {
-    const {setBottomIsShow} = useContext(AppContext)
+        const { handleLeftIsShowClick} = useContext(AppContext)
     const routes = [{
         name: '推荐',
         path:'shorts-recommend'
@@ -21,7 +22,8 @@ const Shorts = () => {
                 <RouteNavbar routes={routes}/>
             </div>
             <div className="app-shorts__header__tools">
-                <Searchbar setBottomIsShow={setBottomIsShow}/>
+                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open' /></div>
+                <div className="search-tool"><Searchbar/></div>
             </div>
         </header>
         <main className='app-shorts__main'>

@@ -27,8 +27,8 @@ const Home = () => {
                 <RouteNavbar routes={routes}/>
             </div>
             <div className="app-home__header__tools">
-                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open'/></div>
-                <Searchbar/>
+                <div className='app-left-show' onClick={handleLeftIsShowClick}><ListOpen className='list-open' /></div>
+                <div className="search-tool"><Searchbar/></div>
             </div>
         </header>
         <main className='app-home__main'>

@@ -1,0 +1,59 @@
+@use '/src/styles/display/flex.scss'as *;
+.search-container{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: var(--background-color);
+    .search-header{
+        background-color: var(--single-color--opa2);
+        @include flex(row,nowrap,center,center,flex-start,null);
+        backdrop-filter: blur(15px);
+        width:100%;
+        z-index: 2;
+        height: 36px;
+        position: sticky;
+        top:0;
+        @media (min-width:1000px) {
+            height: 48px;
+        }
+        .search-back-to-wrapper{ 
+            position: absolute;
+            height: 100%;
+            aspect-ratio: 1;
+            padding: 5px;
+            overflow: hidden;
+            left: 0;
+        .search-back-to{
+            background-color: var(--background-color--deep1);
+            height: 100%;
+            padding: 5px;
+            border-radius: 50%;
+            fill:var(--text-color);
+            aspect-ratio: 1;   
+        }
+    }
+    .search-page-bar-container{
+        width: 100%;
+        padding-left: 36px;
+        height: 100%;
+        @media (min-width:1000px) {
+            width: 50%;
+            padding: 0;
+        }
+    }
+}
+    .navbar-container{
+        width: 100%;
+        height: 36px;
+        position: sticky;
+        top:36px;
+        @media (min-width:1000px) {
+            height: 48px;
+            top:48px;
+        }
+        z-index: 1;
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--single-color--opa2);
+        backdrop-filter: blur(15px);
+    }
+}

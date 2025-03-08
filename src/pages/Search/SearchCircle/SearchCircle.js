@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getCircles } from '../../../api/circle';
 
-const CircleList = () => {
+const CircleList = ({searchParams}) => {
     const [circles, setCircles] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         fetchData();
+        console.log(searchParams)
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);

@@ -1,7 +1,9 @@
 @use '/src/styles/top/pageTop.scss'as *;
+@use '/src/styles/display/flex.scss'as *;
 .title-container{
     @include pageTop();
-    .back{
+    @include flex(row,nowrap,center,center,flex-start,null);
+    .component-back-wrapper{
         position: absolute;
         height: 100%;
         aspect-ratio: 1;
@@ -21,12 +23,9 @@
             fill:var(--text-color);
         }
     }
-    .title{
-        position: absolute;
+    .component-title{
         width: fit-content;
-        top:50%;
-        left:50%;
-        transform: translateX(-50%) translateY(-50%);
+        height: auto;
         color:var(--text-color);
     }
 }

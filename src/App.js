@@ -205,7 +205,6 @@ useEffect(() => {
       <nav className={['app__bottom__navs', !bottomIsShow ? 'bottom-close' : ''].join(' ')}>
              <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'}  to={lastRoutes['/home']}>首页</NavLink>
         <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to={lastRoutes['/circles']}>圈子</NavLink>
-        <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to='creator'>发布</NavLink>
         <NavLink className={({ isActive }) => isActive ? 'app__left__navs__nav app__left__navs__nav--active' : 'app__left__navs__nav'} to={lastRoutes['/shorts']}>短视频</NavLink>
               <NavLink className={({ isActive }) =>isActive ? 'app__left__navs__nav app__left__navs__nav--active':'app__left__navs__nav'} to={lastRoutes['/mine']}>我的</NavLink>
       </nav>

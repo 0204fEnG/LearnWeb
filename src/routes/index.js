@@ -81,11 +81,7 @@ const routes=[
       },
       {
         path: 'search',
-        component: lazy(() => import("../pages/Search/Search.js")),
-        children: [{
-          path: 'search-circle',
-          component: lazy(() => import('../pages/Search/SearchCircle/SearchCircle.js')),
-        }]
+        component: lazy(() => import("../pages/Search/Search.js"))
       },
       {
         path: "shorts",

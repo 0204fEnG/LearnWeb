@@ -3,14 +3,16 @@
     width: 100%;
     height: 100%;
     padding: 5px;
-    @include flex(row,nowrap,null,center,null,10px);
+    @include flex(column,nowrap,flex-start,flex-start,null,5px);
+    .search-input-wrapper{
+        width: 100%;
+        height: 100%;
+        @include flex(row,nowrap,flex-start,center,null,5px);
     .search-input{
         flex:1;
         height: 100%;
-        color: var(--text-color);
-        font-size: 1rem;
         padding: 0 0.7rem;
-        border-radius: 20px;
+        border-radius: 40px;
         border:1px solid var(--border-color);
         background-color: var(--primary-color--opa);
     }
@@ -28,6 +30,65 @@
             width: 100%;
             height: 100%;
             fill: var(--text-color);
+        }
+    }
+}
+    .search-history{
+        width: 100%;
+        height: auto;
+        padding: 5px;
+        border-radius: 15px;
+        box-shadow: 0 0 2px var(--border-color);
+        background-color: var(--primary-color);
+        @include flex(column,nowrap,flex-start,center,flex-start,5px);
+        .history-header{
+            width: 100%;
+            height: auto;
+            padding: 5px;
+            .history-title{
+                width: fit-content;
+                height: auto;
+                font-size: 1.1rem;
+                font-weight: bold;
+            }
+            .search-button{
+                width: fit-content;
+                margin-left: auto;
+                height: auto;
+                color: var(--text-color--light);
+            }
+            @include flex(row,nowrap,center,center,flex-start,null);
+        }
+        .histories{
+            width: 100%;
+            height: auto;
+            padding: 5px;
+            @include flex(row,wrap,flex-start,flex-start,flex-start,10px);
+            .history-item{
+                width: fit-content;
+                cursor: pointer;
+                padding: 3px;
+                border-radius: 3px;
+                height: auto;
+                background-color: var(--background-color);
+                position: relative;
+                &:hover{
+                    background-color: var(--active-color--opa);
+                }
+                .delete{
+                    display: none;
+                    position: absolute;
+                    top:0;
+                    right: 0;
+                    width: fit-content;
+                    height: auto;
+                    transform: translateX(50%) translateY(-50%);
+                }
+                &:hover .delete{
+                    cursor: pointer;
+                    display: block;
+                }
+            }
         }
     }
 }
