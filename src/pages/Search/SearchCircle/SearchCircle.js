@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCircles } from '../../../api/circle';
+import { getCircleList} from '../../../api/circle';
 
 const CircleList = ({searchParams}) => {
     const [circles, setCircles] = useState([]);
@@ -19,7 +19,7 @@ const CircleList = ({searchParams}) => {
         if (loading) return;
         setLoading(true);
         try {
-            const response = await getCircles(page, 10);
+            const response = await getCircleList(page, 10);
             const newCircles = response.data.data;
             setCircles([...circles, ...newCircles]);
             setHasMore(newCircles.length > 0);

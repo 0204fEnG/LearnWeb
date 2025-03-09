@@ -1,0 +1,146 @@
+// CreatePost.scss
+.create-post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, textarea, .custom-select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 4px;
+    }
+  }
+
+  .tag-toggle-btn {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &.active {
+      background: #1890ff;
+      color: white;
+      border-color: #1890ff;
+    }
+  }
+
+  .tags-preview {
+    margin-bottom: 16px;
+
+    .tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag-item {
+      background: #f0f9ff;
+      border: 1px solid #91d5ff;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.9em;
+      color: #1890ff;
+    }
+  }
+
+  .custom-select {
+    cursor: pointer;
+    background: white;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+
+    &.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+
+    .load-more {
+      padding: 8px;
+      text-align: center;
+      color: #1890ff;
+      cursor: pointer;
+    }
+  }
+
+  .custom-upload-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .file-list {
+    margin-top: 8px;
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+
+      &.success {
+        background: green;
+      }
+    }
+  }
+
+  .submit-btn {
+    padding: 12px 24px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}

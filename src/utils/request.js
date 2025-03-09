@@ -51,6 +51,7 @@ instance.interceptors.response.use(
               return Promise.reject(err);
             }
           }
+          console.log(error)
           break;
         }
         case 404:

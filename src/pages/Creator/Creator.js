@@ -8,6 +8,9 @@ const Creator = () => {
     const routes = [{
         name: '创建圈子',
         path:'create-circle'
+    }, {
+        name: '发布帖子',
+        path:'create-post'
     }
     ]
     useEffect(() => {

@@ -77,6 +77,10 @@ const routes=[
         children: [{
           path: 'create-circle',
           component: lazy(() => import('../pages/Creator/CreateCircle/CreateCircle.js')),
+        },
+          {
+            path: 'create-post',
+          component: lazy(() => import('../pages/Creator/CreatePost/CreatePost.js')),
         }]
       },
       {
