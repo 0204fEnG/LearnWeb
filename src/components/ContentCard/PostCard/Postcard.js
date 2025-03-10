@@ -146,7 +146,7 @@ const PostCard = ({ postItem }) => {
 
   // 处理帖子内容点击
   const handlePostContentClick = (event) => {
-    handleTagClick(`/post/${postItem._id}`);
+    handleTagClick(`post/${postItem._id}`);
   };
 
   return (

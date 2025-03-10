@@ -18,7 +18,7 @@ const Comment = () => {
                     <div className="time"><span className="publish-time">1月29日</span></div>
                 </div>
             </div>
-            <div className="comment">自</div>
+            <div className="comment">评论测试</div>
             <ul className="tools">
                 <button className="tool"><Good className='svg-icon'/><div className="count">9923</div></button>
                 <button className="tool"><Reply className='svg-icon'/><div className="count">23</div></button>
@@ -28,11 +28,11 @@ const Comment = () => {
                 <div className="pre-reply-container">
                 <div className="pre-reply">
                     <Link to='/user/24feng/user-home' className='user-name'>24feng: </Link>
-                对面没算准金银角大招时间，一般来说金银角大招后摇不算难抓
+                评论测试
                 </div>
                 <div className="pre-reply">
                     <Link to='/user/24yd21ng/user-home' className='user-name'>24yd21ng: </Link>
-                    不是下一个无限火力，他
+                    评论测试
                     </div>
                 </div>
                 <button className="reply-count">共 133 条回复&gt;</button>

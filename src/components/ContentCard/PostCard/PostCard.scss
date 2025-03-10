@@ -53,15 +53,21 @@
         font-size: 1.2rem;
         font-weight: bold;
     }
-    .post-content{
-        width: 100%;
-        margin-bottom: 5px;
-        height: auto;
-        cursor: pointer;
-        .tag{
-            color: var(--active-color);
-            cursor: pointer;
-        }
+    .post-content {
+      width: 100%;
+      margin-bottom: 5px;
+      height: auto;
+      cursor: pointer;
+      overflow: hidden; /* 隐藏超出部分 */
+      text-overflow: ellipsis; /* 显示省略号 */
+      display: -webkit-box;
+      -webkit-line-clamp: 4; /* 限制最多显示 4 行 */
+      -webkit-box-orient: vertical; /* 垂直排列 */
+    }
+    
+    .post-content .tag {
+      color: var(--active-color);
+      cursor: pointer;
     }
    .post-img {
         width: 100%;

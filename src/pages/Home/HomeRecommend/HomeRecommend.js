@@ -125,15 +125,15 @@ const HomeRecommend = () => {
       const sortBy = sortIndex === 0 ? 'replies' : 'createdAt'; // 排序字段
       const sortOrder = sortIndex === 0 ? -1 : 1; // 排序顺序
 
-      const data = await getPostList({
+      const {posts} = await getPostList({
         page,
         limit: 10, // 每页条数
         sortBy,
         sortOrder,
       });
 
-      if (data.length > 0) {
-        setPostItems((prev) => [...prev, ...data]); // 追加新数据
+      if (posts.length > 0) {
+        setPostItems((prev) => [...prev, ...posts]); // 追加新数据
         setPage((prev) => prev + 1); // 更新页码
       } else {
         setHasMore(false); // 没有更多数据
@@ -165,12 +165,11 @@ const HomeRecommend = () => {
 
   // 图片 URL 数据
   const imgUrl = [
-    '/images/header/banner/1.png',
-    '/images/header/banner/2.png',
-    '/images/header/banner/3.png',
-    '/images/header/banner/4.png',
-    '/images/header/banner/5.png',
-    '/images/header/banner/6.png',
+    '/images/header/banner/banner1.png',
+    '/images/header/banner/banner2.png',
+    '/images/header/banner/banner3.png',
+    '/images/header/banner/banner4.png',
+    '/images/header/banner/banner5.png'
   ];
 
   // 展示项数据

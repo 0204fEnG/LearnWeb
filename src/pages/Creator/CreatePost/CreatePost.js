@@ -285,15 +285,15 @@ const CreatePostPage = () => {
   const loadMoreCircles = async () => {
     if (!pagination.hasMore || loading) return;
     try {
-      const { data } = await getCircleList({
+      const { circles } = await getCircleList({
         page: pagination.page,
         limit: pagination.limit
       });
-      setCircles(prev => [...prev, ...data.circles]);
+      setCircles(prev => [...prev, ...circles]);
       setPagination(prev => ({
         ...prev,
         page: prev.page + 1,
-        hasMore: data.circles.length >= prev.limit
+        hasMore: circles.length >= prev.limit
       }));
     } catch (error) {
       showMessage('error', '获取圈子列表失败');
