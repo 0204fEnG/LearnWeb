@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { searchCircles } from '../../../api/circle';
 import './SearchCircle.scss';
-
+import SortTop from '../../../components/SortTop/SortTop';
+import Loading from '../../../components/Loading/Loading';
 const SearchCircle = ({ searchParams }) => {
   const [circles, setCircles] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -9,9 +10,28 @@ const SearchCircle = ({ searchParams }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sortType, setSortType] = useState('postCount'); // 默认按热度排序
-
   const keyword = searchParams.get('q') || '';
-
+  const [sortIndex, setSortIndex] = useState(0);
+  const sortItems = [
+    {
+      name: '按热度',
+      handleFunc: () => {
+        setSortType('postCount')
+      }
+    }, {
+      name: '按时间',
+      handleFunc: () => {
+        setSortType('createdAt')
+      }
+  }
+]
+  useEffect(() => {
+    if (sortType === 'postCount') {
+      setSortIndex(0);
+    } else if (sortType === 'createdAt') {
+      setSortIndex(1);
+    }
+  }, [sortType]); // 依赖数组中包含 sortType，确保在 sortType 变化时执行
   // 主要数据获取逻辑
   const fetchData = async (isNewSearch = false) => {
     if (!keyword || loading) return;
@@ -76,20 +96,9 @@ const SearchCircle = ({ searchParams }) => {
   return (
     <div className="search-circle-results">
       {error && <div className="error-message">{error}</div>}
-
-      <div className="search-header">
-        <select 
-          value={sortType} 
-          onChange={(e) => setSortType(e.target.value)}
-          className="sort-selector"
-        >
-          <option value="postCount">按热度排序</option>
-          <option value="createdAt">按时间排序</option>
-        </select>
-      </div>
-
+<SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
       <div className="circle-list">
-        {circles.length > 0 ? (
+        {circles.length > 0||loading ? (
           circles.map(circle => (
             <div key={circle._id} className="circle-card">
               <img 
@@ -100,11 +109,6 @@ const SearchCircle = ({ searchParams }) => {
               <div className="circle-info">
                 <h3>{circle.name}</h3>
                 <p className="description">{circle.description}</p>
-                <div className="stats">
-                  <span>👥 {circle.memberCount}</span>
-                  <span>📝 {circle.postCount}</span>
-                  <span>📅 {circle.createdAt}</span>
-                </div>
                 {/* 创建者信息 */}
                 {circle.creator && (
                   <div className="creator-info">
@@ -116,6 +120,11 @@ const SearchCircle = ({ searchParams }) => {
                     <span>{circle.creator.username}</span>
                   </div>
                 )}
+                      <div className="stats">
+                  <span>👥成员数: {circle.memberCount}</span>
+                  <span>📝帖子数:{circle.postCount}</span>
+                  <span>📅创建时间:{circle.createdAt}</span>
+                </div>
               </div>
             </div>
           ))
@@ -126,8 +135,9 @@ const SearchCircle = ({ searchParams }) => {
 
       {loading && (
         <div className="loading-indicator">
-          <div className="spinner"></div>
-          {circles.length > 0 ? '加载更多...' : '搜索中...'}
+          {/* <div className="spinner"></div>
+          {circles.length > 0 ? '加载更多...' : '搜索中...'} */}
+          <Loading/>
         </div>
       )}
     </div>

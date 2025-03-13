@@ -93,7 +93,6 @@ const HomeRecommend = () => {
   const [page, setPage] = useState(1); // 当前页码
   const [hasMore, setHasMore] = useState(true); // 是否还有更多数据
     const [loading, setLoading] = useState(false); // 加载状态
-    console.log(postItems)
   // 排序选项
   const sortItems = [
     {

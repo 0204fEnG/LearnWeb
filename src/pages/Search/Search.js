@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { lazy, Suspense, useEffect } from 'react';
 import FuncNavbar from '../../components/Navbar/FuncNav/FuncNavbar';
 import Searchbar from '../../components/Searchbar/Searchbar';
@@ -85,6 +85,7 @@ const nav=useNavigate()
       <Suspense fallback={<Loading />}>
         {renderPage()}
       </Suspense>
+      <Outlet/>
     </div>
   );
 };

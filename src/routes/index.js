@@ -85,7 +85,13 @@ const routes=[
       },
       {
         path: 'search',
-        component: lazy(() => import("../pages/Search/Search.js"))
+        component: lazy(() => import("../pages/Search/Search.js")),
+        children: [
+            {
+              path: "post/:postId",
+              component: lazy(() => import("../pages/Post/Post.js"))
+            }
+          ]
       },
       {
         path: "shorts",

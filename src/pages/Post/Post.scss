@@ -171,6 +171,13 @@
             @include flex(column,nowrap,flex-start,center,flex-start,5px);
             @include topPadding2();
             @include scrollbar();
+            .post-title{
+                flex:0 0 auto;
+                width: 100%;
+                font-size: 1.2rem;
+                font-weight: bold;
+                @include lineHeight();
+            }
             .article{
                 flex:0 0 auto;
                 width: 100%;
@@ -199,7 +206,7 @@
                 flex-basis: 100%;
                 // max-width: 100%;
                 overflow-y: visible;
-                height:auto;
+                height:100%;
                 padding-top: 0px;
             }
         }

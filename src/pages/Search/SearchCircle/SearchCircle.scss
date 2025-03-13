@@ -1,28 +1,34 @@
 // SearchCircle.scss
+@use '/src/styles/display/flex.scss'as *;
 .search-circle-results {
-  margin-top: 20px;
-
   .error-message {
     color: #e74c3c;
-    background: #f8d7da;
+    background: var(--primary-color);
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
   }
-
+.stickyTop{
+  top:72px;
+  @media (min-width:1000px) {
+    top:96px;
+  }
+}
   .circle-list {
+    @include flex(row,wrap,flex-start,flex-start,flex-start,5px);
+      padding: 5px;
     .circle-card {
+      flex:1 1 300px;
       display: flex;
+      height: 250px;
       align-items: center;
-      padding: 20px;
-      margin-bottom: 15px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      padding: 0 10px;
+      background: var(--primary-color);
+      border-radius: 5px;
 
       &:hover {
-        transform: translateY(-3px);
+        cursor: pointer;
+        outline:2px solid var(--border-color); 
       }
 
       .circle-avatar {
@@ -35,22 +41,23 @@
 
       .circle-info {
         flex: 1;
-
+        @include flex(column,nowrap,flex-start,flex-start,flex-start,10px);
         h3 {
-          margin: 0 0 8px;
-          color: #2c3e50;
           font-size: 18px;
         }
 
         .description {
-          color: #7f8c8d;
-          margin: 0 0 12px;
+          color: var(--text-color--light);
           line-height: 1.5;
+                overflow: hidden; /* 隐藏超出部分 */
+      text-overflow: ellipsis; /* 显示省略号 */
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* 限制最多显示 4 行 */
+      -webkit-box-orient: vertical; /* 垂直排列 */
         }
         .creator-info {
   display: flex;
   align-items: center;
-  margin-top: 10px;
   .creator-avatar {
   width: 30px;
   height: 30px;
@@ -61,24 +68,15 @@
 
 
         .stats {
-          display: flex;
-          gap: 20px;
-          color: #95a5a6;
+          @include flex(row,wrap,flex-start,flex-start,flex-start,10px);
+          color: var(--text-color--light);
           font-size: 14px;
 
           span {
             display: flex;
             align-items: center;
 
-            &::before {
-              content: '';
-              display: inline-block;
-              width: 4px;
-              height: 4px;
-              background: #bdc3c7;
-              border-radius: 50%;
-              margin-right: 8px;
-            }
+
           }
         }
       }
@@ -86,9 +84,10 @@
   }
 
   .no-results {
+    width: 100%;
     text-align: center;
     padding: 40px;
-    color: #7f8c8d;
+    color: var(--text-color--light);
     font-size: 16px;
   }
 
@@ -97,13 +96,13 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    color: #7f8c8d;
+    color: var(--text-color--light);
 
     .spinner {
       width: 20px;
       height: 20px;
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #4a90e2;
+      border: 3px solid var(--single-color);
+      border-top: 3px solid var(--active-color);
       border-radius: 50%;
       margin-right: 10px;
       animation: spin 1s linear infinite;

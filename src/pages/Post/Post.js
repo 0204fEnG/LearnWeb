@@ -152,7 +152,6 @@ const Post = () => {
   const nav = useNavigate();
   const { postId } = useParams();
   const timer = useRef(null);
-
   // 加载帖子数据
   useEffect(() => {
     const fetchPost = async () => {
@@ -264,6 +263,7 @@ const Post = () => {
             </button>
           </div>
           <div className="content-container">
+            <div className="post-title">{post.title}</div>
             <div className="article">{post.content}</div>
             <div className="img-container">
               <NineGrid images={post.images || []} />

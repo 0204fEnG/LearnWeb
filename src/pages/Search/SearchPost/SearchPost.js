@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { searchPosts } from '../../../api/post'; // 假设您已经有一个搜索帖子的 API
 import './SearchPost.scss';
-import { useSearchParams } from 'react-router-dom';
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import SortTop from '../../../components/SortTop/SortTop';
+import Loading from '../../../components/Loading/Loading';
 const SearchPost = () => {
   const [searchParams] = useSearchParams();
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const nav=useNavigate()
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 const [sortType, setSortType] = useState('replies'); // 初始值改为replies
-
+  const [sortIndex, setSortIndex] = useState(0);
+  const sortItems = [
+    {
+      name: '按热度',
+      handleFunc: () => {
+        setSortType('replies')
+      }
+    }, {
+      name: '按时间',
+      handleFunc: () => {
+        setSortType('createdAt')
+      }
+  }
+  ]
+    useEffect(() => {
+      if (sortType === 'replies') {
+        setSortIndex(0);
+      } else if (sortType === 'createdAt') {
+        setSortIndex(1);
+      }
+    }, [sortType]);
   const keyword = searchParams.get('q') || '';
-
+  const handlePostClick = (postId) => {
+    nav(`post/${postId}`);
+  };
   // 主要数据获取逻辑
   const fetchData = async (isNewSearch = false) => {
     if (!keyword || loading) return;
@@ -74,26 +98,19 @@ const [sortType, setSortType] = useState('replies'); // 初始值改为replies
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasMore, loading, page, keyword, sortType]); // 添加 sortType 到依赖数组
-
   return (
     <div className="search-post-results">
       {error && <div className="error-message">{error}</div>}
 
-      <div className="search-header">
-<select 
-  value={sortType} 
-  onChange={(e) => setSortType(e.target.value)}
-  className="sort-selector"
->
-  <option value="replies">按热度排序</option>
-  <option value="createdAt">按时间排序</option>
-</select>
-      </div>
+<SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
 
       <div className="post-list">
-        {posts.length > 0 ? (
+        {posts.length > 0||loading ? (
           posts.map(post => (
-            <div key={post._id} className="post-card">
+            <div key={post._id} className="post-card" onClick={(e) => {
+              e.stopPropagation()
+              handlePostClick(post._id)
+            }}>
               <div className="post-header">
                 <img 
                   src={post.author.avatar || '/default-user.png'} 
@@ -107,8 +124,8 @@ const [sortType, setSortType] = useState('replies'); // 初始值改为replies
                 <p className="post-description">{post.content}</p>
               </div>
               <div className="post-stats">
-                <span>👍 {post.likeCount}</span>
-                <span>💬 {post.commentCount}</span>
+                <span>👍 {post.likes}</span>
+                <span>💬 {post.replies}</span>
                 <span>📅 {post.createdAt}</span>
               </div>
             </div>
@@ -120,8 +137,7 @@ const [sortType, setSortType] = useState('replies'); // 初始值改为replies
 
       {loading && (
         <div className="loading-indicator">
-          <div className="spinner"></div>
-          {posts.length > 0 ? '加载更多...' : '搜索中...'}
+<Loading/>
         </div>
       )}
     </div>

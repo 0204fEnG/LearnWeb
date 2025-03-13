@@ -1,9 +1,11 @@
 @use '/src/styles/display/flex.scss'as *;
+@use '../../styles/scrollbar/scrollbar.scss'as *;
 .search-container{
     width: 100%;
     height: 100%;
     overflow-y: auto;
     background-color: var(--background-color);
+      @include scrollbar($show:true);
     .search-header{
         background-color: var(--single-color--opa2);
         @include flex(row,nowrap,center,center,flex-start,null);
