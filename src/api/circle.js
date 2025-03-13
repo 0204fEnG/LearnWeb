@@ -28,14 +28,27 @@ export const getCircleList = (params = {}) => {
   });
 };
 
+// // 搜索圈子（用于搜索界面）
+// export const searchCircles = (params = {}) => {
+//   const { keyword, page = 1, limit = 10 } = params;
+//   return instance.get('/circle/search', {
+//     params: {
+//       keyword,
+//       page,
+//       limit
+//     }
+//   });
+// };
+
 // 搜索圈子（用于搜索界面）
 export const searchCircles = (params = {}) => {
-  const { keyword, page = 1, limit = 10 } = params;
+  const { keyword, page = 1, limit = 10, sortType = 'postCount' } = params;
   return instance.get('/circle/search', {
     params: {
       keyword,
       page,
-      limit
+      limit,
+      sortType // 传递排序类型
     }
   });
 };

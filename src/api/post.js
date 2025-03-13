@@ -23,3 +23,19 @@ export const getPostList = async ({ page, limit, sortBy, sortOrder }) => {
 export const getPost = async (postId) => {
   return await instance.get(`/post/${postId}`);
 };
+
+
+// 搜索帖子（用于搜索界面）
+// 修改api/post.js中的searchPosts函数
+export const searchPosts = (params = {}) => {
+  const { keyword, page = 1, limit = 10, sortType = 'replies' } = params;
+  return instance.get('/post/search', {
+    params: {
+      keyword,
+      page,
+      limit,
+      sortBy: sortType,  // 修正参数名
+      sortOrder: -1       // 默认降序
+    }
+  });
+};

@@ -154,7 +154,7 @@ const generateRouter = (routes) => {
         </Suspense>
         break
       }
-      case 'post/:postId': {
+      case '': {
         const Component = item.component
         const path = item.path;
         const parts = path.split(':');

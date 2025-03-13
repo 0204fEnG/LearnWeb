@@ -58,7 +58,7 @@ const nav=useNavigate()
   const renderPage = () => {
     switch (searchParams.get('type')) {
       case 'circle':
-        return <LazySearchCirclePage />;
+        return <LazySearchCirclePage searchParams={searchParams}/>;
       case 'post':
         return <LazySearchPostPage />;
       case 'user':
@@ -66,7 +66,7 @@ const nav=useNavigate()
       case 'short':
         return <LazySearchShortPage />;
       default:
-        return <LazySearchCirclePage />;
+        return <LazySearchCirclePage searchParams={searchParams}/>;
     }
   };
 
