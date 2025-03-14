@@ -3,19 +3,13 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import './Searchbar.scss';
 import SearchIcon from "../icons/Search";
 
-const Searchbar = ({ initialQuery = '' }) => {
+const Searchbar = ({ inputContent,searchType,handleInputContentChange}) => {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const location=useLocation()
-  const [searchParams] = useSearchParams();
-  const [inputContent, setInputContent] = useState(initialQuery);
   const [searchHistory, setSearchHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const divRef=useRef()
-  // 同步URL参数变化
-  useEffect(() => {
-    setInputContent(searchParams.get('q') || '');
-  }, [searchParams]);
 
   // 加载搜索历史
   useEffect(() => {
@@ -48,11 +42,9 @@ const Searchbar = ({ initialQuery = '' }) => {
   saveSearchHistory(searchTermTrimmed);
   setShowHistory(false);
 
-  const currentType = searchParams.get('type') || 'circle';
-  if (location.pathname === '/search') {
+  const currentType = searchType || 'circle';
+  if (location.pathname !== '/search') {
     navigate(`/search?q=${encodeURIComponent(searchTermTrimmed)}&type=${currentType}`, { replace: true });
-  } else {
-    navigate(`/search?q=${encodeURIComponent(searchTermTrimmed)}&type=${currentType}`);
   }
 };
 
@@ -91,7 +83,7 @@ const Searchbar = ({ initialQuery = '' }) => {
         className="search-input"
         placeholder="请输入搜索内容"
         value={inputContent}
-        onChange={(e) => setInputContent(e.target.value)}
+        onChange={(e) => handleInputContentChange(e.target.value)}
         onKeyPress={handleKeyPress}
       />
       
@@ -127,7 +119,7 @@ const Searchbar = ({ initialQuery = '' }) => {
                   className="history-item"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setInputContent(term);
+                    handleInputContentChange(term)
                     handleSearch(term)
                   }}
                 >

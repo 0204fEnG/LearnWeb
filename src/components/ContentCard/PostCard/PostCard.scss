@@ -131,17 +131,31 @@
         height: 25px;
         @include flex(row,nowrap,null,null,null,null);
         .interactive-data{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            flex:1 1 calc(100%/3);
+            flex:1 1 30%;
             color: var(--text-color--light);
-            font-size: 1.1rem;
             border-radius: 5px;
             height: 25px;
-            text-align: center;
-            line-height: 25px;
             cursor: pointer;
             &:hover{
                 background-color: var(--background-color--opa);
+            }
+            .icon-svg{
+                height: 100%;
+                padding: 3px;
+                aspect-ratio: 1;
+                &.heart{
+                    fill:red;
+                }
+                &.reply{
+                    fill:rgb(90, 163, 241);
+                }
+                &.star{
+                    fill:yellow;
+                }
             }
         }
     } 

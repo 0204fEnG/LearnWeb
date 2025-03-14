@@ -180,7 +180,7 @@ const generateRouter = (routes) => {
       case 'circles-recommend':
       case 'shorts':
       case 'shorts-recommend':
-      case 'mine': {
+      case 'mine':{
         item.element = <Suspense fallback={
           <Loading />
         }>

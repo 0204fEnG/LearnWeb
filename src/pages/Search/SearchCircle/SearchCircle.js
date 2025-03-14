@@ -1,108 +1,127 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { searchCircles } from '../../../api/circle';
 import './SearchCircle.scss';
 import SortTop from '../../../components/SortTop/SortTop';
 import Loading from '../../../components/Loading/Loading';
 import { formatPublishTime } from '../../../utils/time/formatPublishTime';
-const SearchCircle = ({ searchParams }) => {
+const SearchCircle = ({ keyword }) => {
+  // 状态管理
   const [circles, setCircles] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [sortType, setSortType] = useState('postCount'); // 默认按热度排序
-  const keyword = searchParams.get('q') || '';
-  const [sortIndex, setSortIndex] = useState(0);
-  const sortItems = [
-    {
-      name: '按热度',
-      handleFunc: () => {
-        setSortType('postCount')
-      }
-    }, {
-      name: '按时间',
-      handleFunc: () => {
-        setSortType('createdAt')
-      }
-  }
-]
+  const [sortType, setSortType] = useState('postCount');
+  // 使用Ref解决闭包问题
+  const pageRef = useRef(page);
+  const sortTypeRef = useRef(sortType);
+  const loadingRef = useRef(loading);
+  const hasMoreRef = useRef(hasMore);
+  const keywordRef = useRef(keyword);
+
+  // 观察器相关Ref
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+
+  // 同步Ref与State
   useEffect(() => {
-    if (sortType === 'postCount') {
-      setSortIndex(0);
-    } else if (sortType === 'createdAt') {
-      setSortIndex(1);
-    }
-  }, [sortType]); // 依赖数组中包含 sortType，确保在 sortType 变化时执行
-  // 主要数据获取逻辑
-  const fetchData = async (isNewSearch = false) => {
-    if (!keyword || loading) return;
+    pageRef.current = page;
+    sortTypeRef.current = sortType;
+    loadingRef.current = loading;
+    hasMoreRef.current = hasMore;
+    keywordRef.current = keyword;
+  }, [page, sortType, loading, hasMore, keyword]);
+
+  // 数据获取逻辑
+  const fetchData = useCallback(async () => {
+    if (loadingRef.current || !hasMoreRef.current || !keywordRef.current) return;
 
     try {
       setLoading(true);
       setError('');
 
       const response = await searchCircles({
-        keyword,
-        page: isNewSearch ? 1 : page,
+        keyword: keywordRef.current,
+        page: pageRef.current,
         limit: 10,
-        sortType: sortType // 传递排序类型
+        sortType: sortTypeRef.current
       });
 
       const newCircles = response.searchCircles;
-      console.log(newCircles);
+      setCircles(prev => 
+        pageRef.current === 1 ? newCircles : [...prev, ...newCircles]
+      );
       setHasMore(newCircles.length >= 10);
-      setCircles(prev => isNewSearch ? newCircles : [...prev, ...newCircles]);
-      setPage(prev => isNewSearch ? 2 : prev + 1);
+      setPage(prev => prev + 1);
     } catch (err) {
       setError('搜索失败，请稍后重试');
       console.error('搜索错误:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  // 当搜索关键词或排序类型变化时重置
+  // 初始化IntersectionObserver
   useEffect(() => {
-    if (!keyword) {
-      setCircles([]);
-      return;
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !loadingRef.current && hasMoreRef.current) {
+            fetchData();
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+
+    if (sentinelRef.current) {
+      observerRef.current.observe(sentinelRef.current);
     }
-    
-    const timer = setTimeout(() => {
-      setPage(1);
-      setCircles([]);
-      fetchData(true);
-    }, 300);
 
-    return () => clearTimeout(timer);
-  }, [keyword, sortType]); // 添加 sortType 到依赖数组
-
-  // 滚动加载更多
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollThreshold = document.documentElement.scrollHeight - 100;
-      if (
-        window.innerHeight + window.scrollY >= scrollThreshold &&
-        hasMore &&
-        !loading
-      ) {
-        fetchData();
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
+  }, [fetchData]);
+  // 处理搜索条件变化
+  useEffect(() => {
+      if (!keyword) {
+        setCircles([]);
+        return;
+      }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasMore, loading, page, keyword, sortType]); // 添加 sortType 到依赖数组
+      // 重置状态并重新加载
+      setCircles([]);
+      setPage(1);
+      setHasMore(true);
+  }, [keyword, sortType,fetchData]);
+
+  // 排序配置
+  const sortItems = [
+    {
+      name: '按热度',
+      handleFunc: () => setSortType('postCount')
+    }, {
+      name: '按时间',
+      handleFunc: () => setSortType('createdAt')
+    }
+  ];
+
+  const sortIndex = sortType === 'postCount' ? 0 : 1;
 
   return (
     <div className="search-circle-results">
       {error && <div className="error-message">{error}</div>}
-<SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
+      
+      <SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
+
       <div className="circle-list">
-        {circles.length > 0||loading ? (
+        {circles.length > 0 ? (
           circles.map(circle => (
+            // 保持原有渲染逻辑
             <div key={circle._id} className="circle-card">
-              <div className="circle-avatar-wrapper">
+                <div className="circle-avatar-wrapper">
               <img 
                 src={circle.avatar || '/default-circle.png'} 
                 alt={circle.name}
@@ -128,7 +147,7 @@ const SearchCircle = ({ searchParams }) => {
                   <span>📝帖子数:{circle.postCount}</span>
                   <span>📅创建时间:{formatPublishTime(circle.createdAt)}</span>
                 </div>
-              </div>
+                </div>
             </div>
           ))
         ) : (
@@ -136,12 +155,17 @@ const SearchCircle = ({ searchParams }) => {
         )}
       </div>
 
+      {/* 哨兵元素 */}
+      <div ref={sentinelRef} className="sentinel" />
+
       {loading && (
         <div className="loading-indicator">
-          {/* <div className="spinner"></div>
-          {circles.length > 0 ? '加载更多...' : '搜索中...'} */}
-          <Loading/>
+          <Loading />
         </div>
+      )}
+      
+      {!hasMore && circles.length > 0 && (
+        <div className="no-more-data">已经到底啦~</div>
       )}
     </div>
   );

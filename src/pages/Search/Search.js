@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import FuncNavbar from '../../components/Navbar/FuncNav/FuncNavbar';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import './Search.scss';
@@ -9,11 +9,22 @@ const LazySearchCirclePage = lazy(() => import('./SearchCircle/SearchCircle.js')
 const LazySearchPostPage = lazy(() => import('./SearchPost/SearchPost.js'));
 const LazySearchUserPage = lazy(() => import('./SearchUser/SearchUser.js'));
 const LazySearchShortPage = lazy(() => import('./SearchShort/SearchShort.js'));
-
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-
+  const [mysearchParams, setMysearchParams] = useState({
+    q: searchParams.get('q')||'',
+    type:searchParams.get('type')||''
+  })
+  const handleInputContentChange = (newQ) => {
+    setSearchParams(prev => {
+      prev.set('q', newQ);
+      return prev;
+    }, { replace: true });
+    setMysearchParams(prev => ({
+      ...prev,
+      q: newQ
+    }));
+  } 
   // 初始化默认搜索类型
 
   const handleSearchTypeItems = [
@@ -23,7 +34,11 @@ const Search = () => {
         setSearchParams(prev => {
           prev.set('type', 'circle');
           return prev;
-        },{ replace: true });
+        }, { replace: true });
+        setMysearchParams(prev => ({
+          ...prev,
+          type:'circle'
+        }))
       }
     },
     {
@@ -32,7 +47,11 @@ const Search = () => {
         setSearchParams(prev => {
           prev.set('type', 'post');
           return prev;
-        },{ replace: true });
+        }, { replace: true });
+        setMysearchParams(prev => ({
+          ...prev,
+          type:'post'
+        }))
       }
     },
     {
@@ -41,7 +60,11 @@ const Search = () => {
         setSearchParams(prev => {
           prev.set('type', 'user');
           return prev;
-        },{ replace: true });
+        }, { replace: true });
+        setMysearchParams(prev => ({
+          ...prev,
+          type:'user'
+        }))
       }
     },
     {
@@ -50,23 +73,27 @@ const Search = () => {
         setSearchParams(prev => {
           prev.set('type', 'short');
           return prev;
-        },{ replace: true });
+        }, { replace: true });
+        setMysearchParams(prev => ({
+          ...prev,
+          type:'short'
+        }))
       }
     }
   ];
 const nav=useNavigate()
   const renderPage = () => {
-    switch (searchParams.get('type')) {
+    switch (mysearchParams.type) {
       case 'circle':
-        return <LazySearchCirclePage searchParams={searchParams}/>;
+        return <LazySearchCirclePage keyword={mysearchParams.q}/>;
       case 'post':
-        return <LazySearchPostPage />;
+        return <LazySearchPostPage keyword={mysearchParams.q}/>;
       case 'user':
-        return <LazySearchUserPage />;
+        return <LazySearchUserPage keyword={mysearchParams.q}/>;
       case 'short':
-        return <LazySearchShortPage />;
+        return <LazySearchShortPage keyword={mysearchParams.q}/>;
       default:
-        return <LazySearchCirclePage searchParams={searchParams}/>;
+        return <LazySearchCirclePage keyword={mysearchParams.q}/>;
     }
   };
 
@@ -77,7 +104,7 @@ const nav=useNavigate()
           e.stopPropagation()
           nav(-1)
         }}><ChevronLeftIcon className='search-back-to'/></button>
-        <div className="search-page-bar-container"><Searchbar/></div>
+        <div className="search-page-bar-container"><Searchbar inputContent={mysearchParams.q} searchType={mysearchParams.type } handleInputContentChange={handleInputContentChange}/></div>
       </div>
       <div className="navbar-container">
         <FuncNavbar handleItems={handleSearchTypeItems} />

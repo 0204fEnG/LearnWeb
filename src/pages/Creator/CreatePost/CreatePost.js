@@ -415,7 +415,7 @@ const CreatePostPage = () => {
 
   return (
     <div className="create-post-container">
-      <h2>发布新帖子</h2>
+      <h1>发布新帖子</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <button

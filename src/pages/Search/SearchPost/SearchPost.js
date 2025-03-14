@@ -1,116 +1,126 @@
-import React, { useState, useEffect } from 'react';
-import { searchPosts } from '../../../api/post'; // 假设您已经有一个搜索帖子的 API
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { searchPosts } from '../../../api/post';
 import './SearchPost.scss';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SortTop from '../../../components/SortTop/SortTop';
 import Loading from '../../../components/Loading/Loading';
 import { formatPublishTime } from '../../../utils/time/formatPublishTime';
-const SearchPost = () => {
-  const [searchParams] = useSearchParams();
+
+const SearchPost = ({ keyword }) => {
+  // 状态管理
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const nav=useNavigate()
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-const [sortType, setSortType] = useState('replies'); // 初始值改为replies
-  const [sortIndex, setSortIndex] = useState(0);
-  const sortItems = [
-    {
-      name: '按热度',
-      handleFunc: () => {
-        setSortType('replies')
-      }
-    }, {
-      name: '按时间',
-      handleFunc: () => {
-        setSortType('createdAt')
-      }
-  }
-  ]
-    useEffect(() => {
-      if (sortType === 'replies') {
-        setSortIndex(0);
-      } else if (sortType === 'createdAt') {
-        setSortIndex(1);
-      }
-    }, [sortType]);
-  const keyword = searchParams.get('q') || '';
-  const handlePostClick = (postId) => {
-    nav(`post/${postId}`);
-  };
-  // 主要数据获取逻辑
-  const fetchData = async (isNewSearch = false) => {
-    if (!keyword || loading) return;
+  const [sortType, setSortType] = useState('replies');
+
+  // 使用Ref解决闭包问题
+  const pageRef = useRef(page);
+  const sortTypeRef = useRef(sortType);
+  const loadingRef = useRef(loading);
+  const hasMoreRef = useRef(hasMore);
+  const keywordRef = useRef(keyword);
+
+  // 观察器相关Ref
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+  const nav = useNavigate();
+
+  // 同步Ref与State
+  useEffect(() => {
+    pageRef.current = page;
+    sortTypeRef.current = sortType;
+    loadingRef.current = loading;
+    hasMoreRef.current = hasMore;
+    keywordRef.current = keyword;
+  }, [page, sortType, loading, hasMore, keyword]);
+
+  // 数据获取逻辑
+  const fetchData = useCallback(async () => {
+    if (loadingRef.current || !hasMoreRef.current || !keywordRef.current) return;
 
     try {
       setLoading(true);
       setError('');
 
       const response = await searchPosts({
-        keyword,
-        page: isNewSearch ? 1 : page,
+        keyword: keywordRef.current,
+        page: pageRef.current,
         limit: 10,
-        sortType: sortType // 传递排序类型
+        sortType: sortTypeRef.current
       });
 
       const newPosts = response.searchPosts;
-      console.log(newPosts);
+      setPosts(prev => 
+        pageRef.current === 1 ? newPosts : [...prev, ...newPosts]
+      );
       setHasMore(newPosts.length >= 10);
-      setPosts(prev => isNewSearch ? newPosts : [...prev, ...newPosts]);
-      setPage(prev => isNewSearch ? 2 : prev + 1);
+      setPage(prev => prev + 1);
     } catch (err) {
       setError('搜索失败，请稍后重试');
       console.error('搜索错误:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  // 当搜索关键词或排序类型变化时重置
+  // 初始化IntersectionObserver
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !loadingRef.current && hasMoreRef.current) {
+            fetchData();
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+
+    if (sentinelRef.current) {
+      observerRef.current.observe(sentinelRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [fetchData]);
+
+  // 处理搜索条件变化
   useEffect(() => {
     if (!keyword) {
       setPosts([]);
       return;
     }
-    
-    const timer = setTimeout(() => {
-      setPage(1);
-      setPosts([]);
-      fetchData(true);
-    }, 300);
 
-    return () => clearTimeout(timer);
-  }, [keyword, sortType]); // 添加 sortType 到依赖数组
+    // 重置状态并重新加载
+    setPosts([]);
+    setPage(1);
+    setHasMore(true);
+  }, [keyword, sortType]);
 
-  // 滚动加载更多
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollThreshold = document.documentElement.scrollHeight - 100;
-      if (
-        window.innerHeight + window.scrollY >= scrollThreshold &&
-        hasMore &&
-        !loading
-      ) {
-        fetchData();
-      }
-    };
+  // 排序配置
+  const sortItems = [
+    { name: '按热度', handleFunc: () => setSortType('replies') },
+    { name: '按时间', handleFunc: () => setSortType('createdAt') }
+  ];
+  const sortIndex = sortType === 'replies' ? 0 : 1;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasMore, loading, page, keyword, sortType]); // 添加 sortType 到依赖数组
   return (
     <div className="search-post-results">
       {error && <div className="error-message">{error}</div>}
 
-<SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
+      <SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='stickyTop'/>
 
       <div className="post-list">
-        {posts.length > 0||loading ? (
+        {posts.length > 0 ? (
           posts.map(post => (
             <div key={post._id} className="post-card" onClick={(e) => {
-              e.stopPropagation()
-              handlePostClick(post._id)
+              e.stopPropagation();
+              nav(`post/${post._id}`);
             }}>
               <div className="post-header">
                 <img 
@@ -136,10 +146,17 @@ const [sortType, setSortType] = useState('replies'); // 初始值改为replies
         )}
       </div>
 
+      {/* 哨兵元素 */}
+      <div ref={sentinelRef} className="sentinel" />
+
       {loading && (
         <div className="loading-indicator">
-<Loading/>
+          <Loading/>
         </div>
+      )}
+      
+      {!hasMore && posts.length > 0 && (
+        <div className="no-more-data">已经到底啦~</div>
       )}
     </div>
   );
