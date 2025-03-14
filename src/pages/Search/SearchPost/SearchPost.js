@@ -4,6 +4,7 @@ import './SearchPost.scss';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SortTop from '../../../components/SortTop/SortTop';
 import Loading from '../../../components/Loading/Loading';
+import { formatPublishTime } from '../../../utils/time/formatPublishTime';
 const SearchPost = () => {
   const [searchParams] = useSearchParams();
   const [posts, setPosts] = useState([]);
@@ -126,7 +127,7 @@ const [sortType, setSortType] = useState('replies'); // 初始值改为replies
               <div className="post-stats">
                 <span>👍 {post.likes}</span>
                 <span>💬 {post.replies}</span>
-                <span>📅 {post.createdAt}</span>
+                <span>📅 {formatPublishTime(post.createdAt)}</span>
               </div>
             </div>
           ))

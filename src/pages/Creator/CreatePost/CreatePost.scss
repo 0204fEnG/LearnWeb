@@ -19,8 +19,13 @@
     input, textarea, .custom-select {
       width: 100%;
       padding: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
+      background-color: var(--primary-color);
       border-radius: 4px;
+              &:focus {
+          outline: none;
+          border-color: var(--active-color);
+        }
     }
 
     .error {
@@ -31,16 +36,16 @@
 
   .tag-toggle-btn {
     padding: 8px 16px;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
 
     &.active {
-      background: #1890ff;
+      background-color: var(--active-color);
       color: white;
-      border-color: #1890ff;
+      border-color: var(--active-color);
     }
   }
 
@@ -55,24 +60,24 @@
     }
 
     .tag-item {
-      background: #f0f9ff;
-      border: 1px solid #91d5ff;
+      background-color: var(--primary-color);
+      border: 1px solid var(--active-color);
       border-radius: 4px;
       padding: 4px 8px;
       font-size: 0.9em;
-      color: #1890ff;
+      color: var(--active-color);
     }
   }
 
   .custom-select {
     cursor: pointer;
-    background: white;
+    background-color: var(--primary-color);
   }
 
   .dropdown {
     display: none;
     position: absolute;
-    background: white;
+    background-color: var(--primary-color);
     border: 1px solid #ddd;
     border-radius: 4px;
     max-height: 200px;
@@ -88,14 +93,14 @@
       cursor: pointer;
 
       &:hover {
-        background: #f0f0f0;
+        background-color: var(--primary-color);
       }
     }
 
     .load-more {
       padding: 8px;
       text-align: center;
-      color: #1890ff;
+      color: var(--active-color);
       cursor: pointer;
     }
   }
@@ -103,8 +108,8 @@
   .custom-upload-btn {
     display: inline-block;
     padding: 8px 16px;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     cursor: pointer;
   }
@@ -132,14 +137,14 @@
 
   .submit-btn {
     padding: 12px 24px;
-    background: #1890ff;
+    background: var(--active-color);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 
     &:disabled {
-      background: #ccc;
+      background-color: var(--primary-color--deep1);
       cursor: not-allowed;
     }
   }

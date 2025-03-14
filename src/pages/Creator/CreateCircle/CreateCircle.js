@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createCircle } from '../../../api/circle';
-
+import './CreateCircle.scss'
 const CreateCircle = () => {
   // 状态管理
   const [name, setName] = useState('');
@@ -91,13 +91,15 @@ const CreateCircle = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="avatar">圈子头像:</label>
+          <label>上传头像</label>
           <input
             type="file"
-            id="avatar"
+            id="upload-circle-avatar"
             accept="image/*"
+            style={{ display: 'none' }}
             onChange={handleAvatarChange}
           />
+          <label htmlFor="upload-circle-avatar" className="upload-circle-avatar">选择头像</label>
         </div>
         <button type="submit" disabled={loading}>
           {loading ? '创建中...' : '创建圈子'}

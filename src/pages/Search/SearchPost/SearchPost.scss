@@ -15,7 +15,7 @@ padding: 5px;
       @include flex(column,nowrap,flex-start,flex-start,flex-start,5px);
       border-radius: 5px;
       padding: 10px;
-      height: auto;
+      height: 210px;
       &:hover {
         cursor: pointer;
         outline:2px solid var(--border-color); 
@@ -25,20 +25,27 @@ padding: 5px;
         align-items: center;
         height: auto;
         .creator-avatar {
-          width: 30px;
-          height: 30px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
         }
 
         .creator-name {
-          // 样式内容
+          font-size: 1.1rem;
+          font-weight: bold;
         }
       }
 
       .post-content {
+        flex:1;
         .post-title {
           font-size: 18px;
           margin-bottom: 5px;
+                     overflow: hidden; /* 隐藏超出部分 */
+      text-overflow: ellipsis; /* 显示省略号 */
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* 限制最多显示 4 行 */
+      -webkit-box-orient: vertical; /* 垂直排列 */
         }
 
         .post-description {
@@ -83,10 +90,10 @@ padding: 5px;
   }
 
   .no-results {
-    color: var(--text-color--light);
     text-align: center;
+    padding: 40px;
     width: 100%;
-    padding: 20px;
+    color: var(--text-color--light);
   }
 }
 

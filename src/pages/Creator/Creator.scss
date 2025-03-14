@@ -1,16 +1,16 @@
+@use '/src/styles/scrollbar/scrollbar.scss'as *;
 .creator-container{
     width: 100%;
     height: 100%;
     overflow-y: auto;
     position: relative;
+    @include scrollbar($show:true);
     .creator-navs{
         width: 100%;
-        margin-top: 36px;
         height: 36px;
         position: sticky;
         top:36px;
         @media (min-width:1000px) {
-            margin-top: 48px;
             top:48px;
             height: 48px;
         }

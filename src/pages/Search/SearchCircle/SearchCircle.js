@@ -3,6 +3,7 @@ import { searchCircles } from '../../../api/circle';
 import './SearchCircle.scss';
 import SortTop from '../../../components/SortTop/SortTop';
 import Loading from '../../../components/Loading/Loading';
+import { formatPublishTime } from '../../../utils/time/formatPublishTime';
 const SearchCircle = ({ searchParams }) => {
   const [circles, setCircles] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -101,11 +102,13 @@ const SearchCircle = ({ searchParams }) => {
         {circles.length > 0||loading ? (
           circles.map(circle => (
             <div key={circle._id} className="circle-card">
+              <div className="circle-avatar-wrapper">
               <img 
                 src={circle.avatar || '/default-circle.png'} 
                 alt={circle.name}
                 className="circle-avatar"
-              />
+                />
+              </div>
               <div className="circle-info">
                 <h3>{circle.name}</h3>
                 <p className="description">{circle.description}</p>
@@ -117,13 +120,13 @@ const SearchCircle = ({ searchParams }) => {
                       alt={circle.creator.username}
                       className="creator-avatar"
                     />
-                    <span>{circle.creator.username}</span>
+                    <span className='creator-name'>由{circle.creator.username}创建</span>
                   </div>
                 )}
                       <div className="stats">
                   <span>👥成员数: {circle.memberCount}</span>
                   <span>📝帖子数:{circle.postCount}</span>
-                  <span>📅创建时间:{circle.createdAt}</span>
+                  <span>📅创建时间:{formatPublishTime(circle.createdAt)}</span>
                 </div>
               </div>
             </div>

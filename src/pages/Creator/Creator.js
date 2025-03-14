@@ -18,7 +18,7 @@ const Creator = () => {
     },[])
     return (
         <div className="creator-container" >
-            <Title title='发布中心' />
+            <Title title='发布中心' stickyClass={{position:'sticky',top:'0px'}}/>
             <div className="creator-navs"><RouteNavbar routes={routes} /></div>
             
             <Outlet/>

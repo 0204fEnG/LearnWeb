@@ -30,7 +30,7 @@
         .publish-time{
             width: fit-content;
             color: var(--text-color--light);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             height: 20px;
             line-height: 20px;
         }
@@ -51,6 +51,7 @@
         width: fit-content;
         margin-bottom: 5px;
         font-size: 1.2rem;
+        line-height: 1.3;
         font-weight: bold;
     }
     .post-content {
@@ -58,6 +59,7 @@
       margin-bottom: 5px;
       height: auto;
       cursor: pointer;
+      line-height: 1.3;
       overflow: hidden; /* 隐藏超出部分 */
       text-overflow: ellipsis; /* 显示省略号 */
       display: -webkit-box;
@@ -78,13 +80,13 @@
     }
     .post-circle{
         width: fit-content;
-        height: 25px;
+        height: 26px;
         margin-bottom: 5px;
-        padding: 2.5px;
+        padding: 3px;
         cursor: pointer;
         border-radius: 5px;
         background-color: var(--background-color);
-        @include flex(row,nowrap,null,null,null,1.5px);
+        @include flex(row,nowrap,null,null,null,3px);
         .circle-avator{
             flex:0 0 20px;
             height: 20px;
@@ -132,6 +134,7 @@
             cursor: pointer;
             flex:1 1 calc(100%/3);
             color: var(--text-color--light);
+            font-size: 1.1rem;
             border-radius: 5px;
             height: 25px;
             text-align: center;

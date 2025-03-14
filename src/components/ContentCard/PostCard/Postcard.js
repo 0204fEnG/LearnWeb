@@ -172,9 +172,11 @@ const PostCard = ({ postItem }) => {
       </div>
       <div className="post-title">{postItem.title}</div>
       <div className="post-content">{renderContentWithTags(postItem)}</div>
-      <div className="post-img">
-        <NineGrid images={postItem.images} /> {/* 使用 images */}
-      </div>
+      {postItem.images.length > 0 &&
+        <div className="post-img">
+      <NineGrid images={postItem.images} /> {/* 使用 images */}
+    </div>
+}
       <div
         className="post-circle"
         onClick={(e) => {
@@ -190,9 +192,9 @@ const PostCard = ({ postItem }) => {
         <div className="circle-name">{postItem.circle.name}</div> {/* 使用 circleId.name */}
       </div>
       <div className="post-interactive-data">
-        <div className="interactive-data">喜欢: {postItem.likes}</div> {/* 使用 likes */}
-        <div className="interactive-data">回复数: {postItem.replies}</div> {/* 使用 replies */}
-        <div className="interactive-data">收藏数: {postItem.favorites}</div> {/* 使用 favorites */}
+        <div className="interactive-data">👍: {postItem.likes}</div> {/* 使用 likes */}
+        <div className="interactive-data">💬: {postItem.replies}</div> {/* 使用 replies */}
+        <div className="interactive-data">⭐: {postItem.favorites}</div> {/* 使用 favorites */}
       </div>
     </article>
   );

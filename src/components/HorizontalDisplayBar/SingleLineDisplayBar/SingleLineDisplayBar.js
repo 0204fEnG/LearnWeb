@@ -130,7 +130,8 @@ const SingleLineDisplayBar = ({ displayItems }) => {
           <div className="display-items" key={columnIndex}>
             {column.map((row, rowIndex) => (
               <div className="display-item" key={rowIndex}>
-                {row.name}
+                <img src={row.imgUrl} alt="首页图片" className="img-item" />
+                <span className="name-item">{row.name}</span>
               </div>
             ))}
           </div>

@@ -489,6 +489,7 @@ const CreatePostPage = () => {
             value={formData.title}
             onChange={handleInput}
             className={errors.title ? 'error' : ''}
+            placeholder="请输入帖子标题"
           />
           {errors.title && <div className="error">{errors.title}</div>}
         </div>
@@ -501,7 +502,7 @@ const CreatePostPage = () => {
             onChange={handleInput}
             rows="6"
             className={errors.content ? 'error' : ''}
-            placeholder={isTaggingEnabled ? '例如：#苏轼#你的内容...#宋词#' : ''}
+            placeholder={isTaggingEnabled ? '例如：#苏轼#你的内容...#宋词#' : "请输入帖子内容"}
           />
           {errors.content && <div className="error">{errors.content}</div>}
         </div>
