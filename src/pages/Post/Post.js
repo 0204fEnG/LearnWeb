@@ -5,14 +5,12 @@ import ChevronLeftIcon from '../../components/icons/ChevronLeftIcon';
 import NineGrid from '../../components/NineGrid/NineGrid';
 import ThreeDotsVer from '../../components/icons/ThreeDotsVer';
 import Comment from '../../components/Comment/Comment';
-import SortTop from '../../components/SortTop/SortTop';
 import { formatPublishTime } from '../../utils/time/formatPublishTime';
 import { getPost } from '../../api/post';
 import Loading from '../../components/Loading/Loading';
 
 const Post = () => {
   const [isFinal, setIsFinal] = useState(true);
-  const [sortIndex, setSortIndex] = useState(0); // 0 热度 1 最新
   const [post, setPost] = useState(null); // 帖子数据
   const [loading, setLoading] = useState(true); // 加载状态
   const [error, setError] = useState(null); // 错误状态
@@ -21,17 +19,6 @@ const Post = () => {
   const { postId } = useParams();
   const timer = useRef(null);
 
-  // 排序选项
-  const sortItems = [
-    {
-      name: '按热度',
-      handleFunc: () => setSortIndex(0),
-    },
-    {
-      name: '按时间',
-      handleFunc: () => setSortIndex(1),
-    },
-  ];
 
   // 获取帖子数据
   useEffect(() => {
@@ -130,15 +117,9 @@ const Post = () => {
                 <NineGrid images={post.images || []} />
               </div>
             </div>
-
             {/* 评论区域 */}
             <div className="comments-container">
-              <SortTop
-                stickyTop="sort-sticky-top"
-                sortIndex={sortIndex}
-                sortItems={sortItems}
-              />
-              <Comment />
+                  <Comment postId={postId}/>
             </div>
           </div>
 }

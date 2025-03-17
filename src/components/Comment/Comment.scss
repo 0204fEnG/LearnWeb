@@ -1,130 +1,114 @@
-@use '/src/styles/scrollbar/scrollbar.scss' as*;
-@use '/src/styles/display/flex.scss'as *;
-@use '/src/styles/lineheight/lineheight.scss'as *;
-.comments-wrapper{
-            width: 100%;
-            height: auto;
-            background-color: var(--primary-color);
-            @include flex(column,nowrap,flex-start,center,null,null);
-            .comment-container{
-                width: 100%;
-                flex:0 0 auto;
-                padding: 10px;
-                @include flex(column,nowrap,flex-start,center,flex-start,null);
-                border-bottom: 1px solid var(--border-color--opa);
-                &:last-child{
-                    border-bottom: none;
-                }
-                .comment-header{
-                    width: 100%;
-                    flex:0 0 36px;
-                    @include flex(row,nowrap,flex-start,center,null,5px);
-                    .avatar-container{
-                        height: 100%;
-                        aspect-ratio: 1;
-                        .avatar{
-                            height: 36px;
-                            aspect-ratio: 1;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-                    }
-                    .info-container{
-                        flex:1;
-                        height: 100%;
-                        @include flex(column,nowrap,center,flex-start,flex-start,null);
-                        .name-container{
-                            width: fit-content;
-                            @include flex(row,nowrap,flex-start,center,flex-start,5px);
-                            .name{
-                                flex:1 1 fit-content;
-                                font-weight: bold;
-                            }
-                            .level{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: white;
-                                background-color:var(--active-color);
-                            }
-                            .author{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: white;
-                                background-color:var(--active-color);
-                            }
-                        }
-                        .time{
-                            width: fit-content;
-                            @include flex(row,nowrap,flex-start,center,flex-start,null);
-                            .publish-time{
-                                flex:1 1 fit-content;
-                                font-size: 0.8rem;
-                                color: var(--text-color--light);
-                            }
-                        }
-                    }
-                }
-                .comment{
-                    width: 100%;
-                    flex:0 0 auto;
-                    @include lineHeight();
-                    padding-left: 41px;
-                    font-size: 1.05rem;
-                }
-                .tools{
-                    width: 100%;
-                    flex:0 0 30px;
-                    padding-left: 41px;
-                    @include flex(row,nowrap,flex-start,center,flex-start,10px);
-                    .tool{
-                        @include flex(row,nowrap,flex-start,center,null,5px);
-                        flex:0 0 fit-content;
-                        height: 100%;
-                        cursor: pointer;
-                        .svg-icon{
-                            height: 20px;
-                            aspect-ratio: 1;
-                            fill:var(--text-color);
-                        }
-                        .count{
-                            width: fit-content;
-                        }
-                    }
-                    .more-container{
-                        height: 100%;
-                        aspect-ratio: 1;
-                        margin-left: auto;
-                        padding: 5px;
-                        .more-svg{
-                            height: 100%;
-                            aspect-ratio: 1;
-                            fill:var(--text-color);
-                        }
-                    }
-                }
-                .reply{
-                    width: calc(100% - 36px);
-                    margin-left: 41px;
-                    background-color: var(--background-color--opa);
-                    border-radius: 5px;
-                    padding: 5px;
-                    @include flex(column,nowrap,flex-start,null,null,null);
-                    .pre-reply-container{
-                        width: 100%;
-                        flex:0 0 auto;
-                        .pre-reply{
-                            @include lineHeight();
-                            .user-name{
-                                color: var(--active-color);
-                            }
-                        }
-                    }
-                    .reply-count{
-                        width: fit-content;
-                        cursor: pointer;
-                        margin-top: 5px;
-                        color: var(--active-color);
-                    }
-                }
+.comment-container {
+  padding: 15px;
+  background: #fff;
+
+  .first-level {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .comment-main {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .content {
+        flex: 1;
+
+        .user-info {
+          margin-bottom: 5px;
+          font-size: 14px;
+
+          .username {
+            font-weight: 500;
+            margin-right: 8px;
+          }
+
+          .time {
+            color: #8590a6;
+          }
+        }
+
+        .text {
+          margin: 8px 0;
+          line-height: 1.5;
+        }
+
+        .actions {
+          .like-btn {
+            color: #8590a6;
+            font-size: 13px;
+            padding: 0 8px;
+          }
+        }
+      }
+    }
+
+    .second-level {
+      margin-left: 48px;
+      background: #f9f9f9;
+      border-radius: 6px;
+      padding: 12px;
+
+      .reply-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 15px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .avatar {
+          width: 30px;
+          height: 30px;
+        }
+
+        .content {
+          .user-info {
+            .reply-text {
+              color: #8590a6;
+              margin: 0 4px;
             }
+
+            .reply-user {
+              color: #175199;
+            }
+          }
+        }
+      }
+
+      .view-more {
+        color: #175199;
+        font-size: 13px;
+        padding: 4px 0;
+        cursor: pointer;
+      }
+    }
+  }
+        .sentinel {
+          height: 1px;
+          width: 100%;
+          background: transparent;
+          margin: 0;
+          padding: 0;
+        }
+
+        .scroll-loading{
+            width: 100%;
+            height: 80px;
+        }
+        .no-more-data {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 80px;
+          color: var(--text-color-light);
+        }
 }

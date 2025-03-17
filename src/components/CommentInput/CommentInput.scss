@@ -1,0 +1,61 @@
+.comment-input-container {
+  margin-bottom: 20px;
+  position: relative;
+
+  .reply-hint {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .cancel-reply {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 60px;
+  }
+
+  .submit-btn {
+    margin-top: 10px;
+    padding: 8px 20px;
+    background: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    float: right;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// 在回复弹窗中添加
+.parent-comment {
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  
+  &:hover {
+    background: #f0f0f0;
+  }
+}

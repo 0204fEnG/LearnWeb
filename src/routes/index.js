@@ -81,6 +81,10 @@ const routes=[
           {
             path: 'create-post',
           component: lazy(() => import('../pages/Creator/CreatePost/CreatePost.js')),
+        },
+          {
+            path: 'create-short',
+          component: lazy(() => import('../pages/Creator/CreateShort/CreateShort.js')),
         }]
       },
       {
