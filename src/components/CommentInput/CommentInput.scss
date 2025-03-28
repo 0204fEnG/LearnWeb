@@ -1,61 +1,80 @@
 .comment-input-container {
-  margin-bottom: 20px;
-  position: relative;
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+  @media (max-width:650px) {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--single-color--opa);
+  backdrop-filter: blur(15px);
+  // box-shadow: 0 2px 4px var(--shadow-color);
 
   .reply-hint {
-    background: #f5f5f5;
-    padding: 8px 12px;
-    border-radius: 4px;
-    margin-bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--text-color--light);
+    padding: 0.5rem;
+    background-color: var(--background-color);
+    border-radius: 4px;
 
     .cancel-reply {
       background: none;
       border: none;
-      color: #666;
+      color: var(--text-color--light);
       cursor: pointer;
-      font-size: 18px;
-      line-height: 1;
+      font-size: 1rem;
+      padding: 0;
+
+      &:hover {
+        color: var(--text-color);
+      }
     }
   }
 
   textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #e5e5e5;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 1rem;
     resize: vertical;
-    min-height: 60px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--active-color);
+      box-shadow: 0 0 0 2px var(--active-color--opa);
+    }
   }
 
   .submit-btn {
-    margin-top: 10px;
-    padding: 8px 20px;
-    background: #0084ff;
-    color: white;
+    align-self: flex-end;
+    padding: 0.5rem 1rem;
+    background-color: var(--active-color);
+    color: var(--text-color);
     border: none;
     border-radius: 4px;
-    float: right;
     cursor: pointer;
+    font-size: 1rem;
 
     &:disabled {
-      background: #ccc;
+      background-color: var(--background-color--deep2);
+      color: var(--text-color--light);
       cursor: not-allowed;
     }
-  }
-}
 
-// 在回复弹窗中添加
-.parent-comment {
-  padding: 12px;
-  background: #f9f9f9;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  
-  &:hover {
-    background: #f0f0f0;
+    &:not(:disabled):hover {
+      background-color: var(--active-color--opa);
+    }
   }
 }

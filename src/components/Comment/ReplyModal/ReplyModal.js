@@ -22,7 +22,7 @@ const ReplyModal = ({ postId, parentReply, onClose, selectedComment }) => {
   // 观察器相关Ref
   const sentinelRef = useRef(null);
   const observerRef = useRef(null);
-
+console.log(replies)
   // 同步Ref与State
   useEffect(() => {
     pageRef.current = page;
@@ -96,6 +96,7 @@ const ReplyModal = ({ postId, parentReply, onClose, selectedComment }) => {
     setReplies([]);
     setPage(1);
     setHasMore(true);
+    fetchReplies()
   }, [sortIndex]);
 
   // 处理新回复成功
@@ -155,6 +156,7 @@ const ReplyModal = ({ postId, parentReply, onClose, selectedComment }) => {
 
         {/* 添加评论输入框 */}
         <CommentInput
+          inputPosition={'reply-input'}
           postId={postId}
           parentReplyId={parentReply}
           onSuccess={handleNewReply}

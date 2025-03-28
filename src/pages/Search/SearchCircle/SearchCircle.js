@@ -47,7 +47,7 @@ const SearchCircle = ({ keyword }) => {
         sortType: sortTypeRef.current
       });
 
-      const newCircles = response.searchCircles;
+      const newCircles = response.circles;
       setCircles(prev => 
         pageRef.current === 1 ? newCircles : [...prev, ...newCircles]
       );

@@ -1,121 +1,61 @@
-import { useState } from 'react'
+import { useState ,useRef,useEffect,useCallback} from 'react'
 import ShortsBase from '../../../components/ShortsBase/ShortsBase.js'
 import './ShortsRecommend.scss'
+import { getShortList } from '../../../api/short.js'
 const ShortsRecommend = () => {
-        const [videoItems, setVideoItems] = useState([
-        {
-            videoId:28212,
-            userAvatar: '/images/header/banner/1.png',
-            userName:'user1',
-            title: '视频1',
-            videoUrl: '/videos/3.mp4',
-            description: '测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1',
-            publishTime: '5天前 18:57',
-            likes: 450,
-            comments: 30210,
-            favorites: 2230,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:2103,
-            userAvatar: '/images/header/banner/2.png',
-            userName:'user2',
-            title: '视频2',
-            videoUrl: '/videos/7.mp4',
-            description: '测试专用简介2测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1测试专用简介1',
-            publishTime: '2024年10月24日 09:05',
-            likes: 415,
-            comments: 3210,
-            favorites: 230,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:29221,
-            userAvatar: '/images/header/banner/3.png',
-            userName:'user3',
-            title: '视频3',
-            videoUrl: '/videos/6.mp4',
-            description: '测试专用简介3',
-            publishTime: '2024年12月24日 18:05',
-            likes: 145,
-            comments: 3002,
-            favorites: 230,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:2154,
-            userAvatar: '/images/header/banner/4.png',
-            userName:'user4',
-            title: '视频4',
-            videoUrl: '/videos/5.mp4',
-            description: '测试专用简介4',
-            publishTime: '1月1日 23:05',
-            likes: 235,
-            comments: 3040,
-            favorites: 2330,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:292,
-            userAvatar: '/images/header/banner/5.png',
-            userName:'user5',
-            title: '视频5',
-            videoUrl: '/videos/4.mp4',
-            description: '测试专用简介5',
-            publishTime: '2024年5月1日 14:05',
-            likes: 2145,
-            comments: 3001,
-            favorites: 2320,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:210093,
-            userAvatar: '/images/header/banner/6.png',
-            userName:'user6',
-            title: '视频6',
-            videoUrl: '/videos/3.mp4',
-            description: '简介好啊好啊11111111111傻傻3231 11',
-            publishTime: '2月3日 00:05',
-            likes: 4215,
-            comments: 31200,
-            favorites: 2310,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:2113,
-            userAvatar: '/images/header/banner/5.png',
-            userName:'user7',
-            title: '视频7',
-            videoUrl: '/videos/2.mp4',
-            description: '测试专用简介7',
-            publishTime: '3月1日 14:05',
-            likes: 4785,
-            comments: 3070,
-            favorites: 23560,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-        {
-            videoId:2131313,
-            userAvatar: '/images/header/banner/4.png',
-            userName:'user8',
-            title: '视频8',
-            videoUrl: '/videos/1.mp4',
-            description: '测试专用简介8',
-            publishTime: '3天前 13:56',
-            likes: 425,
-            comments: 12300,
-            favorites: 5230,
-            circleAvatar: '/images/header/banner/1.png',
-            circleName:'火影忍者'
-        },
-    ])
+    const [videoItems, setVideoItems] = useState([])
+      const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [loading, setLoading] = useState(false)
+      // 使用Ref解决闭包问题
+  const pageRef = useRef(page)
+  const loadingRef = useRef(loading)
+  const hasMoreRef = useRef(hasMore)
+
+  // 观察器相关Ref
+  const sentinelRef = useRef(null)
+  const observerRef = useRef(null)
+
+  // 同步Ref与State
+  useEffect(() => {
+    pageRef.current = page
+    loadingRef.current = loading
+    hasMoreRef.current = hasMore
+  }, [page, loading, hasMore])
+    
+     // 获取短视频数据
+  const fetchShortVideos = useCallback(async () => {
+    if (loadingRef.current || !hasMoreRef.current) return
+
+    setLoading(true)
+    try {
+      const data  = await getShortList({
+        page: pageRef.current,
+        limit: 10,
+        sortBy: 'likes',
+        sortOrder: -1
+      })
+
+      // 更新视频列表
+      setVideoItems(prev => 
+        pageRef.current === 1 ? data.shorts : [...prev, ...data.shorts]
+      )
+
+      // 更新是否有更多数据
+      setHasMore(data.shorts.length === 10)
+
+      // 更新页码
+      setPage(prev => prev + 1)
+    } catch (error) {
+      console.error('获取短视频列表失败:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+      // 初始加载数据
+  useEffect(() => {
+    fetchShortVideos()
+  }, [fetchShortVideos])
     return (
         <div className="shorts-recommend">
             <ShortsBase videoItems={videoItems}/>

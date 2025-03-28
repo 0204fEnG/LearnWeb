@@ -11,14 +11,54 @@ import Loading from '../../components/Loading/Loading';
 
 const Post = () => {
   const [isFinal, setIsFinal] = useState(true);
-  const [post, setPost] = useState(null); // 帖子数据
-  const [loading, setLoading] = useState(true); // 加载状态
-  const [error, setError] = useState(null); // 错误状态
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const nav = useNavigate();
   const { postId } = useParams();
   const timer = useRef(null);
 
+  // 渲染带标签的内容
+  const renderContentWithTags = (content, tags) => {
+    if (!tags || tags.length === 0) {
+      return content;
+    }
+
+    let contentParts = [];
+    let currentIndex = 0;
+
+    tags.forEach((tag) => {
+      const beforeTag = content.slice(currentIndex, tag.index);
+      if (beforeTag) {
+        contentParts.push(beforeTag);
+      }
+
+      contentParts.push(
+        <span
+          key={`${tag.name}-${tag.index}`}
+                   style={{
+            color:`var(--active-color)`,
+      cursor: `pointer`
+                }}
+          onClick={(e) => {
+            e.stopPropagation();
+            nav(`/topic/${tag.name}`);
+          }}
+        >
+          #{tag.name}#
+        </span>
+      );
+
+      currentIndex = tag.index;
+    });
+
+    if (currentIndex < content.length) {
+      contentParts.push(content.slice(currentIndex));
+    }
+
+    return contentParts;
+  };
 
   // 获取帖子数据
   useEffect(() => {
@@ -64,7 +104,6 @@ const Post = () => {
       }
     };
   }, []);
-
 
   return (
     <div className={`post-mask ${isFinal ? 'final' : ''}`} onClick={handleMaskClick}>
@@ -112,17 +151,19 @@ const Post = () => {
             {/* 内容区域 */}
             <div className="content-container">
               <div className="post-title">{post.title}</div>
-              <div className="article">{post.content}</div>
+              <div className="article">
+                {renderContentWithTags(post.content, post.tags)}
+              </div>
               <div className="img-container">
                 <NineGrid images={post.images || []} />
               </div>
             </div>
             {/* 评论区域 */}
             <div className="comments-container">
-                  <Comment postId={postId}/>
+              <Comment postId={postId}/>
             </div>
           </div>
-}
+        }
       </div>
     </div>
   );

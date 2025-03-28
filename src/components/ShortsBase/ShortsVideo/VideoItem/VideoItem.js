@@ -8,7 +8,11 @@ import UpFull from '../../../icons/UpFull'
 import StarFull from '../../../icons/StarFull'
 import { handleStopEvent } from '../../../../utils/functions/handleStopEvent'
 import TextOver from '../../../TextOver/TextOver'
-const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvatar,userName,description,publishTime,likes,comments,favorites,circleAvatar,circleName}) => {
+import { formatPublishTime } from '../../../../utils/time/formatPublishTime'
+import { useNavigate } from 'react-router-dom'
+const VideoItem = ({
+    order, videoUrl, onMenuClick, playMode, playRate, title, userAvatar, userName, description, publishTime, likes, comments, favorites, circleAvatar, circleName,tags = []
+}) => {
     const { commentsIsPush, handleCommentsShow ,currentVideoIndex,handleCurrentVideoIndex} = useContext(ShortsBaseContext)
     const videoRef=useRef(null)
     const [videoItemState, setVideoItemState] = useState({
@@ -17,6 +21,48 @@ const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvata
         isUpFull: false,
         isStarFull:false,
     })
+    const navigate = useNavigate()
+     // 渲染带标签的描述内容
+  const renderDescriptionWithTags = () => {
+    if (!tags || tags.length === 0) {
+      return <TextOver text={description} textColor='white' />
+    }
+
+    let contentParts = []
+    let currentIndex = 0
+
+    tags.forEach((tag) => {
+      const beforeTag = description.slice(currentIndex, tag.index)
+      if (beforeTag) {
+        contentParts.push(beforeTag)
+      }
+
+      contentParts.push(
+        <span
+          key={`${tag.name}-${tag.index}`}
+          style={{
+            color:`var(--active-color)`,
+      cursor: `pointer`
+                }}
+          onClick={(e) => {
+            e.stopPropagation()
+            navigate(`/topic/${tag.name}`)
+          }}
+        >
+          #{tag.name}#
+        </span>
+      )
+
+      currentIndex = tag.index
+    })
+
+    if (currentIndex < description.length) {
+      contentParts.push(description.slice(currentIndex))
+    }
+
+    return <TextOver text={contentParts} textColor='white' />
+  }
+
     const commentsToolOnclick = (e) => {
         e.stopPropagation()
         handleCommentsShow()
@@ -106,17 +152,17 @@ const VideoItem = ({order,videoUrl,onMenuClick,playMode,playRate,title,userAvata
                     <button className="follow">关注</button>
                 </div>
                 <div className="content-info">
-                    <div className="title">{title}</div>
-                    <div className="description">
-                        <TextOver text={description} textColor='white'/>
-                    </div>
-                </div>
-                <button className="circle-tag-container">
+                   <div className="title">{title}</div>
+                   <div className="description">
+                     {renderDescriptionWithTags()}
+                   </div>
+                 </div>
+                    <button className="circle-tag-container">
                     <img src={circleAvatar} alt="" className="circle-avatar" />
                     { circleName}
                 </button>
                 <div className="publishTime">
-                    {publishTime}
+                    {formatPublishTime(publishTime)}
                 </div>
             </div>
             <ul className="video-item-tools">

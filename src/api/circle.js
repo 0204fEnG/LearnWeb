@@ -28,17 +28,7 @@ export const getCircleList = (params = {}) => {
   });
 };
 
-// // 搜索圈子（用于搜索界面）
-// export const searchCircles = (params = {}) => {
-//   const { keyword, page = 1, limit = 10 } = params;
-//   return instance.get('/circle/search', {
-//     params: {
-//       keyword,
-//       page,
-//       limit
-//     }
-//   });
-// };
+
 
 // 搜索圈子（用于搜索界面）
 export const searchCircles = (params = {}) => {

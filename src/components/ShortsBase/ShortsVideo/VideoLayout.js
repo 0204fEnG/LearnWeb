@@ -310,6 +310,7 @@ const handleTouchEnd = useCallback(() => {
               favorites={videoItem.favorites}
               circleAvatar={videoItem.circleAvatar}
               circleName={videoItem.circleName}
+              tags={videoItem.tags}
               onMenuClick={(e) => handleStopEvent(e, handlePlaySettingShow)}
               playMode={playSetting.playMode.mode}
               playRate={playSetting.playRate.rate}

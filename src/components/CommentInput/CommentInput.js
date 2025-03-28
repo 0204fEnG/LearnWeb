@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { postReply } from '../../api/reply'
 import './CommentInput.scss'
-const CommentInput = ({ 
+const CommentInput = ({
+  inputPosition,
   postId,
   parentReplyId,       // 来自父级的一级评论ID（弹窗场景）
   onSuccess,           // 发送成功的回调
@@ -32,7 +33,7 @@ console.log(replyToUser)
   }
 
   return (
-    <div className="comment-input-container">
+    <div className={`comment-input-container ${inputPosition}`}>
       {replyToUser && (
         <div className="reply-hint">
           回复 @{replyToUser.username}

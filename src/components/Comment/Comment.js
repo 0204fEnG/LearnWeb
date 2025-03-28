@@ -6,6 +6,7 @@ import CommentInput from '../CommentInput/CommentInput';
 import SortTop from '../SortTop/SortTop';
 import Loading from '../../components/Loading/Loading';
 import { formatPublishTime } from '../../utils/time/formatPublishTime';
+
 const Comment = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
@@ -33,9 +34,11 @@ const Comment = ({ postId }) => {
     loadingRef.current = loading;
     hasMoreRef.current = hasMore;
   }, [page, sortIndex, loading, hasMore]);
+
   // 获取一级评论
   const fetchComments = useCallback(async () => {
-      if (loadingRef.current || !hasMoreRef.current) return;
+    if (loadingRef.current || !hasMoreRef.current) return;
+
     setLoading(true);
     try {
       const res = await getReplies({
@@ -53,6 +56,14 @@ const Comment = ({ postId }) => {
       // 更新是否有更多数据
       setHasMore(res.comments.length === 10); // 假设每页返回10条数据，如果少于10条则没有更多数据
 
+      // 获取每个一级评论的热门回复
+      res.comments.forEach((comment) => {
+        // 检查是否已经获取过热门回复
+        if (!repliesMap[comment._id]) {
+          fetchTopReplies(comment._id);
+        }
+      });
+
       // 更新页码
       setPage((prev) => prev + 1);
     } catch (error) {
@@ -60,7 +71,33 @@ const Comment = ({ postId }) => {
     } finally {
       setLoading(false);
     }
-  }, [postId]);
+  }, [postId, repliesMap]);
+
+  // 获取热门二级评论
+  const fetchTopReplies = async (parentId) => {
+    try {
+      const res = await getReplies({
+        postId,
+        parentReply: parentId,
+        sort: 'likes',
+      });
+
+      const top3Comments = res.comments
+        .sort((a, b) => b.likes - a.likes) // 按点赞数从高到低排序
+        .slice(0, 3); // 取前3条评论
+
+      // 更新热门二级评论
+      setRepliesMap((prev) => ({
+        ...prev,
+        [parentId]: {
+          topReplies: top3Comments,
+          total: res.comments.length,
+        },
+      }));
+    } catch (error) {
+      console.error('获取回复失败:', error);
+    }
+  };
 
   // 初始化IntersectionObserver
   useEffect(() => {
@@ -96,32 +133,9 @@ const Comment = ({ postId }) => {
     setComments([]);
     setPage(1);
     setHasMore(true);
+    setRepliesMap({}); // 清空热门二级评论缓存
   }, [sortIndex]);
 
-  // 获取热门二级评论
-  const fetchTopReplies = async (parentId) => {
-    try {
-      const res = await getReplies({
-        postId,
-        parentReply: parentId,
-        sort: 'likes',
-      });
-
-      const top3Comments = res.comments
-        .sort((a, b) => b.likes - a.likes) // 按点赞数从高到低排序
-        .slice(0, 3); // 取前3条评论
-
-      setRepliesMap((prev) => ({
-        ...prev,
-        [parentId]: {
-          topReplies: top3Comments,
-          total: res.comments.length,
-        },
-      }));
-    } catch (error) {
-      console.error('获取回复失败:', error);
-    }
-  };
   // 处理新评论成功的回调
   const handleNewComment = (newComment) => {
     setReplyingToComment(null);
@@ -159,13 +173,7 @@ const Comment = ({ postId }) => {
 
   return (
     <div className="comment-container">
-      <CommentInput
-        postId={postId}
-        onSuccess={handleNewComment}
-        parentReplyId={replyingToComment?.commentId}
-        replyToUser={replyingToComment?.reply}
-        onCancelReply={() => setReplyingToComment(null)}
-      />
+
       <SortTop
         stickyTop="sort-sticky-top"
         sortIndex={sortIndex}
@@ -271,7 +279,14 @@ const Comment = ({ postId }) => {
           selectedComment={selectedComment}
           onClose={() => setSelectedComment(null)}
         />
-      )}
+          )}
+                <CommentInput
+        postId={postId}
+        onSuccess={handleNewComment}
+        parentReplyId={replyingToComment?.commentId}
+        replyToUser={replyingToComment?.reply}
+        onCancelReply={() => setReplyingToComment(null)}
+      />
     </div>
   );
 };
