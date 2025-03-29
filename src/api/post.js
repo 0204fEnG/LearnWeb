@@ -39,3 +39,14 @@ export const searchPosts = (params = {}) => {
     }
   });
 };
+
+// 新增获取圈子帖子的API
+export const getCirclePosts = async ({ circleId, page = 1, limit = 10, sortIndex = 0 }) => {
+  return instance.get(`/post/circle/${circleId}`, {
+    params: {
+      page,
+      limit,
+      sortIndex // 0表示按热度，1表示按时间
+    }
+  });
+};

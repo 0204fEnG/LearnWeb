@@ -55,7 +55,6 @@ const PostCard = ({ postItem }) => {
   const handlePostContentClick = (event) => {
     handleTagClick(`post/${postItem._id}`);
   };
-
   return (
     <article
       className="post-card"
@@ -88,7 +87,7 @@ const PostCard = ({ postItem }) => {
         className="post-circle"
         onClick={(e) => {
           e.stopPropagation();
-          handleTagClick(`/circles/circle/${postItem.circle.name}`); // 使用 circleId.name
+          handleTagClick(`/circles/circle/${postItem.circle._id}`); // 使用 circleId.name
         }}
       >
         <img

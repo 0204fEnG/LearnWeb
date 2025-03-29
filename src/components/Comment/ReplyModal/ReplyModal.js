@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef,useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { getReplies } from '../../../api/reply';
 import './ReplyModal.scss';
 import CommentInput from '../../CommentInput/CommentInput';
@@ -11,18 +11,14 @@ const ReplyModal = ({ postId, parentReply, onClose, selectedComment }) => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [replyingToUser, setReplyingToUser] = useState(null);
-  const [sortIndex, setSortIndex] = useState(0); // 0 热度 1 最新
+  const [sortIndex, setSortIndex] = useState(0);
 
-  // 使用Ref解决闭包问题
+  // 使用Ref同步最新状态
   const pageRef = useRef(page);
   const sortIndexRef = useRef(sortIndex);
   const loadingRef = useRef(loading);
   const hasMoreRef = useRef(hasMore);
 
-  // 观察器相关Ref
-  const sentinelRef = useRef(null);
-  const observerRef = useRef(null);
-console.log(replies)
   // 同步Ref与State
   useEffect(() => {
     pageRef.current = page;
@@ -31,55 +27,64 @@ console.log(replies)
     hasMoreRef.current = hasMore;
   }, [page, sortIndex, loading, hasMore]);
 
-  // 获取回复
-  const fetchReplies = useCallback(async () => {
-    if (loadingRef.current || !hasMoreRef.current) return;
+  // 核心数据获取方法
+  const fetchReplies = useCallback(
+    async (targetPage, targetSort) => {
+      if (loadingRef.current) return;
 
-    setLoading(true);
-    try {
-      const res = await getReplies({
-        postId,
-        parentReply,
-        page: pageRef.current,
-        limit: 10,
-        sort: sortIndexRef.current === 0 ? 'likes' : 'time',
-      });
-
-      // 如果 page 为 1，替换数据；否则追加数据
-      setReplies((prev) =>
-        pageRef.current === 1 ? res.comments : [...prev, ...res.comments]
-      );
-
-      // 更新是否有更多数据
-      setHasMore(res.comments.length === 10); // 假设每页返回10条数据，如果少于10条则没有更多数据
-
-      // 更新页码
-      setPage((prev) => prev + 1);
-    } catch (error) {
-      console.error('获取回复失败:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [postId, parentReply]);
-
-  // 初始化IntersectionObserver
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            !loadingRef.current &&
-            hasMoreRef.current
-          ) {
-            fetchReplies();
-          }
+      setLoading(true);
+      try {
+        const res = await getReplies({
+          postId,
+          parentReply,
+          page: targetPage,
+          limit: 10,
+          sort: targetSort === 0 ? 'likes' : 'time',
         });
-      },
-      { rootMargin: '50px' } // 提前加载的缓冲距离
-    );
 
-    // 观察哨兵元素
+        setReplies(prev => 
+          targetPage === 1 ? res.comments : [...prev, ...res.comments]
+        );
+        setHasMore(res.comments.length === 10);
+        setPage(targetPage + 1);
+      } catch (error) {
+        console.error('获取回复失败:', error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [postId, parentReply]
+  );
+
+  // 处理排序变化
+  useEffect(() => {
+    setReplies([]);
+    setPage(1);
+    setHasMore(true);
+    fetchReplies(1, sortIndex); // 主动加载第一页
+  }, [sortIndex, fetchReplies]);
+
+  // 无限滚动逻辑
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    const handleIntersection = entries => {
+      entries.forEach(entry => {
+        if (
+          entry.isIntersecting &&
+          !loadingRef.current &&
+          hasMoreRef.current
+        ) {
+          fetchReplies(pageRef.current, sortIndexRef.current);
+        }
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      rootMargin: '50px'
+    });
+
     if (sentinelRef.current) {
       observerRef.current.observe(sentinelRef.current);
     }
@@ -91,47 +96,37 @@ console.log(replies)
     };
   }, [fetchReplies]);
 
-  // 排序变化处理
-  useEffect(() => {
-    setReplies([]);
-    setPage(1);
-    setHasMore(true);
-    fetchReplies()
-  }, [sortIndex]);
-
-  // 处理新回复成功
-  const handleNewReply = (newReply) => {
+  // 处理新回复
+  const handleNewReply = newReply => {
     setReplyingToUser(null);
-    setReplies((prev) => [newReply, ...prev]);
+    setReplies(prev => [newReply, ...prev]);
   };
 
   // 排序选项
   const sortItems = [
-    {
-      name: '按热度',
-      handleFunc: () => setSortIndex(0),
-    },
-    {
-      name: '按时间',
-      handleFunc: () => setSortIndex(1),
-    },
+    { name: '按热度', handleFunc: () => setSortIndex(0) },
+    { name: '按时间', handleFunc: () => setSortIndex(1) }
   ];
 
   return (
-    <div className="reply-modal">
+    <div className="reply-modal" onClick={e => e.stopPropagation()}>
       <div className="modal-content">
+        {/* 模态框头部 */}
+        <div className="modal-header">
+          <h3>评论详情</h3>
+          <button className="close-btn" onClick={onClose}>×</button>
+        </div>
+
+        {/* 排序控件 */}
         <SortTop
           stickyTop="sort-sticky-top"
           sortIndex={sortIndex}
           sortItems={sortItems}
         />
-        <div className="modal-header">
-          <h3>全部回复</h3>
-          <button className="close-btn" onClick={onClose}>×</button>
-        </div>
+
+        {/* 父级评论 */}
         <div className="parent-comment">
           <div className="first-level">
-            {/* 一级评论主体 */}
             <div className="comment-main">
               <img
                 src={selectedComment.user?.avatar}
@@ -154,18 +149,9 @@ console.log(replies)
           </div>
         </div>
 
-        {/* 添加评论输入框 */}
-        <CommentInput
-          inputPosition={'reply-input'}
-          postId={postId}
-          parentReplyId={parentReply}
-          onSuccess={handleNewReply}
-          replyToUser={replyingToUser}
-          onCancelReply={() => setReplyingToUser(null)}
-        />
-
+        {/* 回复列表 */}
         <div className="reply-list">
-          {replies.map((reply) => (
+          {replies.map(reply => (
             <div
               key={'second' + reply._id}
               className="reply-item"
@@ -176,11 +162,7 @@ console.log(replies)
                 })
               }
             >
-              <img
-                src={reply.user?.avatar}
-                alt="头像"
-                className="avatar"
-              />
+              <img src={reply.user?.avatar} alt="头像" className="avatar" />
               <div className="content">
                 <div className="user-info">
                   <span className="username">{reply.user?.username}</span>
@@ -200,14 +182,28 @@ console.log(replies)
               </div>
             </div>
           ))}
+
+          {/* 滚动检测元素 */}
+          <div ref={sentinelRef} className="sentinel" />
+
+          {/* 加载状态 */}
+          {loading && (
+            <div className="scroll-loading">
+              <Loading />
+            </div>
+          )}
+          {!hasMore && <div className="no-more-data">已经到底啦~</div>}
         </div>
 
-        {/* 哨兵元素，用于触发加载 */}
-        <div ref={sentinelRef} className="sentinel" />
-
-        {/* 加载状态指示器 */}
-        {loading && <div className="scroll-loading"><Loading /></div>}
-        {!hasMore && <div className="no-more-data">已经到底啦~</div>}
+        {/* 评论输入框 */}
+        <CommentInput
+          inputPosition={{ position: 'absolute', bottom: '0px' }}
+          postId={postId}
+          parentReplyId={parentReply}
+          onSuccess={handleNewReply}
+          replyToUser={replyingToUser}
+          onCancelReply={() => setReplyingToUser(null)}
+        />
       </div>
     </div>
   );

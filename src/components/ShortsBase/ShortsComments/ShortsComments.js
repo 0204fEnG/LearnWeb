@@ -20,8 +20,7 @@ const ShortsComments = ({ index }) => {
     ]
     return (
         <div className="shorts-comments-box">
-            <SortTop sortIndex={sortIndex} sortItems={sortItems}/>
-            <Comment/>
+            <Comment commentHeaderTop={{top:'0px'}}/>
         </div>
     )
 }

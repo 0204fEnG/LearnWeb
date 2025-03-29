@@ -1,255 +1,151 @@
-import { useState } from 'react'
-import './Posts.scss'
-import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer'
-import { Outlet } from 'react-router-dom'
-import SortTop from '../../../components/SortTop/SortTop'
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Outlet, useOutletContext } from 'react-router-dom';
+import LayoutContainer from '../../../components/ContentCard/LayoutContainer/LayoutContainer';
+import SortTop from '../../../components/SortTop/SortTop';
+import { getCirclePosts } from '../../../api/post';
+import './Posts.scss';
+import Loading from '../../../components/Loading/Loading';
+
 const CirclePosts = () => {
-        const [sortIndex,setSortIndex]=useState(0)//0 热度 1 最新
-    const sortItems = [
-        {
-            name: '按热度',
-            handleFunc:() => {
-                setSortIndex(0)
-            }
-        },
-        {
-            name: '按时间',
-            handleFunc:() => {
-                setSortIndex(1)
-            }
+  // 状态管理
+  const circleId = useOutletContext();
+  const [sortIndex, setSortIndex] = useState(0); // 0 热度 1 最新
+  const [postItems, setPostItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  // 使用 Ref 解决闭包问题
+  const pageRef = useRef(page);
+  const sortIndexRef = useRef(sortIndex);
+  const loadingRef = useRef(loading);
+  const hasMoreRef = useRef(hasMore);
+  const circleIdRef = useRef(circleId);
+
+  // 同步 Ref 与 State
+  useEffect(() => {
+    pageRef.current = page;
+    sortIndexRef.current = sortIndex;
+    loadingRef.current = loading;
+    hasMoreRef.current = hasMore;
+    circleIdRef.current = circleId;
+  }, [page, sortIndex, loading, hasMore, circleId]);
+
+  // 核心数据获取方法
+  const fetchPosts = useCallback(async (targetPage = pageRef.current, targetSort = sortIndexRef.current) => {
+    if (loadingRef.current || !hasMoreRef.current || !circleIdRef.current) return;
+
+    setLoading(true);
+    try {
+      // 根据 sortIndex 动态设置排序字段
+      const sortBy = targetSort === 0 ? 'replies' : 'createdAt';
+      const sortOrder = -1; // 默认降序
+
+      const { posts } = await getCirclePosts({
+        circleId: circleIdRef.current,
+        page: targetPage,
+        limit: 10,
+        sortBy,
+        sortOrder
+      });
+
+      setPostItems(prev => 
+        targetPage === 1 ? posts : [...prev, ...posts]
+      );
+      setHasMore(posts.length >= 10);
+      setPage(prev => targetPage === 1 ? 2 : prev + 1);
+    } catch (error) {
+      console.error('获取帖子列表失败:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // 处理排序变化 - 使用独立函数确保正确时序
+  const handleSortChange = useCallback(() => {
+    setPostItems([]);
+    setPage(1);
+    setHasMore(true);
+    // 直接调用fetchPosts，不使用setTimeout
+    fetchPosts(1, sortIndexRef.current);
+  }, [fetchPosts]);
+
+  // 处理 circleId 变化 - 同样使用独立函数
+  const handleCircleChange = useCallback(() => {
+    setPostItems([]);
+    setPage(1);
+    setHasMore(true);
+    fetchPosts(1, sortIndexRef.current);
+  }, [fetchPosts]);
+
+  // 监听排序变化
+  useEffect(() => {
+    handleSortChange();
+  }, [sortIndex, handleSortChange]);
+
+  // 监听 circleId 变化
+  useEffect(() => {
+    handleCircleChange();
+  }, [circleId, handleCircleChange]);
+
+  // 无限滚动逻辑
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    const handleIntersection = entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !loadingRef.current && hasMoreRef.current) {
+          fetchPosts();
         }
-    ]
-       const [postItems,setPostItems] = useState([    
-        {
-        postId:1,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/1.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-        {
-        postId:2,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/1.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/2.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/6.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-        {
-        postId:3,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/1.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/3.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/4.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/5.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/6.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-        {
-        postId:4,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/1.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/6.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-        {
-        postId:5,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/3.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/4.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/5.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/6.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-        {
-        postId:6,
-        userAvator: '/images/header/banner/小小陈.png',
-        userName: 'feng',
-        publishTime: '1小时前',
-        title: '赤壁赋',
-        tags: [
-            {
-                name: '苏轼',
-                index:0
-        },
-            {
-                name: '宋词',
-                index:10
-            }
-        ],
-        content: '壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴。举酒属客，诵明月之诗，歌窈窕之章。少焉，月出于东山之上，徘徊于斗牛之间。白露横江，水光接天。纵一苇之所如，凌万顷之茫然。浩浩乎如冯虚御风，而不知其所止；飘飘乎如遗世独立，羽化而登仙。',
-            imgs: [
-            'http://192.168.188.8:3100/uploads/avatar/user/1.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/2.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/3.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/4.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/5.png',
-            'http://192.168.188.8:3100/uploads/avatar/user/6.png'
-        ],
-        circle: {
-            avator: '/images/header/banner/小小陈.png',
-            name:'苏东坡'
-        },
-        popularComment: {
-            like: 2025,
-            name: 'slz',
-            comment:'一健三连了hhh'
-        },
-        interactiveData: {
-            like: 200,
-            reply: 64,
-            retweet:20
-        }
-        },     
-    ])
-    return (<div className="circle-posts-container">
-        <SortTop sortIndex={sortIndex} sortItems={sortItems} stickyTop='post-sticky-top'/>
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      rootMargin: '50px'
+    });
+
+    if (sentinelRef.current) {
+      observerRef.current.observe(sentinelRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [fetchPosts]);
+
+  // 排序选项
+  const sortItems = [
+    { name: '按热度', handleFunc: () => setSortIndex(0) },
+    { name: '按时间', handleFunc: () => setSortIndex(1) }
+  ];
+
+  return (
+    <div className="circle-posts-container">
+      <SortTop 
+        sortIndex={sortIndex} 
+        sortItems={sortItems} 
+        stickyTop="post-sticky-top"
+      />
+
+      <main className="circle-posts-main">
         <LayoutContainer items={postItems} />
-        <Outlet/>
-    </div>)
-}
-export default CirclePosts
+
+        {/* 哨兵元素，用于触发加载 */}
+        <div ref={sentinelRef} className="sentinel" />
+
+        {/* 加载状态指示器 */}
+        {loading && <div className="scroll-loading"><Loading /></div>}
+        {!hasMore && postItems.length > 0 && (
+          <div className="no-more-data">已经到底啦~</div>
+        )}
+      </main>
+
+      <Outlet />
+    </div>
+  );
+};
+
+export default CirclePosts;

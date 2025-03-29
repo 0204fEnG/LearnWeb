@@ -42,3 +42,6 @@ export const searchCircles = (params = {}) => {
     }
   });
 };
+
+
+export const getCircleById = (id) => instance.get(`/circle/${id}`);

@@ -1,14 +1,43 @@
 @use '/src/styles/scrollbar/scrollbar.scss'as *;
 @use '/src/styles/display/flex.scss'as *;
 @use '/src/styles/padding/mainPadding.scss'as *;
+@use '/src/styles/margin/mainMargin.scss'as *;
 .circle-posts-container{
     .post-sticky-top{
         top:72px;
+        @media (min-width:1000px) {
+            top:96px;
+        }
     }
     width: 100%;
     height: auto;
-    padding: 5px;
-    @include mainPadding();
     background-color: var(--background-color);
     @include flex(column,nowrap,flex-start,center,flex-start,5px);
+    .circle-posts-main{
+        width: 100%;
+        height: auto;
+        padding:5px;
+        padding-top: 0px;
+        .sentinel {
+          height: 1px;
+          width: 100%;
+          background: transparent;
+          margin: 0;
+          padding: 0;
+        }
+
+        .scroll-loading{
+            width: 100%;
+            height: 80px;
+        }
+        .no-more-data {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 80px;
+          color: var(--text-color-light);
+        }
+    }
+    
 }

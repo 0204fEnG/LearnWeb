@@ -5,14 +5,13 @@ import SortTop from '../../../components/SortTop/SortTop';
 import Loading from '../../../components/Loading/Loading';
 
 const SearchUser = ({ keyword }) => {
-  // 状态管理
+// 状态管理
   const [users, setUsers] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sortType, setSortType] = useState('fans');
-
   // 使用Ref解决闭包问题
   const pageRef = useRef(page);
   const sortTypeRef = useRef(sortType);
@@ -24,6 +23,51 @@ const SearchUser = ({ keyword }) => {
   const sentinelRef = useRef(null);
   const observerRef = useRef(null);
 
+
+  // 核心数据获取方法修改
+  const fetchData = useCallback(
+    async (targetPage, targetSort) => {
+      if (loadingRef.current || !keywordRef.current) return;
+
+      try {
+        setLoading(true);
+        setError('');
+
+        const response = await searchUsers({
+          keyword: keywordRef.current,
+          page: targetPage,
+          limit: 10,
+          sortType: targetSort
+        });
+
+        const newUsers = response.searchUsers;
+        setUsers(prev => 
+          targetPage === 1 ? newUsers : [...prev, ...newUsers]
+        );
+        setHasMore(response.hasMore);
+        setPage(targetPage + 1);
+      } catch (err) {
+        setError('搜索失败，请稍后重试');
+        console.error('搜索错误:', err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
+  // 处理搜索条件变化
+  useEffect(() => {
+    if (!keyword) {
+      setUsers([]);
+      return;
+    }
+
+    setUsers([]);
+    setPage(1);
+    setHasMore(true);
+    fetchData(1, sortType);
+  }, [keyword, sortType, fetchData]);
   // 同步Ref与State
   useEffect(() => {
     pageRef.current = page;
@@ -33,34 +77,6 @@ const SearchUser = ({ keyword }) => {
     keywordRef.current = keyword;
   }, [page, sortType, loading, hasMore, keyword]);
 
-  // 数据获取逻辑
-  const fetchData = useCallback(async () => {
-    if (loadingRef.current || !hasMoreRef.current || !keywordRef.current) return;
-
-    try {
-      setLoading(true);
-      setError('');
-
-      const response = await searchUsers({
-        keyword: keywordRef.current,
-        page: pageRef.current,
-        limit: 10,
-        sortType: sortTypeRef.current
-      });
-
-      const newUsers = response.searchUsers;
-      setUsers(prev => 
-        pageRef.current === 1 ? newUsers : [...prev, ...newUsers]
-      );
-      setHasMore(response.hasMore);
-      setPage(prev => prev + 1);
-    } catch (err) {
-      setError('搜索失败，请稍后重试');
-      console.error('搜索错误:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   // 初始化IntersectionObserver
   useEffect(() => {
@@ -85,19 +101,6 @@ const SearchUser = ({ keyword }) => {
       }
     };
   }, [fetchData]);
-
-  // 处理搜索条件变化
-  useEffect(() => {
-    if (!keyword) {
-      setUsers([]);
-      return;
-    }
-
-    // 重置状态并重新加载
-    setUsers([]);
-    setPage(1);
-    setHasMore(true);
-  }, [keyword, sortType]);
 
   // 排序配置
   const sortItems = [

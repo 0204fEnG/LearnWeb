@@ -7,7 +7,7 @@ import SortTop from '../SortTop/SortTop';
 import Loading from '../../components/Loading/Loading';
 import { formatPublishTime } from '../../utils/time/formatPublishTime';
 
-const Comment = ({ postId }) => {
+const Comment = ({ postId,commentHeaderTop }) => {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -173,13 +173,19 @@ const Comment = ({ postId }) => {
 
   return (
     <div className="comment-container">
-
+<div className="comment-header-top"  style={commentHeaderTop}>
       <SortTop
-        stickyTop="sort-sticky-top"
         sortIndex={sortIndex}
         sortItems={sortItems}
       />
-
+        <CommentInput
+        postId={postId}
+        onSuccess={handleNewComment}
+        parentReplyId={replyingToComment?.commentId}
+        replyToUser={replyingToComment?.reply}
+        onCancelReply={() => setReplyingToComment(null)}
+        />
+      </div>
       <div className="comment-list">
         {comments.map((comment) => (
           <div key={'first' + comment._id} className="first-level">
@@ -280,13 +286,6 @@ const Comment = ({ postId }) => {
           onClose={() => setSelectedComment(null)}
         />
           )}
-                <CommentInput
-        postId={postId}
-        onSuccess={handleNewComment}
-        parentReplyId={replyingToComment?.commentId}
-        replyToUser={replyingToComment?.reply}
-        onCancelReply={() => setReplyingToComment(null)}
-      />
     </div>
   );
 };

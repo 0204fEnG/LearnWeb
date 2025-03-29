@@ -33,7 +33,7 @@ console.log(replyToUser)
   }
 
   return (
-    <div className={`comment-input-container ${inputPosition}`}>
+    <div className={`comment-input-container`} style={inputPosition}>
       {replyToUser && (
         <div className="reply-hint">
           回复 @{replyToUser.username}

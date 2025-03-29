@@ -1,18 +1,11 @@
 .comment-input-container {
-  position: absolute;
-  width: 50%;
-  bottom: 0;
-  @media (max-width:650px) {
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-  }
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-  border-top: 1px solid var(--border-color);
-  background-color: var(--single-color--opa);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color--opa);
   backdrop-filter: blur(15px);
   // box-shadow: 0 2px 4px var(--shadow-color);
 

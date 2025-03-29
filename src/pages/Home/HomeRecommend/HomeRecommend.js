@@ -7,6 +7,7 @@ import SortTop from '../../../components/SortTop/SortTop';
 import { getPostList } from '../../../api/post';
 import './HomeRecommend.scss';
 import Loading from '../../../components/Loading/Loading';
+
 const HomeRecommend = () => {
   // 状态管理
   const [sortIndex, setSortIndex] = useState(0);
@@ -15,15 +16,11 @@ const HomeRecommend = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  // 使用Ref解决闭包问题
+  // 使用Ref同步最新状态
   const pageRef = useRef(page);
   const sortIndexRef = useRef(sortIndex);
   const loadingRef = useRef(loading);
   const hasMoreRef = useRef(hasMore);
-
-  // 观察器相关Ref
-  const sentinelRef = useRef(null);
-  const observerRef = useRef(null);
 
   // 同步Ref与State
   useEffect(() => {
@@ -33,54 +30,63 @@ const HomeRecommend = () => {
     hasMoreRef.current = hasMore;
   }, [page, sortIndex, loading, hasMore]);
 
-  // 获取帖子数据
-  const getPostItems = useCallback(async () => {
-    if (loadingRef.current || !hasMoreRef.current) return;
+  // 核心数据获取方法
+  const getPostItems = useCallback(
+    async (targetPage, targetSort) => {
+      if (loadingRef.current) return;
 
-    setLoading(true);
-    try {
-      const { posts } = await getPostList({
-        page: pageRef.current,
-        limit: 10,
-        sortBy: sortIndexRef.current === 0 ? 'replies' : 'createdAt',
-        sortOrder: -1
-      });
-
-      // 更新帖子列表
-      setPostItems((prev) =>
-        pageRef.current === 1 ? posts : [...prev, ...posts]
-      );
-
-      // 更新是否有更多数据
-      setHasMore(posts.length === 10); // 假设每页返回10条数据，如果少于10条则没有更多数据
-
-      // 更新页码
-      setPage((prev) => prev + 1);
-    } catch (error) {
-      console.error('获取帖子列表失败:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  // 初始化IntersectionObserver
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            !loadingRef.current &&
-            hasMoreRef.current
-          ) {
-            getPostItems();
-          }
+      setLoading(true);
+      try {
+        const { posts } = await getPostList({
+          page: targetPage,
+          limit: 10,
+          sortBy: targetSort === 0 ? 'replies' : 'createdAt',
+          sortOrder: -1
         });
-      },
-      { rootMargin: '50px' } // 提前加载的缓冲距离
-    );
 
-    // 观察哨兵元素
+        setPostItems(prev => 
+          targetPage === 1 ? posts : [...prev, ...posts]
+        );
+        setHasMore(posts.length === 10);
+        setPage(targetPage + 1);
+      } catch (error) {
+        console.error('获取帖子列表失败:', error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [] // 保持依赖数组为空，通过参数传递最新值
+  );
+
+  // 处理排序变化
+  useEffect(() => {
+    setPostItems([]);
+    setPage(1);
+    setHasMore(true);
+    getPostItems(1, sortIndex); // 主动加载第一页数据
+  }, [sortIndex, getPostItems]);
+
+  // 无限滚动逻辑
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    const handleIntersection = entries => {
+      entries.forEach(entry => {
+        if (
+          entry.isIntersecting &&
+          !loadingRef.current &&
+          hasMoreRef.current
+        ) {
+          getPostItems(pageRef.current, sortIndexRef.current);
+        }
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      rootMargin: '50px'
+    });
+
     if (sentinelRef.current) {
       observerRef.current.observe(sentinelRef.current);
     }
@@ -91,13 +97,6 @@ const HomeRecommend = () => {
       }
     };
   }, [getPostItems]);
-
-  // 排序变化处理
-  useEffect(() => {
-    setPostItems([]);
-    setPage(1);
-    setHasMore(true);
-  }, [sortIndex]);
 
   // 静态数据
   const bannerImages = Array(5)

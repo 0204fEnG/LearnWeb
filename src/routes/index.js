@@ -44,7 +44,7 @@ const routes=[
         }]
       },
       {
-        path: "circles/circle/:circleName",
+        path: "circles/circle/:circleId",
         component: lazy(() => import("../pages/Circle/Circle.js")),
         children: [{
           path: 'posts',
